@@ -26,8 +26,10 @@ namespace AirlinesWeb.ApiControllers
 
         // GET: api/Tickets
         [HttpGet]
+        [ResponseCache(VaryByHeader ="User-Agent",Duration =15,Location = ResponseCacheLocation.Any)]
         public async Task<IActionResult> GetTickets()
         {
+            
             var watch = Stopwatch.StartNew();
             var counts = await _context.Tickets.AsNoTracking().CountAsync();
             logger.LogInformation("The count tickets request took: {counter}", watch.ElapsedMilliseconds);

@@ -15,7 +15,7 @@ namespace AirlinesWeb
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
             });
-
+            services.AddResponseCaching();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,7 +28,7 @@ namespace AirlinesWeb
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseResponseCaching();
             app.UseRouting();
 
             app.UseAuthorization();
