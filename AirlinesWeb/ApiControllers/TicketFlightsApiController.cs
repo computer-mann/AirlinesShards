@@ -13,59 +13,57 @@ namespace AirlinesWeb.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TicketsController : ControllerBase
+    public class TicketFlightsApiController : ControllerBase
     {
         private readonly AirlinesContext _context;
-        private readonly ILogger<Ticket> logger;
+        private readonly ILogger<TicketFlightsApiController> logger;
 
-        public TicketsController(AirlinesContext context,ILogger<Ticket> logger)
+        public TicketFlightsApiController(AirlinesContext context,ILogger<TicketFlightsApiController> logger)
         {
             _context = context;
             this.logger = logger;
         }
 
-        // GET: api/Tickets
+        // GET: api/TicketFlightsApi
         [HttpGet]
-        [ResponseCache(VaryByHeader ="User-Agent",Duration =30,Location = ResponseCacheLocation.Any)]
-        public async Task<IActionResult> GetTickets()
+        public async Task<ActionResult<IEnumerable<TicketFlight>>> GetTicketFlights()
         {
-            
             var watch = Stopwatch.StartNew();
-            var counts = await _context.Tickets.AsNoTracking().CountAsync();
-            logger.LogInformation("The count tickets request took: {counter}", watch.ElapsedMilliseconds);
+            var counts = await _context.TicketFlights.CountAsync();
+            logger.LogInformation("The count tickets request took: {counter}milliseconds", watch.ElapsedMilliseconds);
             logger.LogInformation("Ticket request time {counter}", DateTime.Now);
-            return new JsonResult(new {count=counts});
+            return new JsonResult(new {count= counts});
         }
 
-        // GET: api/Tickets/5
+        // GET: api/TicketFlightsApi/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ticket>> GetTicket(string id)
+        public async Task<ActionResult<TicketFlight>> GetTicketFlight(string id)
         {
-          if (_context.Tickets == null)
+          if (_context.TicketFlights == null)
           {
               return NotFound();
           }
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticketFlight = await _context.TicketFlights.FindAsync(id);
 
-            if (ticket == null)
+            if (ticketFlight == null)
             {
                 return NotFound();
             }
 
-            return ticket;
+            return ticketFlight;
         }
 
-        // PUT: api/Tickets/5
+        // PUT: api/TicketFlightsApi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(string id, Ticket ticket)
+        public async Task<IActionResult> PutTicketFlight(string id, TicketFlight ticketFlight)
         {
-            if (id != ticket.TicketNo)
+            if (id != ticketFlight.TicketNo)
             {
                 return BadRequest();
             }
 
-            _context.Entry(ticket).State = EntityState.Modified;
+            _context.Entry(ticketFlight).State = EntityState.Modified;
 
             try
             {
@@ -73,7 +71,7 @@ namespace AirlinesWeb.ApiControllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TicketExists(id))
+                if (!TicketFlightExists(id))
                 {
                     return NotFound();
                 }
@@ -86,23 +84,23 @@ namespace AirlinesWeb.ApiControllers
             return NoContent();
         }
 
-        // POST: api/Tickets
+        // POST: api/TicketFlightsApi
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
+        public async Task<ActionResult<TicketFlight>> PostTicketFlight(TicketFlight ticketFlight)
         {
-          if (_context.Tickets == null)
+          if (_context.TicketFlights == null)
           {
-              return Problem("Entity set 'AirlinesContext.Tickets'  is null.");
+              return Problem("Entity set 'AirlinesContext.TicketFlights'  is null.");
           }
-            _context.Tickets.Add(ticket);
+            _context.TicketFlights.Add(ticketFlight);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TicketExists(ticket.TicketNo))
+                if (TicketFlightExists(ticketFlight.TicketNo))
                 {
                     return Conflict();
                 }
@@ -112,32 +110,32 @@ namespace AirlinesWeb.ApiControllers
                 }
             }
 
-            return CreatedAtAction("GetTicket", new { id = ticket.TicketNo }, ticket);
+            return CreatedAtAction("GetTicketFlight", new { id = ticketFlight.TicketNo }, ticketFlight);
         }
 
-        // DELETE: api/Tickets/5
+        // DELETE: api/TicketFlightsApi/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTicket(string id)
+        public async Task<IActionResult> DeleteTicketFlight(string id)
         {
-            if (_context.Tickets == null)
+            if (_context.TicketFlights == null)
             {
                 return NotFound();
             }
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket == null)
+            var ticketFlight = await _context.TicketFlights.FindAsync(id);
+            if (ticketFlight == null)
             {
                 return NotFound();
             }
 
-            _context.Tickets.Remove(ticket);
+            _context.TicketFlights.Remove(ticketFlight);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TicketExists(string id)
+        private bool TicketFlightExists(string id)
         {
-            return (_context.Tickets?.Any(e => e.TicketNo == id)).GetValueOrDefault();
+            return (_context.TicketFlights?.Any(e => e.TicketNo == id)).GetValueOrDefault();
         }
     }
 }
