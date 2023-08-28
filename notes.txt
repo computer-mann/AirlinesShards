@@ -2,3 +2,6 @@
  
  Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -ContextDir Models/DbContext
  https://postgrespro.com/docs/postgrespro/10/apjs04.html
+
+
+find the number of times each user has flown with us since inception
