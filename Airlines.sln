@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirlinesWeb", "AirlinesWeb\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{734DACC1-1C7F-4CE4-AD22-C0790DC31371}"
 	ProjectSection(SolutionItems) = preProject
-		airlines_queries.sql = airlines_queries.sql
+		airlines_queries.pssql = airlines_queries.pssql
 		notes.txt = notes.txt
 		README.md = README.md
 		UnindexedDb.MD = UnindexedDb.MD

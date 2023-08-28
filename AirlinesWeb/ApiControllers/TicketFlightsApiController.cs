@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AirlinesWeb.Models;
 using AirlinesWeb.Models.DbContexts;
 using System.Diagnostics;
+using AirlinesWeb.Models.Tables;
 
 namespace AirlinesWeb.ApiControllers
 {

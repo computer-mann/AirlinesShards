@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AirlinesWeb.Models;
+namespace AirlinesWeb.Models.DbObjects;
 
 public partial class VwFlight
 {

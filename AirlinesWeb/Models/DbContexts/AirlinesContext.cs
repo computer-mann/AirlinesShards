@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using AirlinesWeb.Models;
+using AirlinesWeb.Models.DbObjects;
+using AirlinesWeb.Models.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirlinesWeb.Models.DbContexts;

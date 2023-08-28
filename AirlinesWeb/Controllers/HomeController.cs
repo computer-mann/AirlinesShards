@@ -1,9 +1,12 @@
 ﻿using AirlinesWeb.Models;
 using AirlinesWeb.Models.DbContexts;
+using AirlinesWeb.Models.Tables;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text.Json;
 #nullable disable
+
+
 namespace AirlinesWeb.Controllers
 {
     public class HomeController : Controller

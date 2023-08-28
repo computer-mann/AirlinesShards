@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace AirlinesWeb.Models;
+namespace AirlinesWeb.Models.Tables;
 
 /// <summary>
 /// Aircrafts (internal data)
@@ -32,8 +32,8 @@ public partial class AircraftsData
 public class AirplaneModel
 {
     [JsonPropertyName("en")]
-    public string En { get; set; }
+    public string? En { get; set; }
 
     [JsonPropertyName("ru")]
-    public string Ru { get; set; }
+    public string? Ru { get; set; }
 }

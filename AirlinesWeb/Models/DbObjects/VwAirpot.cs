@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NpgsqlTypes;
 
-namespace AirlinesWeb.Models;
+namespace AirlinesWeb.Models.DbObjects;
 
 public partial class VwAirpot
 {
