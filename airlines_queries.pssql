@@ -28,3 +28,24 @@ alter view routes rename to vw_routes;
 --select * from tickets order by passenger_id limit 120
 --select * from bookings order by book_ref limit 120
  --select * from ticket_flights where ticket_no > '0005435999870' order by ticket_no desc limit 120
+ --select hashtext('')
+--select pg_size_pretty(pg_relation_size('ticket_flights'))
+--select pg_size_pretty(pg_relation_size('idx_temp_passengerid_in_tickets'))
+--select pg_size_pretty(pg_indexes_size('ticket_flights'))
+select pg_size_pretty(pg_indexes_size('tickets')) indexsize,
+pg_size_pretty(pg_relation_size('tickets')) tablesize,
+pg_size_pretty(pg_relation_size('idx_temp_passengerid_in_tickets')) specindexsize
+--select hashtext('')
+--select pg_size_pretty(pg_relation_size('ticket_flights'))
+--select pg_size_pretty(pg_relation_size('idx_temp_passengerid_in_tickets'))
+--select pg_size_pretty(pg_indexes_size('ticket_flights'))
+-- select pg_size_pretty(pg_indexes_size('tickets')) indexsize,
+-- pg_size_pretty(pg_relation_size('tickets')) tablesize,
+-- pg_size_pretty(pg_relation_size('idx_temp_passengerid_in_tickets')) specindexsize
+--vacuum analyze ticket_flights
+
+SELECT tablename, attname, correlation
+FROM pg_stats
+WHERE tablename = 'ticket_flights';
+
+select fare_conditions,count(*) as frequency from ticket_flights group by fare_conditions order by frequency

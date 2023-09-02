@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using AirlinesWeb.Models.DbContexts;
 using System.Diagnostics;
 using AirlinesWeb.Models.Tables;
+using StackExchange.Redis;
+using Redis.OM;
 
 namespace AirlinesWeb.ApiControllers
 {
@@ -17,11 +19,14 @@ namespace AirlinesWeb.ApiControllers
     {
         private readonly AirlinesContext _context;
         private readonly ILogger<Ticket> logger;
+        private readonly RedisConnectionProvider redisConnectionProvider;
 
-        public TicketsController(AirlinesContext context,ILogger<Ticket> logger)
+        public TicketsController(AirlinesContext context,ILogger<Ticket> logger,RedisConnectionProvider redisConnectionProvider)
         {
+            
             _context = context;
             this.logger = logger;
+            this.redisConnectionProvider = redisConnectionProvider;
         }
 
         // GET: api/Tickets
@@ -41,14 +46,26 @@ namespace AirlinesWeb.ApiControllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(string id)
         {
+            
+            logger.LogInformation("RedisCon: {id}",id);
           if (_context.Tickets == null)
-          {
-              return NotFound();
+          {           
+            return NotFound();
           }
             var ticket = await _context.Tickets.FindAsync(id);
-
+            
             if (ticket == null)
             {
+                var obj = new
+                {
+                    art = "ariana",
+                    song = "pov"
+                };
+                if (await redisConnectionProvider.Connection.JsonSetAsync("six9", "$", obj, TimeSpan.FromSeconds(60)))
+                {
+                    logger.LogInformation("success");
+                }
+                else { logger.LogWarning("cache failed"); }
                 return NotFound();
             }
 

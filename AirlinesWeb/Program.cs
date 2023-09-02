@@ -1,5 +1,7 @@
 using AirlinesWeb.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using Redis.OM;
+using StackExchange.Redis;
 
 namespace AirlinesWeb
 {
@@ -16,6 +18,12 @@ namespace AirlinesWeb
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
             });
             services.AddResponseCaching();
+            // services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
+            var mux = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis"), options =>
+            {
+                options.DefaultDatabase = 0;
+            });
+            services.AddSingleton(new RedisConnectionProvider(mux));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
