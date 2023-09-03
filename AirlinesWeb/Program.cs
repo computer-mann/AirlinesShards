@@ -19,6 +19,7 @@ namespace AirlinesWeb
             });
             services.AddResponseCaching();
             services.AddRedisOMServices(builder.Configuration);
+            services.AddRouting(op => op.LowercaseUrls = true);
            
             var app = builder.Build();
 

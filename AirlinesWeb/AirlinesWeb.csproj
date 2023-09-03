@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Controllers\" />
+    <Folder Include="Areas\Models\DbContexts\" />
+    <Folder Include="Areas\Views\" />
     <Folder Include="Models\Tables\" />
   </ItemGroup>
 

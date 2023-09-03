@@ -7,3 +7,7 @@
 find the number of times each user has flown with us since the company's inception
 
 Implement partition to keep the max query times at 3 seconds only, which is at roughly 8 million rows per partition.
+
+I guess one ticket can be used to fly many times, eg:a return flight ticket(in and out)
+Neither the passenger ID, nor the name is permanent (for example, one can change the last name or passport),
+so it is impossible to uniquely identify all tickets of a particular passenger.
