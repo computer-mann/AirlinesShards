@@ -10,6 +10,7 @@ using System.Diagnostics;
 using AirlinesWeb.Models.Tables;
 using StackExchange.Redis;
 using Redis.OM;
+using NRedisStack.RedisStackCommands;
 
 namespace AirlinesWeb.ApiControllers
 {
@@ -19,14 +20,15 @@ namespace AirlinesWeb.ApiControllers
     {
         private readonly AirlinesContext _context;
         private readonly ILogger<Ticket> logger;
-        private readonly RedisConnectionProvider redisConnectionProvider;
+        private IDatabase _database;
+        
 
-        public TicketsController(AirlinesContext context,ILogger<Ticket> logger,RedisConnectionProvider redisConnectionProvider)
+        public TicketsController(AirlinesContext context,ILogger<Ticket> logger,IConnectionMultiplexer connectionMultiplexer)
         {
             
             _context = context;
             this.logger = logger;
-            this.redisConnectionProvider = redisConnectionProvider;
+            _database = connectionMultiplexer.GetDatabase(0);
         }
 
         // GET: api/Tickets
@@ -58,11 +60,13 @@ namespace AirlinesWeb.ApiControllers
             {
                 var obj = new
                 {
-                    art = "ariana",
+                    art = "ariana111",
                     song = "pov"
                 };
-                if (await redisConnectionProvider.Connection.JsonSetAsync("six9", "$", obj, TimeSpan.FromSeconds(60)))
+                var date = DateTime.UtcNow.ToString();
+                if (await _database.JSON().SetAsync($"{date}", "$", obj, When.NotExists))
                 {
+                    await _database.KeyExpireAsync(date,TimeSpan.FromSeconds(40));
                     logger.LogInformation("success");
                 }
                 else { logger.LogWarning("cache failed"); }

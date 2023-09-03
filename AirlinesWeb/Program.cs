@@ -18,12 +18,8 @@ namespace AirlinesWeb
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
             });
             services.AddResponseCaching();
-            // services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
-            var mux = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis"), options =>
-            {
-                options.DefaultDatabase = 0;
-            });
-            services.AddSingleton(new RedisConnectionProvider(mux));
+            services.AddRedisOMServices(builder.Configuration);
+           
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
