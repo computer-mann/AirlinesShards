@@ -9,5 +9,7 @@ namespace AirlinesWeb.Areas.PilgrimAuth.Models
             Id = UuidExtensions.Uuid7.Id25();
             SecurityStamp = Guid.NewGuid().ToString();
         }
+        public string PassengerName { get; set; }
+        public string Country { get; set; }
     }
 }

@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\PilgrimAuth\**" />
+    <Compile Remove="Areas\TrouperAuth\Models\NewFolder\**" />
     <Content Remove="Areas\PilgrimAuth\**" />
+    <Content Remove="Areas\TrouperAuth\Models\NewFolder\**" />
     <EmbeddedResource Remove="Areas\PilgrimAuth\**" />
+    <EmbeddedResource Remove="Areas\TrouperAuth\Models\NewFolder\**" />
     <None Remove="Areas\PilgrimAuth\**" />
+    <None Remove="Areas\TrouperAuth\Models\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +42,7 @@
     <Folder Include="Areas\Management\Data\" />
     <Folder Include="Areas\Management\Models\" />
     <Folder Include="Areas\Management\Views\" />
-    <Folder Include="Areas\TrouperAuth\Models\NewFolder\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\Tables\" />
   </ItemGroup>
 

@@ -14,16 +14,16 @@ using NRedisStack.RedisStackCommands;
 
 namespace AirlinesWeb.ApiControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tickets")]
     [ApiController]
-    public class TicketsController : ControllerBase
+    public class TicketsApiController : ControllerBase
     {
         private readonly AirlinesContext _context;
         private readonly ILogger<Ticket> logger;
         private IDatabase _database;
         
 
-        public TicketsController(AirlinesContext context,ILogger<Ticket> logger,IConnectionMultiplexer connectionMultiplexer)
+        public TicketsApiController(AirlinesContext context,ILogger<Ticket> logger,IConnectionMultiplexer connectionMultiplexer)
         {
             
             _context = context;
@@ -33,13 +33,13 @@ namespace AirlinesWeb.ApiControllers
 
         // GET: api/Tickets
         [HttpGet]
-        [ResponseCache(VaryByHeader ="User-Agent",Duration =30,Location = ResponseCacheLocation.Any)]
+        [ResponseCache(VaryByHeader ="User-Agent",Duration =100,Location = ResponseCacheLocation.Any)]
         public async Task<IActionResult> GetTickets()
         {
             
             var watch = Stopwatch.StartNew();
             var counts = await _context.Tickets.AsNoTracking().CountAsync();
-            logger.LogInformation("The count tickets request took: {counter}", watch.ElapsedMilliseconds);
+            logger.LogInformation("The count tickets request took: {counter}ms", watch.ElapsedMilliseconds);
             logger.LogInformation("Ticket request time {counter}", DateTime.Now);
             return new JsonResult(new {count=counts});
         }
@@ -70,7 +70,7 @@ namespace AirlinesWeb.ApiControllers
                     logger.LogInformation("success");
                 }
                 else { logger.LogWarning("cache failed"); }
-                return NotFound();
+                return NotFound(new {});
             }
 
             return ticket;

@@ -11,20 +11,20 @@ using AirlinesWeb.Models.Tables;
 
 namespace AirlinesWeb.ApiControllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/flights")]
     [ApiController]
-    public class TicketFlightsApiController : ControllerBase
+    public class FlightsApiController : ControllerBase
     {
         private readonly AirlinesContext _context;
-        private readonly ILogger<TicketFlightsApiController> logger;
+        private readonly ILogger<FlightsApiController> logger;
 
-        public TicketFlightsApiController(AirlinesContext context,ILogger<TicketFlightsApiController> logger)
+        public FlightsApiController(AirlinesContext context,ILogger<FlightsApiController> logger)
         {
             _context = context;
             this.logger = logger;
         }
 
-        // GET: api/TicketFlightsApi
+        // GET: api/FlightsApiController
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TicketFlight>>> GetTicketFlights()
         {
@@ -35,7 +35,14 @@ namespace AirlinesWeb.ApiControllers
             return new JsonResult(new {count= counts});
         }
 
-        // GET: api/TicketFlightsApi/5
+        [HttpGet]
+        [Route("fare")]
+        public async Task<ActionResult> GetAvailableFareConditions()
+        {
+            return new JsonResult(new { });
+        }
+
+        // GET: api/FlightsApiController/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TicketFlight>> GetTicketFlight(string id)
         {
@@ -53,7 +60,7 @@ namespace AirlinesWeb.ApiControllers
             return ticketFlight;
         }
 
-        // PUT: api/TicketFlightsApi/5
+        // PUT: api/FlightsApiController/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicketFlight(string id, TicketFlight ticketFlight)
@@ -84,7 +91,7 @@ namespace AirlinesWeb.ApiControllers
             return NoContent();
         }
 
-        // POST: api/TicketFlightsApi
+        // POST: api/FlightsApiController
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TicketFlight>> PostTicketFlight(TicketFlight ticketFlight)
@@ -113,7 +120,7 @@ namespace AirlinesWeb.ApiControllers
             return CreatedAtAction("GetTicketFlight", new { id = ticketFlight.TicketNo }, ticketFlight);
         }
 
-        // DELETE: api/TicketFlightsApi/5
+        // DELETE: api/FlightsApiController/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTicketFlight(string id)
         {

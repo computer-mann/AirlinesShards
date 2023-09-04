@@ -23,7 +23,7 @@ namespace AirlinesWeb.Controllers
         public IActionResult Index()
         {
             List<AirplaneModel> airplaneModels = new List<AirplaneModel>();
-            foreach(var model in airlinesContext.AircraftsData.ToList())
+            foreach (var model in airlinesContext.AircraftsData.ToList())
             {
                 airplaneModels.Add(JsonSerializer.Deserialize<AirplaneModel>(model.Model));
             }
@@ -32,13 +32,25 @@ namespace AirlinesWeb.Controllers
 
         public IActionResult Privacy()
         {
+           
+
+            throw new Exception("global error");
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var req = Request;
+            _logger.LogError("Error request URL => {0} , Time of request {1}",Request.Path,DateTime.Now);
+            var errorModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                RequestUrl= Request.Path};
+            switch(statusCode.Value)
+            {
+                case 404: errorModel.StatusResult = "Page Not Found";/* Response.StatusCode = 404;*/ break;;
+                default: errorModel.StatusResult = "Server Error"; /*Response.StatusCode =500*/ ; break;
+            }
+            return View(errorModel);
         }
     }
 }

@@ -70,3 +70,8 @@ WHERE
     schemaname = 'bookings';
 	
 select pg_size_pretty(pg_indexes_size('ticket_flights_pkey')) indexsize
+
+create table fare_conditions(
+ fare_condition_id smallint primary key,
+ flight_class varchar(15)	
+)

@@ -36,4 +36,6 @@ public partial class Ticket
     public virtual Booking BookRefNavigation { get; set; } = null!;
 
     public virtual ICollection<TicketFlight> TicketFlights { get; set; } = new List<TicketFlight>();
+
+    
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AirlinesWeb.Areas.PilgrimAuth.Models;
 using AirlinesWeb.Models.DbObjects;
 using AirlinesWeb.Models.Tables;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace AirlinesWeb.Models.DbContexts;
 
 public partial class AirlinesContext : DbContext
 {
+    public const string DEFAULT_SCHEMA= "bookings";
     public AirlinesContext()
     {
     }
@@ -40,6 +42,7 @@ public partial class AirlinesContext : DbContext
     public virtual DbSet<VwFlight> VwFlights { get; set; }
 
     public virtual DbSet<VwRoute> VwRoutes { get; set; }
+    public virtual DbSet<Trouper> Troupers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:Database");
