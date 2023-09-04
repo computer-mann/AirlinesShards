@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\PilgrimAuth\**" />
+    <Content Remove="Areas\PilgrimAuth\**" />
+    <EmbeddedResource Remove="Areas\PilgrimAuth\**" />
+    <None Remove="Areas\PilgrimAuth\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.151" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <PrivateAssets>all</PrivateAssets>
@@ -26,8 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Models\DbContexts\" />
-    <Folder Include="Areas\Views\" />
+    <Folder Include="Areas\Management\Controllers\" />
+    <Folder Include="Areas\Management\Data\" />
+    <Folder Include="Areas\Management\Models\" />
+    <Folder Include="Areas\Management\Views\" />
     <Folder Include="Models\Tables\" />
   </ItemGroup>
 
