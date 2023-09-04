@@ -6,6 +6,6 @@ namespace AirlinesWeb.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
         public string StatusResult { get; set; }
-        public string RequestUrl { get;set; }
+        public string OriginalRequestUrl { get;set; }
     }
 }

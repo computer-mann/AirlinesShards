@@ -1,6 +1,7 @@
 ﻿using AirlinesWeb.Models;
 using AirlinesWeb.Models.DbContexts;
 using AirlinesWeb.Models.Tables;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text.Json;
@@ -41,15 +42,16 @@ namespace AirlinesWeb.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int? statusCode)
         {
-            var req = Request;
-            _logger.LogError("Error request URL => {0} , Time of request {1}",Request.Path,DateTime.Now);
+            var originalPath = HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
+            _logger.LogError("Error request URL => {0} , Time of request {1}",originalPath,DateTime.Now);
             var errorModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                RequestUrl= Request.Path};
+                OriginalRequestUrl= originalPath};
             switch(statusCode.Value)
             {
                 case 404: errorModel.StatusResult = "Page Not Found";/* Response.StatusCode = 404;*/ break;;
                 default: errorModel.StatusResult = "Server Error"; /*Response.StatusCode =500*/ ; break;
             }
+            
             return View(errorModel);
         }
     }
