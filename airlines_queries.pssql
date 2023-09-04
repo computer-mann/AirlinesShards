@@ -72,6 +72,23 @@ WHERE
 select pg_size_pretty(pg_indexes_size('ticket_flights_pkey')) indexsize
 
 create table fare_conditions(
- fare_condition_id smallint primary key,
+ fare_condition_id smallserial primary key,
  flight_class varchar(15)	
 )
+--select * from ticket_flights where fare_conditions='Economy' limit 200
+--select distinct fare_conditions from seats
+--select distinct fare_conditions as seat_class from ticket_flights limit 200
+
+create table seat_classes(
+ class_id smallserial primary key,
+ class_name varchar(25)	
+)
+--alter table seat_class rename to seat_classes
+select * from seat_classes
+-- with classes as (
+-- select distinct fare_conditions as seat_class from ticket_flights
+-- )
+-- insert into seat_classes(flight_class)
+-- select * from classes
+
+drop table seat_classes

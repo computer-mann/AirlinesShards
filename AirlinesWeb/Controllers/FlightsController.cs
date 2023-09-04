@@ -25,9 +25,8 @@ namespace AirlinesWeb.Controllers
         // GET: Flights
         public async Task<IActionResult> Index()
         {
-            var watch=Stopwatch.StartNew();
+            
             var count = await _context.Flights.AsNoTracking().CountAsync();
-            logger.LogInformation("The count flight request took: {counter}", watch.ElapsedMilliseconds);
             //var airlinesContext = _context.Flights.Include(f => f.AircraftCodeNavigation).Include(f => f.ArrivalAirportNavigation).Include(f => f.DepartureAirportNavigation);
             return View(count);
         }

@@ -21,7 +21,7 @@ namespace AirlinesWeb.ApiControllers
         private readonly AirlinesContext _context;
         private readonly ILogger<Ticket> logger;
         private IDatabase _database;
-        
+       
 
         public TicketsApiController(AirlinesContext context,ILogger<Ticket> logger,IConnectionMultiplexer connectionMultiplexer)
         {
@@ -39,8 +39,6 @@ namespace AirlinesWeb.ApiControllers
             
             var watch = Stopwatch.StartNew();
             var counts = await _context.Tickets.AsNoTracking().CountAsync();
-            logger.LogInformation("The count tickets request took: {counter}ms", watch.ElapsedMilliseconds);
-            logger.LogInformation("Ticket request time {counter}", DateTime.Now);
             return new JsonResult(new {ticketCount=counts});
         }
 

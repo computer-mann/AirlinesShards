@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AirlinesWeb.Models.DbContexts;
 using System.Diagnostics;
 using AirlinesWeb.Models.Tables;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace AirlinesWeb.ApiControllers
 {
@@ -17,7 +18,7 @@ namespace AirlinesWeb.ApiControllers
     {
         private readonly AirlinesContext _context;
         private readonly ILogger<FlightsApiController> logger;
-
+        public const string DistinctSeatQuery = "select distinct fare_conditions from ticket_flights limit 200";
         public FlightsApiController(AirlinesContext context,ILogger<FlightsApiController> logger)
         {
             _context = context;
@@ -26,22 +27,23 @@ namespace AirlinesWeb.ApiControllers
 
         // GET: api/FlightsApiController
         [HttpGet]
+        [OutputCache(Duration =100)]
         public async Task<ActionResult<IEnumerable<TicketFlight>>> GetTicketFlights()
         {
-            var watch = Stopwatch.StartNew();
+            
             var counts = await _context.TicketFlights.CountAsync();
-            logger.LogInformation("The count tickets request took: {counter}milliseconds", watch.ElapsedMilliseconds);
-            logger.LogInformation("Ticket request time {counter}", DateTime.Now);
             return new JsonResult(new {count= counts});
         }
 
         [HttpGet]
         [Route("fare")]
+        [OutputCache(Duration =200)]
         public async Task<ActionResult> GetAvailableFareConditions()
         {
-            var watch = Stopwatch.StartNew();
-            
-            return new JsonResult(new { });
+            // var result = _context.Database.SqlQueryRaw<List<string>>(DistinctSeatQuery).ToList();
+            var res = _context.Database.SqlQueryRaw<string>(DistinctSeatQuery).ToList();
+           // var res=_context.TicketFlights.Select(e=>e.FareConditions).Distinct().ToList();
+            return new JsonResult(new {seats= res });
         }
 
         // GET: api/FlightsApiController/5

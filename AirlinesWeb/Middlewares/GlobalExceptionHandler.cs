@@ -4,7 +4,15 @@
     {
         public Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            throw new NotImplementedException();
+            //try
+            //{
+
+            //}catch (Exception ex)
+            //{
+            //    context.Response.StatusCode = 500;
+
+            //}
+            return Task.CompletedTask;
         }
     }
 }
