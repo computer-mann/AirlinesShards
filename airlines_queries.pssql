@@ -49,3 +49,15 @@ FROM pg_stats
 WHERE tablename = 'ticket_flights';
 
 select fare_conditions,count(*) as frequency from ticket_flights group by fare_conditions order by frequency
+
+-- --select * from ticket_flights limit 200 offset 8000000
+
+-- select * from ticket_flights where ticket_no='0005433750750'
+-- --select * from flights limit 200
+
+-- select * from tickets limit 200 offset 2000000
+
+with first_level as (
+ select * from tickets limit 200 offset 200
+)
+select * from first_level order by passenger_name

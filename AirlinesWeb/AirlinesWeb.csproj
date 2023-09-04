@@ -22,10 +22,10 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="NRedisStack" Version="0.8.1" />
     <PackageReference Include="Redis.OM" Version="0.5.3" />
+    <PackageReference Include="UuidExtensions" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Controllers\" />
     <Folder Include="Areas\Models\DbContexts\" />
     <Folder Include="Areas\Views\" />
     <Folder Include="Models\Tables\" />
