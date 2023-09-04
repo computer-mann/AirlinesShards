@@ -39,6 +39,8 @@ namespace AirlinesWeb.ApiControllers
         [Route("fare")]
         public async Task<ActionResult> GetAvailableFareConditions()
         {
+            var watch = Stopwatch.StartNew();
+            
             return new JsonResult(new { });
         }
 

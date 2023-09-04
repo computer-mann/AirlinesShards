@@ -41,7 +41,7 @@ namespace AirlinesWeb.ApiControllers
             var counts = await _context.Tickets.AsNoTracking().CountAsync();
             logger.LogInformation("The count tickets request took: {counter}ms", watch.ElapsedMilliseconds);
             logger.LogInformation("Ticket request time {counter}", DateTime.Now);
-            return new JsonResult(new {count=counts});
+            return new JsonResult(new {ticketCount=counts});
         }
 
         // GET: api/Tickets/5

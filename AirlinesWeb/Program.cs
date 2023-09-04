@@ -1,3 +1,4 @@
+using AirlinesWeb.Filters;
 using AirlinesWeb.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Redis.OM;
@@ -12,7 +13,10 @@ namespace AirlinesWeb
             var builder = WebApplication.CreateBuilder(args);
             var services=builder.Services;
             // Add services to the container.
-           services.AddControllersWithViews();
+            services.AddControllersWithViews(configure =>
+            {
+                configure.Filters.Add<LogRequestTimeAndDurationActionFilter>();
+            });
             services.AddAppDbContexts(builder.Configuration);
             services.AddResponseCaching();
             services.AddRedisOMServices(builder.Configuration);
