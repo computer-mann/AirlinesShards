@@ -11,3 +11,10 @@ Implement partition to keep the max query times at 3 seconds only, which is at r
 I guess one ticket can be used to fly many times, eg:a return flight ticket(in and out)
 Neither the passenger ID, nor the name is permanent (for example, one can change the last name or passport),
 so it is impossible to uniquely identify all tickets of a particular passenger.
+
+create the trouper table
+copy the passenger id and name column to the trouper table from the tickets table
+create a new column(trouper_id) in the tickets table that references the id column in the trouper table
+write a query to match the name column in the trouper table witht the names in the tickets table
+change all the foreign key references to the table column depending on the former id..nothing depends on the id and name in the tickets table anyway
+drop the passenger id and name column

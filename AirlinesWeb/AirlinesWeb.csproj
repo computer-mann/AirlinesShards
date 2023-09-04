@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.151" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -37,6 +38,7 @@
     <Folder Include="Areas\Management\Data\" />
     <Folder Include="Areas\Management\Models\" />
     <Folder Include="Areas\Management\Views\" />
+    <Folder Include="Areas\TrouperAuth\Models\NewFolder\" />
     <Folder Include="Models\Tables\" />
   </ItemGroup>
 

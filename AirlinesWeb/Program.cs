@@ -13,10 +13,7 @@ namespace AirlinesWeb
             var services=builder.Services;
             // Add services to the container.
            services.AddControllersWithViews();
-            services.AddDbContext<AirlinesContext>(options =>
-            {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
-            });
+            services.AddAppDbContexts(builder.Configuration);
             services.AddResponseCaching();
             services.AddRedisOMServices(builder.Configuration);
             services.AddRouting(op => op.LowercaseUrls = true);

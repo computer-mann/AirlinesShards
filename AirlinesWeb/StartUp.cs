@@ -1,4 +1,7 @@
-﻿using Redis.OM;
+﻿using AirlinesWeb.Areas.TrouperAuth.Models.DbContexts;
+using AirlinesWeb.Models.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using Redis.OM;
 using StackExchange.Redis;
 
 namespace AirlinesWeb
@@ -13,6 +16,13 @@ namespace AirlinesWeb
             });
             services.AddSingleton<IConnectionMultiplexer>(mux);
             services.AddSingleton(new RedisConnectionProvider(mux));
+        }
+        public static void AddAppDbContexts(this IServiceCollection services, IConfiguration configuration)
+        {
+            Action<DbContextOptionsBuilder>? optionsAction = (options) => options.UseNpgsql(configuration.GetConnectionString("Database"));
+            services.AddDbContext<AirlinesContext>(optionsAction);
+
+            services.AddDbContext<TrouperDbContext>(optionsAction);
         }
     }
 }
