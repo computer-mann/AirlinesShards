@@ -51,4 +51,8 @@
     <Folder Include="NewFolder\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared_Presentation\Shared_Presentation.csproj" />
+  </ItemGroup>
+
 </Project>

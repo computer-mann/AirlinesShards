@@ -18,3 +18,6 @@ create a new column(trouper_id) in the tickets table that references the id colu
 write a query to match the name column in the trouper table witht the names in the tickets table
 change all the foreign key references to the table column depending on the former id..nothing depends on the id and name in the tickets table anyway
 drop the passenger id and name column
+
+
+.\devtunnel.exe host -p 7293 --protocol https --allow-anonymous

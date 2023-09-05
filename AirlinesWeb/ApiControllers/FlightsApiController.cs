@@ -25,7 +25,7 @@ namespace AirlinesWeb.ApiControllers
             this.logger = logger;
         }
 
-        // GET: api/FlightsApiController
+        // GET: api/Flights
         [HttpGet]
         [OutputCache(Duration =100)]
         public async Task<ActionResult<IEnumerable<TicketFlight>>> GetTicketFlights()
@@ -40,9 +40,7 @@ namespace AirlinesWeb.ApiControllers
         [OutputCache(Duration =200)]
         public async Task<ActionResult> GetAvailableFareConditions()
         {
-            // var result = _context.Database.SqlQueryRaw<List<string>>(DistinctSeatQuery).ToList();
-            var res = _context.Database.SqlQueryRaw<string>(DistinctSeatQuery).ToList();
-           // var res=_context.TicketFlights.Select(e=>e.FareConditions).Distinct().ToList();
+            var res = _context.Database.SqlQueryRaw<string>(DistinctSeatQuery).ToList();  
             return new JsonResult(new {seats= res });
         }
 
