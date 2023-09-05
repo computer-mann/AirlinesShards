@@ -10,6 +10,7 @@ using Redis.OM;
 using NRedisStack.RedisStackCommands;
 using Domain.Tables;
 using Infrastructure.Database;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace AirlinesApi.Controllers
 {
@@ -32,7 +33,7 @@ namespace AirlinesApi.Controllers
 
         // GET: api/Tickets
         [HttpGet]
-        [ResponseCache(VaryByHeader ="User-Agent",Duration =100,Location = ResponseCacheLocation.Any)]
+        [OutputCache(Duration =100)]
         public async Task<IActionResult> GetTickets()
         {
             

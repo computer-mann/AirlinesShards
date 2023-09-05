@@ -1,3 +1,5 @@
+using Infrastructure.Extensions;
+using Shared_Presentation.Filters;
 
 namespace AirlinesApi
 {
@@ -6,14 +8,19 @@ namespace AirlinesApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var services = builder.Services;
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<LogRequestTimeAndDurationActionFilter>();
+            });
+            services.AddOutputCache();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+            services.AddRedisOMServices(builder.Configuration);
+            services.AddAppDbContexts(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,7 +31,7 @@ namespace AirlinesApi
             }
 
             app.UseHttpsRedirection();
-
+            app.UseOutputCache();
             app.UseAuthorization();
 
 

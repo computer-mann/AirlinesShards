@@ -13,12 +13,12 @@ namespace AirlinesApi.Controllers
 {
     [Route("/api/flights")]
     [ApiController]
-    public class FlightsApiController : ControllerBase
+    public class FlightsController : ControllerBase
     {
         private readonly AirlinesDbContext _context;
-        private readonly ILogger<FlightsApiController> logger;
+        private readonly ILogger<FlightsController> logger;
         public const string DistinctSeatQuery = "select distinct fare_conditions from ticket_flights limit 200";
-        public FlightsApiController(AirlinesDbContext context,ILogger<FlightsApiController> logger)
+        public FlightsController(AirlinesDbContext context,ILogger<FlightsController> logger)
         {
             _context = context;
             this.logger = logger;
