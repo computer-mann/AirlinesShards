@@ -1,5 +1,4 @@
 using AirlinesWeb.Filters;
-using AirlinesWeb.Models.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Redis.OM;
 using StackExchange.Redis;

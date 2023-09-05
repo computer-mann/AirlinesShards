@@ -1,6 +1,6 @@
 ﻿using AirlinesWeb.Models;
-using AirlinesWeb.Models.DbContexts;
-using AirlinesWeb.Models.Tables;
+using Domain.Tables;
+using Infrastructure.Database;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,14 +8,14 @@ using System.Text.Json;
 #nullable disable
 
 
-namespace AirlinesWeb.WebControllers
+namespace AirlinesWeb.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly AirlinesContext airlinesContext;
+        private readonly AirlinesDbContext airlinesContext;
 
-        public HomeController(ILogger<HomeController> logger, AirlinesContext airlinesContext)
+        public HomeController(ILogger<HomeController> logger, AirlinesDbContext airlinesContext)
         {
             _logger = logger;
             this.airlinesContext = airlinesContext;
@@ -33,9 +33,7 @@ namespace AirlinesWeb.WebControllers
 
         public IActionResult Privacy()
         {
-           
-
-            throw new Exception("global error");
+            //throw new Exception("global error");
             return View();
         }
 

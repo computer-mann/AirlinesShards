@@ -1,4 +1,4 @@
-﻿using AirlinesWeb.Areas.PilgrimAuth.Models;
+﻿using Domain.Tables;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

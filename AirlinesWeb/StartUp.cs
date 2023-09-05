@@ -1,5 +1,4 @@
-﻿using AirlinesWeb.Areas.TrouperAuth.Models.DbContexts;
-using AirlinesWeb.Models.DbContexts;
+﻿using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Redis.OM;
 using StackExchange.Redis;
@@ -20,7 +19,7 @@ namespace AirlinesWeb
         public static void AddAppDbContexts(this IServiceCollection services, IConfiguration configuration)
         {
             Action<DbContextOptionsBuilder>? optionsAction = (options) => options.UseNpgsql(configuration.GetConnectionString("Database"));
-            services.AddDbContext<AirlinesContext>(optionsAction);
+            services.AddDbContext<AirlinesDbContext>(optionsAction);
 
             services.AddDbContext<TrouperDbContext>(optionsAction);
         }

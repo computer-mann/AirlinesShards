@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using Domain.Tables;
+using Infrastructure.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AirlinesWeb.Models.DbContexts;
-using System.Diagnostics;
-using AirlinesWeb.Models.Tables;
 
-namespace AirlinesWeb.WebControllers
+
+namespace AirlinesWeb.Controllers
 {
     public class FlightsController : Controller
     {
-        private readonly AirlinesContext _context;
+        private readonly AirlinesDbContext _context;
         private readonly ILogger<FlightsController> logger;
 
-        public FlightsController(AirlinesContext context,ILogger<FlightsController> logger)
+        public FlightsController(AirlinesDbContext context,ILogger<FlightsController> logger)
         {
             _context = context;
             this.logger = logger;

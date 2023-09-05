@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace AirlinesWeb.Areas.PilgrimAuth.Models
+namespace Domain.Tables
 {
     public class Trouper : IdentityUser
     {
-        public Trouper() 
+        public Trouper()
         {
             Id = UuidExtensions.Uuid7.Id25();
             SecurityStamp = Guid.NewGuid().ToString();
         }
-        public string PassengerName { get; set; }
-        public string Country { get; set; }
+        
+        public string? PassengerName { get; set; }
+        public string? Country { get; set; }
     }
 }

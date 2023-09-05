@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AirlinesWeb.Models.DbContexts;
 using System.Diagnostics;
-using AirlinesWeb.Models.Tables;
 using StackExchange.Redis;
 using Redis.OM;
 using NRedisStack.RedisStackCommands;
+using Domain.Tables;
+using Infrastructure.Database;
 
-namespace AirlinesWeb.ApiControllers
+namespace AirlinesApi.Controllers
 {
     [Route("api/tickets")]
     [ApiController]
-    public class TicketsApiController : ControllerBase
+    public class TicketsController : ControllerBase
     {
-        private readonly AirlinesContext _context;
-        private readonly ILogger<Ticket> logger;
+        private readonly AirlinesDbContext _context;
+        private readonly ILogger<TicketsController> logger;
         private IDatabase _database;
        
 
-        public TicketsApiController(AirlinesContext context,ILogger<Ticket> logger,IConnectionMultiplexer connectionMultiplexer)
+        public TicketsController(AirlinesDbContext context,ILogger<TicketsController> logger,IConnectionMultiplexer connectionMultiplexer)
         {
             
             _context = context;

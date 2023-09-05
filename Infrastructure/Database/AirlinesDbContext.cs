@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using AirlinesWeb.Areas.PilgrimAuth.Models;
-using AirlinesWeb.Models.DbObjects;
-using AirlinesWeb.Models.Tables;
+﻿using Domain.DbObjects;
+using Domain.Tables;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 
-namespace AirlinesWeb.Models.DbContexts;
 
-public partial class AirlinesContext : DbContext
+namespace Infrastructure.Database;
+
+
+public partial class AirlinesDbContext : DbContext
 {
-    public const string DEFAULT_SCHEMA= "bookings";
-    public AirlinesContext()
+    public const string DEFAULT_SCHEMA = "bookings";
+    public AirlinesDbContext()
     {
     }
 
-    public AirlinesContext(DbContextOptions<AirlinesContext> options)
+    public AirlinesDbContext(DbContextOptions<AirlinesDbContext> options)
         : base(options)
     {
     }
@@ -28,7 +31,6 @@ public partial class AirlinesContext : DbContext
     public virtual DbSet<Booking> Bookings { get; set; }
 
     public virtual DbSet<Flight> Flights { get; set; }
-
     public virtual DbSet<Seat> Seats { get; set; }
 
     public virtual DbSet<Ticket> Tickets { get; set; }
@@ -476,7 +478,6 @@ public partial class AirlinesContext : DbContext
                 .HasComment("Flight number")
                 .HasColumnName("flight_no");
         });
-
         OnModelCreatingPartial(modelBuilder);
     }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AirlinesWeb.Models.Tables;
+namespace Domain.Tables;
 
 /// <summary>
 /// Seats

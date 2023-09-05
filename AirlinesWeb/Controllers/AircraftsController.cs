@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AirlinesWeb.Models.DbContexts;
-using AirlinesWeb.Models.Tables;
+using Domain.Tables;
+using Infrastructure.Database;
 
-namespace AirlinesWeb.WebControllers
+namespace AirlinesWeb.Controllers
 {
     public class AircraftsController : Controller
     {
-        private readonly AirlinesContext _context;
+        private readonly AirlinesDbContext _context;
 
-        public AircraftsController(AirlinesContext context)
+        public AircraftsController(AirlinesDbContext context)
         {
             _context = context;
         }
@@ -22,9 +18,9 @@ namespace AirlinesWeb.WebControllers
         // GET: Aircrafts
         public async Task<IActionResult> Index()
         {
-              return _context.AircraftsData != null ? 
-                          View(await _context.VwAircrafts.ToListAsync()) :
-                          Problem("Entity set 'AirlinesContext.AircraftsData'  is null.");
+            return _context.AircraftsData != null ?
+                        View(await _context.VwAircrafts.ToListAsync()) :
+                        Problem("Entity set 'AirlinesContext.AircraftsData'  is null.");
         }
 
         // GET: Aircrafts/Details/5
@@ -150,14 +146,14 @@ namespace AirlinesWeb.WebControllers
             {
                 _context.AircraftsData.Remove(aircraftsData);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AircraftsDataExists(string id)
         {
-          return (_context.AircraftsData?.Any(e => e.AircraftCode == id)).GetValueOrDefault();
+            return (_context.AircraftsData?.Any(e => e.AircraftCode == id)).GetValueOrDefault();
         }
     }
 }

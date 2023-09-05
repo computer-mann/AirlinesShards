@@ -1,7 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
-namespace AirlinesWeb.Models.Tables;
+namespace Domain.Tables;
 
 /// <summary>
 /// Tickets
@@ -37,5 +38,5 @@ public partial class Ticket
 
     public virtual ICollection<TicketFlight> TicketFlights { get; set; } = new List<TicketFlight>();
 
-    
+
 }

@@ -46,9 +46,8 @@
     <Folder Include="Areas\Management\Data\" />
     <Folder Include="Areas\Management\Models\" />
     <Folder Include="Areas\Management\Views\" />
+    <Folder Include="Areas\TrouperAuth\Models\DbContexts\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Tables\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

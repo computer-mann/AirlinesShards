@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NpgsqlTypes;
 
-namespace AirlinesWeb.Models.Tables;
+namespace Domain.Tables;
 
 /// <summary>
 /// Airports (internal data)

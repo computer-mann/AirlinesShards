@@ -5,21 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AirlinesWeb.Models.DbContexts;
-using System.Diagnostics;
-using AirlinesWeb.Models.Tables;
 using Microsoft.AspNetCore.OutputCaching;
+using Domain.Tables;
+using Infrastructure.Database;
 
-namespace AirlinesWeb.ApiControllers
+namespace AirlinesApi.Controllers
 {
     [Route("/api/flights")]
     [ApiController]
     public class FlightsApiController : ControllerBase
     {
-        private readonly AirlinesContext _context;
+        private readonly AirlinesDbContext _context;
         private readonly ILogger<FlightsApiController> logger;
         public const string DistinctSeatQuery = "select distinct fare_conditions from ticket_flights limit 200";
-        public FlightsApiController(AirlinesContext context,ILogger<FlightsApiController> logger)
+        public FlightsApiController(AirlinesDbContext context,ILogger<FlightsApiController> logger)
         {
             _context = context;
             this.logger = logger;
@@ -40,7 +39,7 @@ namespace AirlinesWeb.ApiControllers
         [OutputCache(Duration =200)]
         public async Task<ActionResult> GetAvailableFareConditions()
         {
-            var res = _context.Database.SqlQueryRaw<string>(DistinctSeatQuery).ToList();  
+            var res =await _context.Database.SqlQueryRaw<string>(DistinctSeatQuery).ToListAsync();  
             return new JsonResult(new {seats= res });
         }
 

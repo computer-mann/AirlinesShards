@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AirlinesWeb.Models.DbObjects;
+namespace Domain.DbObjects;
 
 public partial class VwRoute
 {
