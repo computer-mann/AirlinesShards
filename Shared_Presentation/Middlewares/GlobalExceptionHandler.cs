@@ -1,4 +1,6 @@
-﻿namespace AirlinesWeb.Middlewares
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Shared_Presentation.Middlewares
 {
     public class GlobalExceptionHandler : IMiddleware
     {

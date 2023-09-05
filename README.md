@@ -9,3 +9,5 @@
    
 2. Get the original path when I redirect to an error page
   > var originalPath = HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
+
+3. Refactored the project structure to use Clean Architecture.

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace AirlinesWeb.Filters
+namespace Shared_Presentation.Filters
 {
     public class LogRequestTimeAndDurationActionFilter : IActionFilter
     {
@@ -17,13 +18,13 @@ namespace AirlinesWeb.Filters
         public void OnActionExecuted(ActionExecutedContext context)
         {
             logger.LogInformation("Request Duration for {0} took {1}ms", context.ActionDescriptor.DisplayName, stopwatch.ElapsedMilliseconds);
-           
+
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            
-            logger.LogInformation("{0} request time => {1}", context.ActionDescriptor.DisplayName,DateTime.Now);
+
+            logger.LogInformation("{0} request time => {1}", context.ActionDescriptor.DisplayName, DateTime.Now);
         }
     }
 }

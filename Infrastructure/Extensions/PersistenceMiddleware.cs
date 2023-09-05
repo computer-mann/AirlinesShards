@@ -1,13 +1,15 @@
 ﻿using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Redis.OM;
 using StackExchange.Redis;
 
-namespace AirlinesWeb
+namespace Infrastructure.Extensions
 {
-    public static class StartUp
+    public static class PersistenceMiddleware
     {
-        public static void AddRedisOMServices(this IServiceCollection services,IConfiguration configuration)
+        public static void AddRedisOMServices(this IServiceCollection services, IConfiguration configuration)
         {
             var mux = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!, options =>
             {

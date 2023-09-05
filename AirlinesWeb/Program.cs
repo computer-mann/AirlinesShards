@@ -1,7 +1,5 @@
-using AirlinesWeb.Filters;
-using Microsoft.EntityFrameworkCore;
-using Redis.OM;
-using StackExchange.Redis;
+using Infrastructure.Extensions;
+using Shared_Presentation.Filters;
 
 namespace AirlinesWeb
 {
