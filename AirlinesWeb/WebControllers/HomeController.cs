@@ -8,7 +8,7 @@ using System.Text.Json;
 #nullable disable
 
 
-namespace AirlinesWeb.Controllers
+namespace AirlinesWeb.WebControllers
 {
     public class HomeController : Controller
     {

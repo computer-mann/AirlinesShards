@@ -9,7 +9,7 @@ using AirlinesWeb.Models.DbContexts;
 using System.Diagnostics;
 using AirlinesWeb.Models.Tables;
 
-namespace AirlinesWeb.Controllers
+namespace AirlinesWeb.WebControllers
 {
     public class FlightsController : Controller
     {

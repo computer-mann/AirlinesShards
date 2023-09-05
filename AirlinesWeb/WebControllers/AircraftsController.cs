@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AirlinesWeb.Models.DbContexts;
 using AirlinesWeb.Models.Tables;
 
-namespace AirlinesWeb.Controllers
+namespace AirlinesWeb.WebControllers
 {
     public class AircraftsController : Controller
     {
