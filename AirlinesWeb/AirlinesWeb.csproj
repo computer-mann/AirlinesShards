@@ -48,6 +48,7 @@
     <Folder Include="Areas\Management\Views\" />
     <Folder Include="Migrations\" />
     <Folder Include="Models\Tables\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
