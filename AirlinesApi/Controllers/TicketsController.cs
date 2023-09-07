@@ -25,7 +25,6 @@ namespace AirlinesApi.Controllers
 
         public TicketsController(AirlinesDbContext context,ILogger<TicketsController> logger,IConnectionMultiplexer connectionMultiplexer)
         {
-            
             _context = context;
             this.logger = logger;
             _database = connectionMultiplexer.GetDatabase(0);

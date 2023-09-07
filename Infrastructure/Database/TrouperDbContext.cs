@@ -1,5 +1,6 @@
 ﻿
 using Domain.Tables;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,9 @@ namespace Infrastructure.Database
         {
             base.OnModelCreating(builder);
             builder.HasDefaultSchema(AirlinesDbContext.DEFAULT_SCHEMA);
+            builder.Entity<IdentityRole>().ToTable(options => options.ExcludeFromMigrations());
+            builder.Entity<IdentityUserLogin>().ToTable(options => options.ExcludeFromMigrations());
+            
 
             builder.Entity<Trouper>(entity =>
             {

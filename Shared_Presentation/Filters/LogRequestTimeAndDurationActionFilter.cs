@@ -17,7 +17,7 @@ namespace Shared_Presentation.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            logger.LogInformation("Request Duration for {0} took {1}ms", context.ActionDescriptor.DisplayName, stopwatch.ElapsedMilliseconds);
+            logger.LogInformation("Request Duration == {0} took {1}ms", context.ActionDescriptor.DisplayName, stopwatch.ElapsedMilliseconds);
 
         }
 

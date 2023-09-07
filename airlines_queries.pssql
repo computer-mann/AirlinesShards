@@ -85,6 +85,7 @@ create table seat_classes(
 )
 --alter table seat_class rename to seat_classes
 select * from seat_classes
+
 -- with classes as (
 -- select distinct fare_conditions as seat_class from ticket_flights
 -- )
@@ -92,3 +93,18 @@ select * from seat_classes
 -- select * from classes
 
 drop table seat_classes
+
+alter table ticket_flights add column fare_condition_id smallint 
+alter table ticket_flights add constraint fk_ticket_flights_seats 
+foreign key (fare_condition_id) references seat_classes(class_id)
+
+alter table seat_classes rename column class_name to flight_class
+
+insert into seat_classes(flight_class) values('First Class')
+
+
+with classes as (
+select class_id,flight_class from seat_classes
+)
+insert into ticket_flights(fare_condition_id) 
+select classes.class_id from classes where  tickets_flights.fare_conditions = classes.flight_class
