@@ -29,9 +29,11 @@ namespace Infrastructure.Extensions
             services.Replace(ServiceDescriptor.Scoped<IUserValidator<Trouper>, CustomTrouperValidator>());
             services.AddDbContext<TrouperDbContext>(optionsAction);
             services.AddDbContext<StaffDbContext>(optionsAction);
+
             services.AddIdentityCore<Trouper>()
                 .AddEntityFrameworkStores<TrouperDbContext>()
                 .AddUserValidator<CustomTrouperValidator>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;

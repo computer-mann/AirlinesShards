@@ -36,6 +36,9 @@ namespace Infrastructure.WorkerServices
             logger.LogInformation("Starting background service:");
             int numberProcessed = 0;
             int take = 100_000;
+            int skippedUsers = 0;
+            //int usersSaved = 0;
+            const string emailAppend = "@googlemail.com";
             var database = connectionMultiplexer.GetDatabase();
             using (var service = provider.CreateAsyncScope())
             {
@@ -44,7 +47,7 @@ namespace Infrastructure.WorkerServices
                 var airlinesContext = service.ServiceProvider.GetRequiredService<AirlinesDbContext>();
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    /*
+                    
                     if (!await database.KeyExistsAsync(distinctKey))
                     {
                         int customers =await airlinesContext.Tickets.Select(e => e.PassengerName).Distinct().CountAsync();
@@ -66,16 +69,29 @@ namespace Infrastructure.WorkerServices
                         while (numberProcessed < count)
                         {
                             GC.Collect();
+                            
                             var tickets =await airlinesContext.Tickets.OrderBy(e => e.TicketNo).Skip(numberProcessed).Take(take).ToListAsync();
                             foreach(var user in tickets)
                             {
                                 var contactData=JsonSerializer.Deserialize<ContactData>(user.ContactData!);
-                                if (string.IsNullOrEmpty(contactData!.Email) ||
-                                    string.IsNullOrEmpty(contactData.Phone) ||
-                                    await database.SetContainsAsync(passengerNameSetkey, user.PassengerName))
+                                if (await database.SetContainsAsync(passengerNameSetkey, user.PassengerName))
                                 {
-                                   // if(DateTime.Now.Second % 7 == 0) logger.LogInformation("contact data has nulls or in set, skipping.");
-
+                                    // if(DateTime.Now.Second % 7 == 0) logger.LogInformation("contact data has nulls or in set, skipping.");
+                                    skippedUsers += 1;
+                                    if(skippedUsers % 100_000 == 0)
+                                    {
+                                        logger.LogInformation("contact data has nulls or in set, skipping. passenger at {0} is {1}",skippedUsers,user.PassengerName);
+                                    }
+                                    continue;
+                                }
+                                if(string.IsNullOrEmpty(contactData!.Email) &&
+                                    !string.IsNullOrEmpty(contactData.Phone))
+                                {
+                                    contactData.Email = user.PassengerName.Replace(" ", ".").ToLower()+emailAppend;
+                                    logger.LogInformation("new email gen-> {0}", contactData.Email);
+                                }
+                                else
+                                {
                                     continue;
                                 }
 
@@ -84,29 +100,30 @@ namespace Infrastructure.WorkerServices
                                     PhoneNumber=contactData.Phone,
                                     PhoneNumberConfirmed=true,
                                     PassengerName=user.PassengerName,
-                                    Email=contactData.Email ?? contactData.Phone,
+                                    Email=contactData.Email,
                                     EmailConfirmed=true,
                                     Country="Russia"
                                 },"password1");
                                 if (userResult.Succeeded)
                                 {
-                                    //if (DateTime.Now.Second % 11 == 0) logger.LogInformation("User was saved to db");
+                                    if (skippedUsers % 200_000 == 0) logger.LogInformation("User {0} was saved to db",user.PassengerName);
                                     if(await database.SetAddAsync(passengerNameSetkey, user.PassengerName))
                                     {
-                                      //  if(DateTime.Now.Second%9 == 0) logger.LogInformation("pasenger name was added to set");
+                                        if(skippedUsers % 300_000 == 0) logger.LogInformation("pasenger name was added to set");
 
                                     }
                                 }
                                 else
                                 {
-                                    logger.LogInformation("Whats wrong->  {0}", userResult.Errors);
+                                    logger.LogError("Whats wrong->  {0}", userResult.Errors.ToString());
                                 }
                             }
                             numberProcessed += take;
                             await Task.Delay(2000);
                         }
+                        logger.LogInformation("All users migrated to troupers table");
                     }
-                    */
+                    
                     
                     logger.LogInformation("Asmongold {0}", DateTime.Now);
                     await Task.Delay(9000);

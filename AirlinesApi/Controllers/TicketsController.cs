@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using StackExchange.Redis;
@@ -11,6 +7,8 @@ using NRedisStack.RedisStackCommands;
 using Domain.Tables;
 using Infrastructure.Database;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace AirlinesApi.Controllers
 {
@@ -19,15 +17,17 @@ namespace AirlinesApi.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly AirlinesDbContext _context;
+        private readonly UserManager<Trouper> userManager;
         private readonly ILogger<TicketsController> logger;
         private IDatabase _database;
-       
 
-        public TicketsController(AirlinesDbContext context,ILogger<TicketsController> logger,IConnectionMultiplexer connectionMultiplexer)
+
+        public TicketsController(AirlinesDbContext context, ILogger<TicketsController> logger, IConnectionMultiplexer connectionMultiplexer, TrouperDbContext trouperDbContext, UserManager<Trouper> userManager)
         {
             _context = context;
             this.logger = logger;
             _database = connectionMultiplexer.GetDatabase(0);
+            this.userManager = userManager;
         }
 
         // GET: api/Tickets
@@ -151,6 +151,17 @@ namespace AirlinesApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+        [HttpGet]
+        [Route("unsaved")]
+        public async Task<IActionResult> GetUnsavedTroupers()
+        {
+            string path = "\"C:\\\\Users\\\\hpsn1\\\\OneDrive\\\\Documents\\\\Projects\\\\dotnet\\\\Airlines\\\\AirlinesApi";
+            var troupertableCount=await userManager.Users.Select(e=>e.PassengerName).ToListAsync();
+            var uniqueNamesInticketsBought=await _context.Tickets.Select(e=>e.PassengerName).Distinct().ToListAsync();
+            var complement = uniqueNamesInticketsBought.Except(troupertableCount);
+            System.IO.File.WriteAllLines("complement.txt", complement!);
+            return Ok();
         }
 
         private bool TicketExists(string id)

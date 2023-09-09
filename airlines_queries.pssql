@@ -126,3 +126,17 @@ do $$
         end loop;
     end;
     $$
+
+alter table tickets add constraint fk_passenger_id_troupers foreign key (passenger_id)
+references troupers("Id")
+
+create procedure proc_UpdateTicketTableWithPassengerId(passId varchar,) as $$
+    declare r record;
+    begin
+        for r in select "Id",passenger_name from troupers where "Id"=passId
+        loop
+            update tickets set passenger_id=
+            end loop;
+end;
+
+    $$
