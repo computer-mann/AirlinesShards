@@ -1,6 +1,8 @@
 using Infrastructure.Extensions;
 using Serilog;
 using Shared_Presentation.Filters;
+using Infrastructure.WorkerServices;
+using Serilog.Events;
 
 namespace AirlinesApi
 {
@@ -10,13 +12,15 @@ namespace AirlinesApi
         {
             
             var builder = WebApplication.CreateBuilder(args);
-            Log.Logger=new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).WriteTo.Console().CreateBootstrapLogger();
+            Log.Logger=new LoggerConfiguration().MinimumLevel.Warning().ReadFrom.Configuration(builder.Configuration)
+                .WriteTo.Console(LogEventLevel.Information)
+                .CreateBootstrapLogger();
             try
             {
                 builder.Host.UseSerilog();
                 var services = builder.Services;
                 // Add services to the container.
-
+                services.AddHostedService<PopulateTrouperTableBackgroundService>();
                 services.AddControllers(options =>
                 {
                     options.Filters.Add<LogRequestTimeAndDurationActionFilter>();
@@ -43,7 +47,7 @@ namespace AirlinesApi
 
 
                 app.MapControllers();
-                app.Logger.LogInformation("App starting {0}", DateTime.Now);
+                app.Logger.LogInformation("App starting at {0}", DateTime.Now);
                 app.Run();
             }catch(Exception ex)
             {

@@ -108,3 +108,21 @@ select class_id,flight_class from seat_classes
 )
 insert into ticket_flights(fare_condition_id) 
 select classes.class_id from classes where  tickets_flights.fare_conditions = classes.flight_class
+
+
+-- create procedure proc_setFareIdForFareCondition(fareid int ,cond varchar)  AS $$
+--    begin
+--         update ticket_flights set fare_condition_id=fareid::smallint where fare_conditions=cond::varchar;
+--    end;
+-- $$ LANGUAGE plpgsql;
+
+
+do $$
+    declare r record;
+    begin
+        for r in select class_id,flight_class from seat_classes
+        loop
+            call proc_setFareIdForFareCondition(r.class_id,r.flight_class);
+        end loop;
+    end;
+    $$

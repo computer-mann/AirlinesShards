@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Domain.Tables;
 
@@ -39,4 +40,12 @@ public partial class Ticket
     public virtual ICollection<TicketFlight> TicketFlights { get; set; } = new List<TicketFlight>();
 
 
+}
+
+public class ContactData
+{
+    [JsonPropertyName("email")]
+    public string Email { get; set; }
+    [JsonPropertyName("phone")]
+    public string Phone { get; set; }
 }
