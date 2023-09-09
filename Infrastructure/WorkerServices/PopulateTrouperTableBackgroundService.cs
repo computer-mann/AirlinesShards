@@ -44,7 +44,7 @@ namespace Infrastructure.WorkerServices
                 var airlinesContext = service.ServiceProvider.GetRequiredService<AirlinesDbContext>();
                 while (!stoppingToken.IsCancellationRequested)
                 {
-
+                    /*
                     if (!await database.KeyExistsAsync(distinctKey))
                     {
                         int customers =await airlinesContext.Tickets.Select(e => e.PassengerName).Distinct().CountAsync();
@@ -106,10 +106,10 @@ namespace Infrastructure.WorkerServices
                             await Task.Delay(2000);
                         }
                     }
-
+                    */
                     
                     logger.LogInformation("Asmongold {0}", DateTime.Now);
-                    await Task.Delay(3000);
+                    await Task.Delay(9000);
                 }
                 logger.LogInformation("service ending.");
             }
