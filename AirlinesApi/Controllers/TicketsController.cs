@@ -30,15 +30,25 @@ namespace AirlinesApi.Controllers
             this.userManager = userManager;
         }
 
-        // GET: api/Tickets
+        // GET: api/Tickets/count
         [HttpGet]
         [OutputCache(Duration =100)]
-        public async Task<IActionResult> GetTickets()
+        [Route("count")]
+        public async Task<IActionResult> GetTicketsCount()
         {
             
-            var watch = Stopwatch.StartNew();
+            
             var counts = await _context.Tickets.AsNoTracking().CountAsync();
             return new JsonResult(new {ticketCount=counts});
+        }
+        // GET: api/Tickets/count
+        [HttpGet]
+        [OutputCache(Duration = 100)]
+        public async Task<IActionResult> GetTickets()
+        {
+
+            var tickets = await _context.Tickets.AsNoTracking().OrderBy(e=>e.PassengerName).Take(100).ToListAsync();
+            return Ok(tickets);
         }
 
         // GET: api/Tickets/5
@@ -152,17 +162,7 @@ namespace AirlinesApi.Controllers
 
             return NoContent();
         }
-        [HttpGet]
-        [Route("unsaved")]
-        public async Task<IActionResult> GetUnsavedTroupers()
-        {
-            string path = "\"C:\\\\Users\\\\hpsn1\\\\OneDrive\\\\Documents\\\\Projects\\\\dotnet\\\\Airlines\\\\AirlinesApi";
-            var troupertableCount=await userManager.Users.Select(e=>e.PassengerName).ToListAsync();
-            var uniqueNamesInticketsBought=await _context.Tickets.Select(e=>e.PassengerName).Distinct().ToListAsync();
-            var complement = uniqueNamesInticketsBought.Except(troupertableCount);
-            System.IO.File.WriteAllLines("complement.txt", complement!);
-            return Ok();
-        }
+        
 
         private bool TicketExists(string id)
         {

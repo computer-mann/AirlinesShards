@@ -23,17 +23,12 @@ public partial class Ticket
     /// <summary>
     /// Passenger ID
     /// </summary>
-    public string PassengerId { get; set; } = null!;
+    public string? PassengerId { get; set; } = null!;
 
     /// <summary>
     /// Passenger name
     /// </summary>
     public string PassengerName { get; set; } = null!;
-
-    /// <summary>
-    /// Passenger contact information
-    /// </summary>
-    public string? ContactData { get; set; }
 
     public virtual Booking BookRefNavigation { get; set; } = null!;
 
@@ -42,10 +37,4 @@ public partial class Ticket
 
 }
 
-public class ContactData
-{
-    [JsonPropertyName("email")]
-    public string Email { get; set; }
-    [JsonPropertyName("phone")]
-    public string Phone { get; set; }
-}
+

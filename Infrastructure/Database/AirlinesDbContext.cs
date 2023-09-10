@@ -256,17 +256,15 @@ public partial class AirlinesDbContext : DbContext
                 .IsFixedLength()
                 .HasComment("Booking number")
                 .HasColumnName("book_ref");
-            entity.Property(e => e.ContactData)
-                .HasComment("Passenger contact information")
-                .HasColumnType("jsonb")
-                .HasColumnName("contact_data");
             entity.Property(e => e.PassengerId)
-                .HasMaxLength(20)
+                .HasMaxLength(25)
                 .HasComment("Passenger ID")
-                .HasColumnName("passenger_id");
+                .HasColumnName("passenger_id")
+                .HasColumnType("varchar(25)");
             entity.Property(e => e.PassengerName)
                 .HasComment("Passenger name")
-                .HasColumnName("passenger_name");
+                .HasColumnName("passenger_name")
+                ;
 
             entity.HasOne(d => d.BookRefNavigation).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.BookRef)

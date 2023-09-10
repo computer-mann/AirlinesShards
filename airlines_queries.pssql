@@ -140,3 +140,12 @@ create procedure proc_UpdateTicketTableWithPassengerId(passId varchar,) as $$
 end;
 
     $$
+
+
+    create procedure proc_updateTickets_passengeridColumn(name varchar,pid varchar) as $$
+      begin
+          update tickets set passenger_id=pid where passenger_name=name and passenger_id is null;
+      end;
+    $$
+language plpgsql;
+drop procedure proc_updatetickets_passengeridcolumn(name varchar, pid varchar)
