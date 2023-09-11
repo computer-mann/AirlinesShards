@@ -25,11 +25,6 @@ public partial class Ticket
     /// </summary>
     public string? PassengerId { get; set; } = null!;
 
-    /// <summary>
-    /// Passenger name
-    /// </summary>
-    public string PassengerName { get; set; } = null!;
-
     public virtual Booking BookRefNavigation { get; set; } = null!;
 
     public virtual ICollection<TicketFlight> TicketFlights { get; set; } = new List<TicketFlight>();

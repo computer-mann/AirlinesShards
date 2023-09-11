@@ -261,10 +261,6 @@ public partial class AirlinesDbContext : DbContext
                 .HasComment("Passenger ID")
                 .HasColumnName("passenger_id")
                 .HasColumnType("varchar(25)");
-            entity.Property(e => e.PassengerName)
-                .HasComment("Passenger name")
-                .HasColumnName("passenger_name")
-                ;
 
             entity.HasOne(d => d.BookRefNavigation).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.BookRef)
