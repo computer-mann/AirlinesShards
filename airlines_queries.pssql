@@ -149,3 +149,13 @@ end;
     $$
 language plpgsql;
 drop procedure proc_updatetickets_passengeridcolumn(name varchar, pid varchar)
+
+do $$
+    declare r record;
+  begin
+        for r in select passenger_name,"Id" from troupers order by "Id" desc
+        loop
+            update tickets set passenger_id=r."Id" where passenger_id is null and passenger_name=r.passenger_name;
+            end loop;
+    end;
+$$

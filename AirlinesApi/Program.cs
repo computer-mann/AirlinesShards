@@ -21,7 +21,7 @@ namespace AirlinesApi
                 builder.Host.UseSerilog();
                 var services = builder.Services;
                 // Add services to the container.
-                services.AddHostedService<PopulateTrouperTableBackgroundService>();
+                //services.AddHostedService<PopulateTrouperTableBackgroundService>();
                 services.AddControllers(options =>
                 {
                     options.Filters.Add<LogRequestTimeAndDurationActionFilter>();

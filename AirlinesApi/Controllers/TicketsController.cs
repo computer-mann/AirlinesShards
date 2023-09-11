@@ -32,13 +32,13 @@ namespace AirlinesApi.Controllers
 
         // GET: api/Tickets/count
         [HttpGet]
-        [OutputCache(Duration =100)]
+       // [OutputCache(Duration =100)]
         [Route("count")]
         public async Task<IActionResult> GetTicketsCount()
         {
             
             
-            var counts = await _context.Tickets.AsNoTracking().CountAsync();
+            var counts = await _context.Tickets.AsNoTracking().Where(e=>e.PassengerId != null ).CountAsync();
             return new JsonResult(new {ticketCount=counts});
         }
         // GET: api/Tickets/count
