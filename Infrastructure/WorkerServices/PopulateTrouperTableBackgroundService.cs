@@ -35,11 +35,9 @@ namespace Infrastructure.WorkerServices
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             logger.LogInformation("Starting background service:");
-            int numberProcessed = 0;
-            int take = 100_000;
-            int skippedUsers = 0;
+           
             
-            var database = connectionMultiplexer.GetDatabase();
+            
             using (var service = provider.CreateAsyncScope())
             {
                 var userManager = service.ServiceProvider.GetRequiredService<UserManager<Trouper>>();
@@ -51,18 +49,7 @@ namespace Infrastructure.WorkerServices
                 //var tickets = airlinesContext.Tickets.OrderBy(e=>e.TicketNo)
                   //  .Where(e=>!string.IsNullOrEmpty(e.PassengerId)).Take(42).ToList();
                 
-                logger.LogInformation("about to update the tickets.");
-                for (int i= 0; i < users.Count ;i++ )
-                {
-                    var user = users[i];
-                   await airlinesContext.Tickets.Where(e => e.PassengerName == user.PassengerName && e.PassengerId == null)
-                    .ExecuteUpdateAsync(setters => setters.SetProperty(b=>b.PassengerId, user.Id));
-                    if(i % 1000 == 0)
-                    {
-                        logger.LogInformation("proces at {0}th", i);
-                    }
-                }
-                 airlinesContext.SaveChanges();
+                
                 logger.LogInformation("ended foreach");
                 logger.LogInformation("about to iterate through the updated tickets.");
                 while (!stoppingToken.IsCancellationRequested)

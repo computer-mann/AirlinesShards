@@ -47,7 +47,7 @@ namespace AirlinesApi.Controllers
         public async Task<IActionResult> GetTickets()
         {
 
-            var tickets = await _context.Tickets.AsNoTracking().OrderBy(e=>e.PassengerName).Take(100).ToListAsync();
+            var tickets = await _context.Tickets.AsNoTracking().OrderBy(e=>e.PassengerId).Take(100).ToListAsync();
             return Ok(tickets);
         }
 

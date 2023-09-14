@@ -11,3 +11,5 @@
   > var originalPath = HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
 
 3. Refactored the project structure to use Clean Architecture.
+
+4. Use the HTTP method attributes **ONLY** when building api's

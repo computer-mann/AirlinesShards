@@ -4,6 +4,8 @@ using Shared_Presentation.Filters;
 using Infrastructure.WorkerServices;
 using Serilog.Events;
 
+
+
 namespace AirlinesApi
 {
     public class Program
@@ -48,6 +50,7 @@ namespace AirlinesApi
 
 
                 app.MapControllers();
+                
                 app.Logger.LogInformation("App starting at {0}", DateTime.Now);
                 app.Run();
             }catch(Exception ex)
