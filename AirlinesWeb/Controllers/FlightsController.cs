@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirlinesWeb.Controllers
 {
+    [ApiController]
     public class FlightsController : Controller
     {
         private readonly AirlinesDbContext _context;

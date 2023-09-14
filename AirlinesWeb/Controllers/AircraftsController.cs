@@ -6,6 +6,7 @@ using Infrastructure.Database;
 
 namespace AirlinesWeb.Controllers
 {
+    [ApiController]
     public class AircraftsController : Controller
     {
         private readonly AirlinesDbContext _context;

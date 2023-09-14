@@ -34,8 +34,7 @@ namespace AirlinesApi.Controllers
             return new JsonResult(new {count= counts});
         }
 
-        [HttpGet]
-        [Route("fare")]
+        [HttpGet("fare")]
         [OutputCache(Duration =200)]
         public async Task<ActionResult> GetAvailableFareConditions()
         {

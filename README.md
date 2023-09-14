@@ -12,4 +12,4 @@
 
 3. Refactored the project structure to use Clean Architecture.
 
-4. Use the HTTP method attributes **ONLY** when building api's
+4. Use the HTTP method attributes **ONLY** on my actions when building API's
