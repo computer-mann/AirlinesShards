@@ -22,3 +22,5 @@ drop the passenger id and name column
 
 .\devtunnel.exe host -p 7293 --protocol https --allow-anonymous
 Add-Migration -Project Infrastructure -OutputDir Migrations/Trouper -Context TrouperDbContext -Name First
+
+use hash partition on (ticket_flight,flight_id)
