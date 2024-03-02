@@ -1,10 +1,10 @@
 using Infrastructure.Extensions;
 using Serilog;
-using Shared_Presentation.Filters;
+using AirlinesApi.Filters;
 using Infrastructure.WorkerServices;
 using Serilog.Events;
 using Infrastructure.Options;
-using Shared_Presentation.Middlewares;
+using AirlinesApi.Middlewares;
 
 
 

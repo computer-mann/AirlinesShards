@@ -8,6 +8,7 @@ using Domain.Tables;
 using Infrastructure.Database;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Identity;
+using AirlinesApi;
 
 
 namespace AirlinesApi.Controllers
@@ -19,14 +20,14 @@ namespace AirlinesApi.Controllers
         private readonly AirlinesDbContext _context;
         private readonly UserManager<Traveller> userManager;
         private readonly ILogger<TicketsController> logger;
-        private IDatabase _database;
+        private IDatabase _redisdatabase;
 
 
         public TicketsController(AirlinesDbContext context, ILogger<TicketsController> logger, IConnectionMultiplexer connectionMultiplexer, TravellerDbContext TravellerDbContext, UserManager<Traveller> userManager)
         {
             _context = context;
             this.logger = logger;
-            _database = connectionMultiplexer.GetDatabase(0);
+            _redisdatabase = connectionMultiplexer.GetDatabase(0);
             this.userManager = userManager;
         }
 
@@ -71,9 +72,9 @@ namespace AirlinesApi.Controllers
                     song = "pov"
                 };
                 var date = DateTime.UtcNow.ToString();
-                if (await _database.JSON().SetAsync($"{date}", "$", obj, When.NotExists))
+                if (await _redisdatabase.JSON().SetAsync($"{date}", "$", obj, When.NotExists))
                 {
-                    await _database.KeyExpireAsync(date,TimeSpan.FromSeconds(40));
+                    await _redisdatabase.KeyExpireAsync(date,TimeSpan.FromSeconds(40));
                     logger.LogInformation("success");
                 }
                 else { logger.LogWarning("cache failed"); }

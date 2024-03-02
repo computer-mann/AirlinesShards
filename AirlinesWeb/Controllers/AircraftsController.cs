@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Tables;
 using Infrastructure.Database;
+using Domain.Models;
 
 namespace AirlinesWeb.Controllers
 {

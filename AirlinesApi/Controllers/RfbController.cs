@@ -14,7 +14,7 @@ namespace AirlinesApi.Controllers
         [HttpGet("exception")]
         public ActionResult GenerateUnhandledException()
         {
-            throw new Exception();
+            throw new Exception("sza");
             return Ok();
         }
     }

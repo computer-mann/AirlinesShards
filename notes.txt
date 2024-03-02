@@ -1,6 +1,6 @@
- dotnet ef dbcontext scaffold "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL --context-dir Models/DbContexts --output-dir Models
+ dotnet ef dbcontext scaffold "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL --context-dir Infrastructure/Models/Contexts/DbContexts --output-dir Domain/Tables/Models
  
- Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -ContextDir Models/DbContext
+ Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Domain/Tables/Models -ContextDir Infrastructure/Models/Contexts/DbContexts
  https://postgrespro.com/docs/postgrespro/10/apjs04.html
 
 
@@ -21,6 +21,6 @@ drop the passenger id and name column
 
 
 .\devtunnel.exe host -p 7293 --protocol https --allow-anonymous
-Add-Migration -Project Infrastructure -OutputDir Migrations/Traveller -Context TravellerDbContext -Name ChangedTableNameToTraveller
+Add-Migration -Project Infrastructure -OutputDir Migrations/Traveller -Context TravellerDbContext -Name AddingUsername
 
 use hash partition on (ticket_flight,flight_id)

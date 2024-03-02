@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OutputCaching;
 using Domain.Tables;
 using Infrastructure.Database;
+using AirlinesApi;
 
 namespace AirlinesApi.Controllers
 {
@@ -17,7 +18,6 @@ namespace AirlinesApi.Controllers
     {
         private readonly AirlinesDbContext _context;
         private readonly ILogger<FlightsController> _logger;
-        public const string DistinctSeatQuery = "select distinct fare_condition_id from ticket_flights limit 200";
         public FlightsController(AirlinesDbContext context,ILogger<FlightsController> logger)
         {
             _context = context;
@@ -38,7 +38,8 @@ namespace AirlinesApi.Controllers
         [OutputCache(Duration =200)]
         public async Task<ActionResult> GetAvailableFareConditions()
         {
-            var res =await _context.Database.SqlQueryRaw<string>(DistinctSeatQuery).ToListAsync();  
+            string distinctSeatQuery = "select distinct fare_condition_id from ticket_flights limit 200";
+            var res =await _context.Database.SqlQueryRaw<int>(distinctSeatQuery).ToListAsync();  
             return new JsonResult(new {seats= res });
         }
 

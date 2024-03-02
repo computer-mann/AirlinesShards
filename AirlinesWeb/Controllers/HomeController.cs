@@ -1,4 +1,5 @@
 ﻿using AirlinesWeb.Models;
+using Domain.Models;
 using Domain.Tables;
 using Infrastructure.Database;
 using Microsoft.AspNetCore.Diagnostics;
@@ -24,10 +25,10 @@ namespace AirlinesWeb.Controllers
 
         public IActionResult Index()
         {
-            List<AirplaneModel> airplaneModels = new List<AirplaneModel>();
+            List<AircraftsData> airplaneModels = new List<AircraftsData>();
             foreach (var model in airlinesContext.AircraftsData.ToList())
             {
-                airplaneModels.Add(JsonSerializer.Deserialize<AirplaneModel>(model.Model));
+                airplaneModels.Add(JsonSerializer.Deserialize<AircraftsData>(model.Model));
             }
             return View(airplaneModels);
         }
