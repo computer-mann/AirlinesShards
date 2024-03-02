@@ -26,13 +26,13 @@ namespace Infrastructure.Extensions
         {
             Action<DbContextOptionsBuilder>? optionsAction = (options) => options.UseNpgsql(configuration.GetConnectionString("Database"));
             services.AddDbContext<AirlinesDbContext>(optionsAction);
-            services.Replace(ServiceDescriptor.Scoped<IUserValidator<Trouper>, CustomTrouperValidator>());
-            services.AddDbContext<TrouperDbContext>(optionsAction);
-            services.AddDbContext<StaffDbContext>(optionsAction);
+            services.Replace(ServiceDescriptor.Scoped<IUserValidator<Traveller>, CustomTravellerValidator>());
+            services.AddDbContext<TravellerDbContext>(optionsAction);
+            services.AddDbContext<CompanyDbContext>(optionsAction);
 
-            services.AddIdentityCore<Trouper>()
-                .AddEntityFrameworkStores<TrouperDbContext>()
-                .AddUserValidator<CustomTrouperValidator>();
+            services.AddIdentityCore<Traveller>()
+                .AddEntityFrameworkStores<TravellerDbContext>()
+                .AddUserValidator<CustomTravellerValidator>();
 
             services.Configure<IdentityOptions>(options =>
             {

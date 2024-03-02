@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Tables
 {
-    public class Trouper : IdentityUser
+    public class Traveller : IdentityUser
     {
-        public Trouper()
+        public Traveller()
         {
             Id = UuidExtensions.Uuid7.Id25();
             SecurityStamp = Guid.NewGuid().ToString();

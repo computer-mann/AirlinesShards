@@ -1,20 +1,31 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace Shared_Presentation.Middlewares
 {
-    public class GlobalExceptionHandler : IMiddleware
+    public class GlobalExceptionHandler : IExceptionHandler
     {
-        public Task InvokeAsync(HttpContext context, RequestDelegate next)
+        private readonly ILogger<GlobalExceptionHandler> _logger;
+
+        public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
         {
-            //try
-            //{
+            _logger = logger;
+        }
 
-            //}catch (Exception ex)
-            //{
-            //    context.Response.StatusCode = 500;
+        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+        {
+            _logger.LogCritical(exception,"Serious unexpected fault: {message}",exception.Message);
 
-            //}
-            return Task.CompletedTask;
+            await httpContext.Response.WriteAsJsonAsync(new ProblemDetails()
+            {
+                Status=(int)HttpStatusCode.InternalServerError,
+                Title="Internal Server Error",
+                Detail="Something happened on our end. Try again",
+            });
+            return true;
         }
     }
 }

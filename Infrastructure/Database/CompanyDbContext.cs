@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Database
 {
-    internal class StaffDbContext:DbContext
+    internal class CompanyDbContext:DbContext
     {
-        public StaffDbContext(DbContextOptions<StaffDbContext> options):base(options)
+        public CompanyDbContext(DbContextOptions<CompanyDbContext> options):base(options)
         {
         }
 

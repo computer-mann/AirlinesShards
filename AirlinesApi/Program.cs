@@ -3,6 +3,8 @@ using Serilog;
 using Shared_Presentation.Filters;
 using Infrastructure.WorkerServices;
 using Serilog.Events;
+using Infrastructure.Options;
+using Shared_Presentation.Middlewares;
 
 
 
@@ -23,16 +25,17 @@ namespace AirlinesApi
                 builder.Host.UseSerilog();
                 var services = builder.Services;
                 // Add services to the container.
-                //services.AddHostedService<PopulateTrouperTableBackgroundService>();
+                //services.AddHostedService<PopulateTravellerTableBackgroundService>();
                 services.AddControllers(options =>
                 {
                     options.Filters.Add<LogRequestTimeAndDurationActionFilter>();
                 });
+                services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
                 services.AddOutputCache();
-                // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
                 services.AddEndpointsApiExplorer();
                 services.AddSwaggerGen();
-               
+               services.AddExceptionHandler<GlobalExceptionHandler>();
+                services.AddProblemDetails();
                 services.AddRedisOMServices(builder.Configuration);
                 services.AddAppDbContexts(builder.Configuration);
                 var app = builder.Build();
@@ -43,7 +46,7 @@ namespace AirlinesApi
                     app.UseSwagger();
                     app.UseSwaggerUI();
                 }
-
+                app.UseExceptionHandler();
                 app.UseHttpsRedirection();
                 app.UseOutputCache();
                 app.UseAuthorization();

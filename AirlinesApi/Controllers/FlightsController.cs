@@ -16,12 +16,12 @@ namespace AirlinesApi.Controllers
     public class FlightsController : ControllerBase
     {
         private readonly AirlinesDbContext _context;
-        private readonly ILogger<FlightsController> logger;
-        public const string DistinctSeatQuery = "select distinct fare_conditions from ticket_flights limit 200";
+        private readonly ILogger<FlightsController> _logger;
+        public const string DistinctSeatQuery = "select distinct fare_condition_id from ticket_flights limit 200";
         public FlightsController(AirlinesDbContext context,ILogger<FlightsController> logger)
         {
             _context = context;
-            this.logger = logger;
+            _logger = logger;
         }
 
         // GET: api/Flights
@@ -44,6 +44,8 @@ namespace AirlinesApi.Controllers
 
         // GET: api/FlightsApiController/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<TicketFlight>> GetTicketFlight(string id)
         {
           if (_context.TicketFlights == null)
@@ -63,6 +65,9 @@ namespace AirlinesApi.Controllers
         // PUT: api/FlightsApiController/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutTicketFlight(string id, TicketFlight ticketFlight)
         {
             if (id != ticketFlight.TicketNo)
@@ -87,7 +92,7 @@ namespace AirlinesApi.Controllers
                     throw;
                 }
             }
-
+            
             return NoContent();
         }
 

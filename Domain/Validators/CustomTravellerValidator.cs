@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Validators
 {
-    public class CustomTrouperValidator : IUserValidator<Trouper>
+
+    public class CustomTravellerValidator : IUserValidator<Traveller>
     {
         public IdentityErrorDescriber Describer { get; private set; }
-        public CustomTrouperValidator(IdentityErrorDescriber? errors = null)
+        public CustomTravellerValidator(IdentityErrorDescriber? errors = null)
         {
             Describer = errors ?? new IdentityErrorDescriber();
         }
-        public async Task<IdentityResult> ValidateAsync(UserManager<Trouper> manager, Trouper user)
+        public async Task<IdentityResult> ValidateAsync(UserManager<Traveller> manager, Traveller user)
         {
             ArgumentNullException.ThrowIfNull(manager);
             ArgumentNullException.ThrowIfNull(user);
@@ -28,7 +29,7 @@ namespace Domain.Validators
             }
             return errors?.Count > 0 ? IdentityResult.Failed(errors.ToArray()) : IdentityResult.Success;
         }
-        private async Task<List<IdentityError>?> ValidateEmailAsync(UserManager<Trouper> manager, Trouper user, List<IdentityError>? errors)
+        private async Task<List<IdentityError>?> ValidateEmailAsync(UserManager<Traveller> manager, Traveller user, List<IdentityError>? errors)
         {
             var email = await manager.GetEmailAsync(user).ConfigureAwait(false);
             if (string.IsNullOrWhiteSpace(email))

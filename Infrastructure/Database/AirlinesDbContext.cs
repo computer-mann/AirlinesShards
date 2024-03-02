@@ -44,7 +44,7 @@ public partial class AirlinesDbContext : DbContext
     public virtual DbSet<VwFlight> VwFlights { get; set; }
 
     public virtual DbSet<VwRoute> VwRoutes { get; set; }
-    public virtual DbSet<Trouper> Troupers { get; set; }
+    public virtual DbSet<Traveller> Travellers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:Database");

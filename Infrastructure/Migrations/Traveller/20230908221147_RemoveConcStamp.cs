@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Infrastructure.Migrations.Trouper
+namespace Infrastructure.Migrations.Traveller
 {
     /// <inheritdoc />
     public partial class RemoveConcStamp : Migration
@@ -13,7 +13,7 @@ namespace Infrastructure.Migrations.Trouper
             migrationBuilder.DropColumn(
                 name: "ConcurrencyStamp",
                 schema: "bookings",
-                table: "troupers");
+                table: "Travellers");
         }
 
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations.Trouper
             migrationBuilder.AddColumn<string>(
                 name: "ConcurrencyStamp",
                 schema: "bookings",
-                table: "troupers",
+                table: "Travellers",
                 type: "text",
                 nullable: true);
         }

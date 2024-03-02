@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Infrastructure.Migrations.Trouper
+namespace Infrastructure.Migrations.Traveller
 {
     /// <inheritdoc />
     public partial class Firsts : Migration
@@ -14,7 +14,7 @@ namespace Infrastructure.Migrations.Trouper
                 name: "bookings");
 
             migrationBuilder.CreateTable(
-                name: "troupers",
+                name: "Travellers",
                 schema: "bookings",
                 columns: table => new
                 {
@@ -31,13 +31,13 @@ namespace Infrastructure.Migrations.Trouper
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_troupers", x => x.Id);
+                    table.PrimaryKey("PK_Travellers", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 schema: "bookings",
-                table: "troupers",
+                table: "Travellers",
                 column: "NormalizedEmail");
         }
 
@@ -45,7 +45,7 @@ namespace Infrastructure.Migrations.Trouper
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "troupers",
+                name: "Travellers",
                 schema: "bookings");
         }
     }

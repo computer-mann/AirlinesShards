@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AirlinesWeb.Areas.PilgrimAuth.Controllers
 {
-    [Area("TrouperAuth")]
+    [Area("TravellerAuth")]
     public class AuthController : Controller
     {
-        private readonly UserManager<Trouper> _userManager;
-        private readonly SignInManager<Trouper> _signInManager;
+        private readonly UserManager<Traveller> _userManager;
+        private readonly SignInManager<Traveller> _signInManager;
         private readonly ILogger<AuthController> _logger;
 
         public AuthController(ILogger<AuthController> logger)

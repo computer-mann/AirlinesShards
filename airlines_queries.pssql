@@ -127,13 +127,13 @@ do $$
     end;
     $$
 
-alter table tickets add constraint fk_passenger_id_troupers foreign key (passenger_id)
-references troupers("Id")
+alter table tickets add constraint fk_passenger_id_Travellers foreign key (passenger_id)
+references Travellers("Id")
 
 create procedure proc_UpdateTicketTableWithPassengerId(passId varchar,) as $$
     declare r record;
     begin
-        for r in select "Id",passenger_name from troupers where "Id"=passId
+        for r in select "Id",passenger_name from Travellers where "Id"=passId
         loop
             update tickets set passenger_id=
             end loop;
@@ -153,7 +153,7 @@ drop procedure proc_updatetickets_passengeridcolumn(name varchar, pid varchar)
 do $$
     declare r record;
   begin
-        for r in select passenger_name,"Id" from troupers order by "Id" desc
+        for r in select passenger_name,"Id" from Travellers order by "Id" desc
         loop
             update tickets set passenger_id=r."Id" where passenger_id is null and passenger_name=r.passenger_name;
             end loop;

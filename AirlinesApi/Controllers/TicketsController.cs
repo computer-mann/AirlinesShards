@@ -17,12 +17,12 @@ namespace AirlinesApi.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly AirlinesDbContext _context;
-        private readonly UserManager<Trouper> userManager;
+        private readonly UserManager<Traveller> userManager;
         private readonly ILogger<TicketsController> logger;
         private IDatabase _database;
 
 
-        public TicketsController(AirlinesDbContext context, ILogger<TicketsController> logger, IConnectionMultiplexer connectionMultiplexer, TrouperDbContext trouperDbContext, UserManager<Trouper> userManager)
+        public TicketsController(AirlinesDbContext context, ILogger<TicketsController> logger, IConnectionMultiplexer connectionMultiplexer, TravellerDbContext TravellerDbContext, UserManager<Traveller> userManager)
         {
             _context = context;
             this.logger = logger;

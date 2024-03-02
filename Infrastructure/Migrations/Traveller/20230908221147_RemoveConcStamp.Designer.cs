@@ -8,11 +8,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Migrations.Trouper
+namespace Infrastructure.Migrations.Traveller
 {
-    [DbContext(typeof(TrouperDbContext))]
-    [Migration("20230908214231_Firsts")]
-    partial class Firsts
+    [DbContext(typeof(TravellerDbContext))]
+    [Migration("20230908221147_RemoveConcStamp")]
+    partial class RemoveConcStamp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,14 +25,10 @@ namespace Infrastructure.Migrations.Trouper
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Tables.Trouper", b =>
+            modelBuilder.Entity("Domain.Tables.Traveller", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("char(25)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -68,7 +64,7 @@ namespace Infrastructure.Migrations.Trouper
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
-                    b.ToTable("troupers", "bookings");
+                    b.ToTable("Travellers", "bookings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -232,7 +228,7 @@ namespace Infrastructure.Migrations.Trouper
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Domain.Tables.Trouper", null)
+                    b.HasOne("Domain.Tables.Traveller", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -241,7 +237,7 @@ namespace Infrastructure.Migrations.Trouper
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Domain.Tables.Trouper", null)
+                    b.HasOne("Domain.Tables.Traveller", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -256,7 +252,7 @@ namespace Infrastructure.Migrations.Trouper
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Tables.Trouper", null)
+                    b.HasOne("Domain.Tables.Traveller", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -265,7 +261,7 @@ namespace Infrastructure.Migrations.Trouper
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Domain.Tables.Trouper", null)
+                    b.HasOne("Domain.Tables.Traveller", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

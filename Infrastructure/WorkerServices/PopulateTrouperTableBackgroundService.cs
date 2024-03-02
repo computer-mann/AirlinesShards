@@ -17,16 +17,16 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.WorkerServices
 {
-    public class PopulateTrouperTableBackgroundService : BackgroundService
+    public class PopulateTravellerTableBackgroundService : BackgroundService
     {
         private const string distinctKey = "distinctCustomerNo";
         private const string ticketTableRecordsNumKey = "ticketTableRecords";
         private const string passengerNameSetkey = "passengerNameSet";
-        private readonly ILogger<PopulateTrouperTableBackgroundService> logger;
+        private readonly ILogger<PopulateTravellerTableBackgroundService> logger;
         private readonly IServiceProvider provider;
         private readonly IConnectionMultiplexer connectionMultiplexer;
 
-        public PopulateTrouperTableBackgroundService(ILogger<PopulateTrouperTableBackgroundService> logger,IServiceProvider provider,IConnectionMultiplexer connectionMultiplexer)
+        public PopulateTravellerTableBackgroundService(ILogger<PopulateTravellerTableBackgroundService> logger,IServiceProvider provider,IConnectionMultiplexer connectionMultiplexer)
         {
             this.logger = logger;
             this.provider = provider;
@@ -40,12 +40,12 @@ namespace Infrastructure.WorkerServices
             
             using (var service = provider.CreateAsyncScope())
             {
-                var userManager = service.ServiceProvider.GetRequiredService<UserManager<Trouper>>();
-                var trouperContext = service.ServiceProvider.GetRequiredService<TrouperDbContext>();
+                var userManager = service.ServiceProvider.GetRequiredService<UserManager<Traveller>>();
+                var TravellerContext = service.ServiceProvider.GetRequiredService<TravellerDbContext>();
                 var airlinesContext = service.ServiceProvider.GetRequiredService<AirlinesDbContext>();
                 logger.LogInformation("memory for before db call => {0}mb", CheckGcMemoryInMb());
                 var users=userManager.Users.ToList();
-                logger.LogInformation("memory for all troupers table => {0}mb", CheckGcMemoryInMb());
+                logger.LogInformation("memory for all Travellers table => {0}mb", CheckGcMemoryInMb());
                 //var tickets = airlinesContext.Tickets.OrderBy(e=>e.TicketNo)
                   //  .Where(e=>!string.IsNullOrEmpty(e.PassengerId)).Take(42).ToList();
                 

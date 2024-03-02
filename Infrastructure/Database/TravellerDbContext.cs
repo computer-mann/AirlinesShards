@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database
 {
-    public class TrouperDbContext : IdentityDbContext<Trouper>
+    public class TravellerDbContext : IdentityDbContext<Traveller>
     {
-        public TrouperDbContext(DbContextOptions<TrouperDbContext> options) : base(options)
+        public TravellerDbContext(DbContextOptions<TravellerDbContext> options) : base(options)
         {
 
         }
@@ -25,9 +25,9 @@ namespace Infrastructure.Database
             builder.Entity<IdentityRoleClaim<string>>().ToTable(options => options.ExcludeFromMigrations());
            
 
-            builder.Entity<Trouper>(entity =>
+            builder.Entity<Traveller>(entity =>
             {
-                entity.ToTable("troupers");
+                entity.ToTable("Travellers");
                 entity.Property(e => e.Id).HasColumnType("char(25)");
                 entity.Property(e => e.PassengerName).HasColumnName("passenger_name").HasColumnType("varchar(75)").IsRequired();
                 entity.Property(e => e.PhoneNumber).HasColumnType("varchar(15)");
@@ -35,9 +35,9 @@ namespace Infrastructure.Database
                 //entity.Property(e=>e.UserName).Ig  
 
             });
-            builder.Entity<Trouper>().Ignore(x => x.UserName);
-            builder.Entity<Trouper>().Ignore(x => x.NormalizedUserName);
-            builder.Entity<Trouper>().Ignore(x => x.ConcurrencyStamp);
+            builder.Entity<Traveller>().Ignore(x => x.UserName);
+            builder.Entity<Traveller>().Ignore(x => x.NormalizedUserName);
+            builder.Entity<Traveller>().Ignore(x => x.ConcurrencyStamp);
         }
     }
 }

@@ -12,15 +12,15 @@ I guess one ticket can be used to fly many times, eg:a return flight ticket(in a
 Neither the passenger ID, nor the name is permanent (for example, one can change the last name or passport),
 so it is impossible to uniquely identify all tickets of a particular passenger.
 
-create the trouper table
-copy the passenger id and name column to the trouper table from the tickets table
-create a new column(trouper_id) in the tickets table that references the id column in the trouper table
-write a query to match the name column in the trouper table witht the names in the tickets table
+create the traveller table
+copy the passenger id and name column to the Traveller table from the tickets table
+create a new column(Traveller_id) in the tickets table that references the id column in the Traveller table
+write a query to match the name column in the Traveller table witht the names in the tickets table
 change all the foreign key references to the table column depending on the former id..nothing depends on the id and name in the tickets table anyway
 drop the passenger id and name column
 
 
 .\devtunnel.exe host -p 7293 --protocol https --allow-anonymous
-Add-Migration -Project Infrastructure -OutputDir Migrations/Trouper -Context TrouperDbContext -Name First
+Add-Migration -Project Infrastructure -OutputDir Migrations/Traveller -Context TravellerDbContext -Name ChangedTableNameToTraveller
 
 use hash partition on (ticket_flight,flight_id)
