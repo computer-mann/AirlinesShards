@@ -4,11 +4,10 @@ using System.Diagnostics;
 using StackExchange.Redis;
 using Redis.OM;
 using NRedisStack.RedisStackCommands;
-using Domain.Tables;
-using Infrastructure.Database;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Identity;
-using AirlinesApi;
+using AirlinesApi.Database.DbContexts;
+using AirlinesApi.Database.Models;
 
 
 namespace AirlinesApi.Controllers

@@ -1,5 +1,4 @@
-﻿using AirlinesApi;
-using Domain.Tables;
+﻿using AirlinesApi.Database.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

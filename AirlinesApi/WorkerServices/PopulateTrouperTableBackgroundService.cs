@@ -1,71 +1,56 @@
-﻿using AirlinesApi;
-using Domain.Tables;
-using Infrastructure.Database;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Build.Framework;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
 using StackExchange.Redis;
+using AirlinesApi.Database.Models;
+using Redis.OM;
+using AirlinesApi.Infrastructure;
+using Redis.OM.Searching;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace Infrastructure.WorkerServices
+
+namespace AirlinesApi.WorkerServices
 {
     public class PopulateTravellerTableBackgroundService : BackgroundService
     {
-        private const string distinctKey = "distinctCustomerNo";
-        private const string ticketTableRecordsNumKey = "ticketTableRecords";
-        private const string passengerNameSetkey = "passengerNameSet";
+        private readonly RedisConnectionProvider _redisProvider;
         private readonly ILogger<PopulateTravellerTableBackgroundService> logger;
         private readonly IServiceProvider provider;
-        private readonly IConnectionMultiplexer connectionMultiplexer;
 
-        public PopulateTravellerTableBackgroundService(ILogger<PopulateTravellerTableBackgroundService> logger, IServiceProvider provider, IConnectionMultiplexer connectionMultiplexer)
+        public PopulateTravellerTableBackgroundService(ILogger<PopulateTravellerTableBackgroundService> logger, IServiceProvider provider,
+             RedisConnectionProvider redisProvider)
         {
             this.logger = logger;
             this.provider = provider;
-            this.connectionMultiplexer = connectionMultiplexer;
+            _redisProvider = redisProvider;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             logger.LogInformation("Starting background service:");
 
-
-
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
+            //    logger.LogInformation("Asmongold {0}", DateTime.Now);
+            //    await Task.Delay(6000);
+            //}
+           // await PopulateRedisWithUserTable();
+            logger.LogInformation("service ending.");
+        }
+        private async Task PopulateRedisWithUserTable()
+        {
             using (var service = provider.CreateAsyncScope())
             {
                 var userManager = service.ServiceProvider.GetRequiredService<UserManager<Traveller>>();
-                var TravellerContext = service.ServiceProvider.GetRequiredService<TravellerDbContext>();
-                var airlinesContext = service.ServiceProvider.GetRequiredService<AirlinesDbContext>();
-                logger.LogInformation("memory for before db call => {0}mb", CheckGcMemoryInMb());
                 var users = userManager.Users.ToList();
-                logger.LogInformation("memory for all Travellers table => {0}mb", CheckGcMemoryInMb());
-                //var tickets = airlinesContext.Tickets.OrderBy(e=>e.TicketNo)
-                //  .Where(e=>!string.IsNullOrEmpty(e.PassengerId)).Take(42).ToList();
-
-
-                logger.LogInformation("ended foreach");
-                logger.LogInformation("about to iterate through the updated tickets.");
-                while (!stoppingToken.IsCancellationRequested)
+                List<RedisTraveller> redisTravellers = new();
+                foreach (var user in users)
                 {
-
-                    logger.LogInformation("Asmongold {0}", DateTime.Now);
-                    await Task.Delay(6000);
+                    redisTravellers.Add(RedisTraveller.ToRedisTraveller(user));
                 }
-                logger.LogInformation("service ending.");
+               await _redisProvider.Connection.CreateIndexAsync(typeof(RedisTraveller));
+                RedisCollection<RedisTraveller> _people=(RedisCollection<RedisTraveller>)_redisProvider.RedisCollection<RedisTraveller>();
+                await _people.InsertAsync(redisTravellers);
+                await Task.CompletedTask;
             }
         }
 
-        private long CheckGcMemoryInMb()
-        {
-            return GC.GetTotalMemory(false) / 1024 / 1024;
-        }
     }
 }

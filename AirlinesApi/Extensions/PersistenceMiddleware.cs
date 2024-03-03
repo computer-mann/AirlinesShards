@@ -1,7 +1,4 @@
-﻿using AirlinesApi;
-using Domain.Tables;
-using Domain.Validators;
-using Infrastructure.Database;
+﻿using Domain.Validators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Redis.OM;
 using StackExchange.Redis;
+using AirlinesApi.Database.DbContexts;
+using AirlinesApi.Database.Models;
 
-namespace Infrastructure.Extensions
+namespace AirlinesApi.Extensions
 {
     public static class PersistenceMiddleware
     {
@@ -26,14 +25,16 @@ namespace Infrastructure.Extensions
         public static void AddAppDbContexts(this IServiceCollection services, IConfiguration configuration)
         {
             Action<DbContextOptionsBuilder>? optionsAction = (options) => options.UseNpgsql(configuration.GetConnectionString("Database"));
-            //services.AddDbContext<AirlinesDbContext>(optionsAction);
+            services.AddDbContext<AirlinesDbContext>(optionsAction);
             services.Replace(ServiceDescriptor.Scoped<IUserValidator<Traveller>, CustomTravellerValidator>());
-            services.AddDbContext<TravellerDbContext>(optionsAction);
-            //services.AddDbContext<CompanyDbContext>(optionsAction);
-
+            
             services.AddIdentityCore<Traveller>()
                 .AddEntityFrameworkStores<TravellerDbContext>()
                 .AddUserValidator<CustomTravellerValidator>();
+
+            services.AddDbContext<CompanyDbContext>(optionsAction);
+
+            services.AddDbContext<TravellerDbContext>(optionsAction);
 
             services.Configure<IdentityOptions>(options =>
             {

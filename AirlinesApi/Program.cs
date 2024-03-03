@@ -1,10 +1,20 @@
-using Infrastructure.Extensions;
+using AirlinesApi.Extensions;
 using Serilog;
 using AirlinesApi.Filters;
-using Infrastructure.WorkerServices;
+using AirlinesApi.WorkerServices;
 using Serilog.Events;
-using Infrastructure.Options;
+using AirlinesApi.Options;
 using AirlinesApi.Middlewares;
+using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
+using AirlinesApi.ViewModels;
+using AirlinesApi.ModelValidators;
+using FluentValidation.AspNetCore;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
+using Npgsql;
 
 
 
@@ -25,7 +35,8 @@ namespace AirlinesApi
                 builder.Host.UseSerilog();
                 var services = builder.Services;
                 // Add services to the container.
-                //services.AddHostedService<PopulateTravellerTableBackgroundService>();
+                ConfigureServices(services, builder.Configuration);
+                services.AddHostedService<PopulateTravellerTableBackgroundService>();
                 services.AddControllers(options =>
                 {
                     options.Filters.Add<LogRequestTimeAndDurationActionFilter>();
@@ -36,6 +47,8 @@ namespace AirlinesApi
                 services.AddSwaggerGen();
                services.AddExceptionHandler<GlobalExceptionHandler>();
                 services.AddProblemDetails();
+                services.AddAuthenticationCore();
+                services.AddAuthorizationCore();
                 services.AddRedisOMServices(builder.Configuration);
                 services.AddAppDbContexts(builder.Configuration);
                 var app = builder.Build();
@@ -69,6 +82,49 @@ namespace AirlinesApi
                 Log.CloseAndFlush();
             }
 
+        }
+
+        private static void ConfigureServices(IServiceCollection services,IConfiguration configuration)
+        {
+            //services.Configure<ApiBehaviorOptions>(options =>
+            //{
+            //    options.SuppressModelStateInvalidFilter = true;
+            //});
+            services.AddScoped<IValidator<LoginViewModel>, LoginValidator>();
+            services.AddFluentValidationAutoValidation(options =>
+            {
+                options.DisableDataAnnotationsValidation = true;
+            });
+            const string serviceName = "nunoo-airlines-api";
+            services.AddLogging(l =>
+            {
+                l.AddOpenTelemetry(o =>
+                {
+                    o.AddConsoleExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
+                });
+            });
+            services.AddOpenTelemetry()
+                .ConfigureResource(r=>
+                {
+                    
+                    r.AddService(serviceName);
+                })
+                .WithTracing(tracing =>
+                {
+                    tracing.AddNpgsql();
+                    tracing.AddAspNetCoreInstrumentation();
+                    //tracing.AddHttpClientInstrumentation();
+                    tracing.AddEntityFrameworkCoreInstrumentation();
+                    tracing.AddRedisInstrumentation();
+                    tracing.AddConsoleExporter();
+                });
+            //.WithMetrics(metrics =>
+            // {
+            //     metrics.AddAspNetCoreInstrumentation()
+            //     .AddMeter("Microsoft.AspNetCore.Hosting")
+            //     .AddMeter("Microsoft.AspNetCore.Server.Kestrel");
+            //     metrics.AddConsoleExporter();
+            // })
         }
     }
 }

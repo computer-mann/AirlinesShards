@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OutputCaching;
-using Domain.Tables;
-using Infrastructure.Database;
-using AirlinesApi;
+using AirlinesApi.Database.DbContexts;
+using AirlinesApi.Database.Models;
 
 namespace AirlinesApi.Controllers
 {
