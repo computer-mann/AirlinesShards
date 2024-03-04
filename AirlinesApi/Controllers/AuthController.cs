@@ -45,23 +45,28 @@ namespace AirlinesApi.Controllers
         }
 
         [HttpGet("users")]
-        public async Task<ActionResult<List<RedisTraveller>>> GetUsers([FromQuery]string? name) 
+        public async Task<ActionResult<List<RedisTraveller>>> GetUsers([FromQuery]string? name, [FromQuery] int take=10) 
         {
+            
+            if (take < 0)
+            {
+                return NoContent();
+            }
             List<Traveller> travellers = null;
             if (string.IsNullOrEmpty(name))
             {
-                var cacheResult =await _people.Take(10).ToListAsync();
+                var cacheResult =await _people.Take(take).ToListAsync();
                 if (!cacheResult.Any())
                 {
-                    return Ok(await _userManager.Users.Take(10).ToListAsync());
+                    return Ok(await _userManager.Users.Take(take).ToListAsync());
                 }
                 return Ok(cacheResult);
             }
             name=name.ToUpper();
-            var cacheallResult =await _people.Where(x => x.PassengerName.Contains(name)).Take(10).ToListAsync();
+            var cacheallResult =await _people.Where(x => x.PassengerName.Contains(name)).Take(take).ToListAsync();
             if (cacheallResult.Any()) return Ok(cacheallResult);
             
-            return Ok(await _userManager.Users.Where(x => x.PassengerName.Contains(name.ToUpper())).Take(10).ToListAsync());
+            return Ok(await _userManager.Users.Where(x => x.PassengerName.Contains(name.ToUpper())).Take(take).ToListAsync());
         }
     }
 }

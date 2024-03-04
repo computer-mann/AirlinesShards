@@ -21,8 +21,8 @@ drop the passenger id and name column
 
 
 .\devtunnel.exe host -p 7293 --protocol https --allow-anonymous
-Add-Migration -OutputDir Database/Migrations/Traveller -Context TravellerDbContext -Name AddingUsernameConstraint
-Add-Migration -OutputDir Database/Migrations/Airlines -Context AirlinesDbContext -Name InitialMigrations
+Add-Migration -OutputDir Database/Migrations/Traveller -Context TravellerDbContext -Name AddUsernameIndex
+Add-Migration -OutputDir Database/Migrations/Airlines -Context AirlinesDbContext -Name AddUsernameIndex
 Add-Migration -OutputDir Database/Migrations/Company -Context CompanyDbContext -Name AddingUsername
 Add-Migration -OutputDir Database/Migrations/Traveller -Context TravellerDbContext -Name AddingUsernameConstraint
 use hash partition on (ticket_flight,flight_id)

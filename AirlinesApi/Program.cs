@@ -37,10 +37,7 @@ namespace AirlinesApi
                 // Add services to the container.
                 ConfigureServices(services, builder.Configuration);
                 services.AddHostedService<PopulateTravellerTableBackgroundService>();
-                services.AddControllers(options =>
-                {
-                    options.Filters.Add<LogRequestTimeAndDurationActionFilter>();
-                });
+               
                 services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
                 services.AddOutputCache();
                 services.AddEndpointsApiExplorer();
@@ -86,6 +83,8 @@ namespace AirlinesApi
 
         private static void ConfigureServices(IServiceCollection services,IConfiguration configuration)
         {
+            
+            services.AddControllers();
             //services.Configure<ApiBehaviorOptions>(options =>
             //{
             //    options.SuppressModelStateInvalidFilter = true;
@@ -95,36 +94,12 @@ namespace AirlinesApi
             {
                 options.DisableDataAnnotationsValidation = true;
             });
-            const string serviceName = "nunoo-airlines-api";
-            services.AddLogging(l =>
-            {
-                l.AddOpenTelemetry(o =>
-                {
-                    o.AddConsoleExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
-                });
-            });
-            services.AddOpenTelemetry()
-                .ConfigureResource(r=>
-                {
-                    
-                    r.AddService(serviceName);
-                })
-                .WithTracing(tracing =>
-                {
-                    tracing.AddNpgsql();
-                    tracing.AddAspNetCoreInstrumentation();
-                    //tracing.AddHttpClientInstrumentation();
-                    tracing.AddEntityFrameworkCoreInstrumentation();
-                    tracing.AddRedisInstrumentation();
-                    tracing.AddConsoleExporter();
-                });
-            //.WithMetrics(metrics =>
-            // {
-            //     metrics.AddAspNetCoreInstrumentation()
-            //     .AddMeter("Microsoft.AspNetCore.Hosting")
-            //     .AddMeter("Microsoft.AspNetCore.Server.Kestrel");
-            //     metrics.AddConsoleExporter();
-            // })
+            
+        }
+
+        public void Configure(WebApplication app)
+        {
+            
         }
     }
 }

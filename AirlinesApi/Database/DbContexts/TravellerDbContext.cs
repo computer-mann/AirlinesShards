@@ -35,9 +35,11 @@ namespace AirlinesApi.Database.DbContexts
                 entity.Property(e => e.Country).HasColumnType("varchar(35)").IsRequired();
                 entity.Property(e => e.UserName).HasColumnType("varchar(40)");
                 entity.Property(e => e.NormalizedEmail).HasColumnType("varchar(40)");
+                
 
             });
 
+            builder.Entity<Traveller>().HasIndex(b=>b.NormalizedUserName).IsUnique().HasDatabaseName("idx_username");
         }
     }
 }

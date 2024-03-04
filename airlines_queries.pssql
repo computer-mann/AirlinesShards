@@ -159,3 +159,6 @@ do $$
             end loop;
     end;
 $$
+
+--create index idx_username on travellers(normalizedusername) WITH (deduplicate_items = off)
+create index idx_username on travellers("NormalizedUserName") WITH (deduplicate_items = off)

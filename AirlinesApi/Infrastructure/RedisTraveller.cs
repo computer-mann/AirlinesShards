@@ -17,7 +17,6 @@ namespace AirlinesApi.Infrastructure
         public string PassengerName { get; set; } = null!;
         [Indexed]
         public string Country { get; set; } = null!;
-        public  string? Email { get; set; }
         [Indexed]
         public  string? NormalizedEmail { get; set; }
 
@@ -33,7 +32,6 @@ namespace AirlinesApi.Infrastructure
         {
             Id = traveller.Id,
             Country = traveller.Country,
-            Email = traveller.Email,
             NormalizedEmail = traveller.NormalizedEmail,
             PasswordHash = traveller.PasswordHash,
             PhoneNumber = traveller.PhoneNumber,

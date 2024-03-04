@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace AirlinesApi.Filters
 {
+    //open telemetry will haandle the request time and duration, so i dont need you anymore
     public class LogRequestTimeAndDurationActionFilter : IActionFilter
     {
         private readonly ILogger<LogRequestTimeAndDurationActionFilter> logger;

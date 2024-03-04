@@ -330,6 +330,8 @@ public partial class AirlinesDbContext : DbContext
 
             entity.HasIndex(e => e.PassengerName, "idx_passengernames");
 
+            entity.HasIndex(e => e.NormalizedUserName, "idx_username").IsUnique();
+
             entity.Property(e => e.Id)
                 .HasMaxLength(25)
                 .IsFixedLength();
