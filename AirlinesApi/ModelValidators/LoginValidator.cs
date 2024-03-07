@@ -7,8 +7,8 @@ namespace AirlinesApi.ModelValidators
     {
         public LoginValidator()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("'{PropertyValue}' is not a valid email address");
-            RuleFor(x => x.Password).MinimumLength(6);
+            RuleFor(x => x.Username).NotEmpty().MinimumLength(3);
+            RuleFor(x => x.Password).NotEmpty().MinimumLength(4);
         }
     }
 }

@@ -6,9 +6,13 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Redis.OM;
 using Redis.OM.Searching;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace AirlinesApi.Controllers
 {
@@ -21,7 +25,6 @@ namespace AirlinesApi.Controllers
         private readonly UserManager<Traveller> _userManager;
         private readonly RedisConnectionProvider _redisProvider;
         private readonly RedisCollection<RedisTraveller> _people;
-        //private readonly IValidator<LoginViewModel> _loginValidator;
         public AuthController(ILogger<AuthController> logger, IOptions<JwtOptions> options,
             UserManager<Traveller> userManager, RedisConnectionProvider redisProvider)
         {
@@ -34,14 +37,26 @@ namespace AirlinesApi.Controllers
         }
 
         [HttpPost("/login")]
-        public ActionResult Login(LoginViewModel viewModel)
+        public async Task<ActionResult> Login(LoginViewModel viewModel)
         {
-            //var validationResults = _loginValidator.Validate(viewModel);
-            //if (!validationResults.IsValid)
-            //{
-            //    return BadRequest(validationResults.Errors);
-            //}
-            return Ok(viewModel);
+            var user =await _userManager.FindByNameAsync(viewModel.Username);
+            if(user == null)
+            {
+                return Unauthorized(new { Message = "Invalid Email or username" });
+            }
+            else
+            {
+                var passwordResult=await _userManager.CheckPasswordAsync(user, viewModel.Password);
+                if(passwordResult == false)
+                {
+                    return Unauthorized(new { Message = "Incorrect password" });
+                }else 
+                {
+                    HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, user.Id));
+                    return Ok(new { Message = "Login success" });
+                }
+            }
+            
         }
 
         [HttpGet("users")]
@@ -67,6 +82,26 @@ namespace AirlinesApi.Controllers
             if (cacheallResult.Any()) return Ok(cacheallResult);
             
             return Ok(await _userManager.Users.Where(x => x.PassengerName.Contains(name.ToUpper())).Take(take).ToListAsync());
+        }
+        private string GenerateJwt(string username, string userId)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier,username),
+                new Claim(ClaimTypes.Name,userId)
+            };
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _jwtOptions.Key));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                                   claims: claims,
+                                   audience: _jwtOptions.Audience,
+                                   expires: DateTime.UtcNow.AddDays(6),
+                                   signingCredentials: cred,
+                                   issuer: _jwtOptions.Issuer
+                                             );
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
         }
     }
 }

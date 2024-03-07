@@ -8,14 +8,14 @@ namespace AirlinesApi.Extensions
     public static class InstrumentationMiddleware
     {
         //https://www.youtube.com/watch?v=CdcApjTBLEM
-        public static void AddOpenTelemetryServices(IServiceCollection services)
+        public static void AddOpenTelemetryServices(this IServiceCollection services)
         {
             const string serviceName = "nunoo-airlines-api";
             services.AddLogging(l =>
             {
                 l.AddOpenTelemetry(o =>
                 {
-                    o.AddConsoleExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
+                    o.AddOtlpExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
                 });
             });
             services.AddOpenTelemetry()
@@ -31,7 +31,7 @@ namespace AirlinesApi.Extensions
                     //tracing.AddHttpClientInstrumentation();
                     tracing.AddEntityFrameworkCoreInstrumentation();
                     tracing.AddRedisInstrumentation();
-                   // tracing.Add();
+                    tracing.AddOtlpExporter();
                 });
             //.WithMetrics(metrics =>
             // {

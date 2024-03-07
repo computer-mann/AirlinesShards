@@ -29,7 +29,7 @@ namespace AirlinesApi.Database.DbContexts
             builder.Entity<Traveller>(entity =>
             {
                 entity.ToTable("travellers");
-                entity.Property(e => e.Id).HasColumnType("char(25)");
+                entity.Property(e => e.Id).HasColumnType("char(25)").HasColumnName("traveller_id");
                 entity.Property(e => e.PassengerName).HasColumnName("passenger_name").HasColumnType("varchar(75)").IsRequired();
                 entity.Property(e => e.PhoneNumber).HasColumnType("varchar(15)");
                 entity.Property(e => e.Country).HasColumnType("varchar(35)").IsRequired();

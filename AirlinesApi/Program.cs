@@ -15,6 +15,15 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using Npgsql;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using AirlinesApi.Infrastructure;
 
 
 
@@ -28,6 +37,7 @@ namespace AirlinesApi
             var builder = WebApplication.CreateBuilder(args);
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
+                .WriteTo.File("SerilogLogs/log.txt", rollingInterval: RollingInterval.Hour)
                 .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}")
                 .CreateBootstrapLogger();
             try
@@ -36,36 +46,10 @@ namespace AirlinesApi
                 var services = builder.Services;
                 // Add services to the container.
                 ConfigureServices(services, builder.Configuration);
-                services.AddHostedService<PopulateTravellerTableBackgroundService>();
-               
-                services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
-                services.AddOutputCache();
-                services.AddEndpointsApiExplorer();
-                services.AddSwaggerGen();
-               services.AddExceptionHandler<GlobalExceptionHandler>();
-                services.AddProblemDetails();
-                services.AddAuthenticationCore();
-                services.AddAuthorizationCore();
-                services.AddRedisOMServices(builder.Configuration);
-                services.AddAppDbContexts(builder.Configuration);
-                var app = builder.Build();
-
-                // Configure the HTTP request pipeline.
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseSwagger();
-                    app.UseSwaggerUI();
-                }
-                app.UseExceptionHandler();
-                app.UseHttpsRedirection();
-                app.UseOutputCache();
-                app.UseAuthorization();
-
-
-                app.MapControllers();
                 
-                app.Logger.LogInformation("App starting at {0}", DateTime.Now);
-                app.Run();
+                var app = builder.Build();
+                Configure(app);
+              
             }catch(Exception ex)
             {
                 string type = ex.GetType().Name;
@@ -83,8 +67,28 @@ namespace AirlinesApi
 
         private static void ConfigureServices(IServiceCollection services,IConfiguration configuration)
         {
+            var jwt = configuration.GetSection("JwtOptions").Get<JwtOptions>();
             
-            services.AddControllers();
+            services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,options =>
+            {
+                
+                options.TokenValidationParameters =
+                  new TokenValidationParameters
+                  {
+                      ValidAudience = jwt!.Audience,
+                      ValidIssuer = jwt.Audience,
+                      ValidateIssuer=true,
+                      ValidateAudience=true,
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key!))
+                  };
+                
+            });
+            services.AddAuthorization();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.MaxDepth = 0;
+            }); 
             //services.Configure<ApiBehaviorOptions>(options =>
             //{
             //    options.SuppressModelStateInvalidFilter = true;
@@ -94,12 +98,45 @@ namespace AirlinesApi
             {
                 options.DisableDataAnnotationsValidation = true;
             });
-            
+            services.AddHostedService<PopulateTravellerTableBackgroundService>();
+
+            services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
+            services.AddStackExchangeRedisOutputCache(options =>
+            {
+                options.Configuration =
+                    configuration.GetConnectionString("Redis");
+            });
+            services.AddOutputCache(options =>
+            {
+                options.AddBasePolicy(options => options.AddPolicy<IgnoreAuthorizationOutputCachePolicy>(), true);
+            });
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
+            services.AddRedisOMServices(configuration);
+            services.AddAppDbContexts(configuration);
+            services.AddOpenTelemetryServices();
         }
 
-        public void Configure(WebApplication app)
+        public static void Configure(WebApplication app)
         {
-            
+            // Configure the HTTP request pipeline.
+            app.UseOutputCache();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            app.UseExceptionHandler();
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Logger.LogInformation("App starting at {0}", DateTime.Now);
+            app.Run();
         }
     }
 }

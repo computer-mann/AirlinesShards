@@ -2,6 +2,7 @@
  
  Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Domain/Tables/Models -ContextDir Infrastructure/Models/Contexts/DbContexts
  https://postgrespro.com/docs/postgrespro/10/apjs04.html
+ https://postgrespro.com/docs/postgrespro/10/apjs02  diagram
 
 
 find the number of times each user has flown with us since the company's inception
@@ -26,3 +27,7 @@ Add-Migration -OutputDir Database/Migrations/Airlines -Context AirlinesDbContext
 Add-Migration -OutputDir Database/Migrations/Company -Context CompanyDbContext -Name AddingUsername
 Add-Migration -OutputDir Database/Migrations/Traveller -Context TravellerDbContext -Name AddingUsernameConstraint
 use hash partition on (ticket_flight,flight_id)
+
+password for users= password1
+
+ 

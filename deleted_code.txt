@@ -1,0 +1,22 @@
+var res = await _airlinesDbContext.Tickets.Where(e => e.PassengerId == user)
+                 .OrderBy(o => o.PassengerId)
+                .Select(data => new
+                {
+                    passenger_name = data.Passenger.PassengerName,
+                    amount = data.BookRefNavigation.TotalAmount,
+                    flights = data.TicketFlights.AsEnumerable().Select(pr =>
+                        new
+                        {
+                            seat_class = pr.FareCondition.FlightClass,
+                            arrival_airport = pr.Flight.ArrivalAirport,
+                            status = pr.Flight.Status,
+                            scheduled_departure = pr.Flight.ScheduledDeparture,
+                        }
+                    )
+                }).Take(5).ToListAsync();
+
+
+               using var db=_airlinesDbContext.GetDbConnection();
+db.Open();
+            
+var books = await db.QueryAsync<Ticket>($"select * from tickets where passenger_id=@id limit 2", new {id=user});

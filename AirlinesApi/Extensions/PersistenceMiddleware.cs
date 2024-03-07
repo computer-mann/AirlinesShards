@@ -24,7 +24,11 @@ namespace AirlinesApi.Extensions
         }
         public static void AddAppDbContexts(this IServiceCollection services, IConfiguration configuration)
         {
-            Action<DbContextOptionsBuilder>? optionsAction = (options) => options.UseNpgsql(configuration.GetConnectionString("Database"));
+            Action<DbContextOptionsBuilder>? optionsAction = (options) => {
+                options.UseNpgsql(configuration.GetConnectionString("Database"));
+                options.EnableSensitiveDataLogging();
+                options.EnableDetailedErrors();
+                };
             services.AddDbContext<AirlinesDbContext>(optionsAction);
             services.Replace(ServiceDescriptor.Scoped<IUserValidator<Traveller>, CustomTravellerValidator>());
             
@@ -33,7 +37,7 @@ namespace AirlinesApi.Extensions
                 .AddUserValidator<CustomTravellerValidator>();
 
             services.AddDbContext<CompanyDbContext>(optionsAction);
-
+            services.AddSingleton<DapperAirlinesContext>();
             services.AddDbContext<TravellerDbContext>(optionsAction);
 
             services.Configure<IdentityOptions>(options =>

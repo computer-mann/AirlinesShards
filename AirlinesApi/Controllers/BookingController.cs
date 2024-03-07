@@ -1,20 +1,32 @@
-﻿using AirlinesApi.ViewModels;
+﻿using AirlinesApi.Database.DbContexts;
+using AirlinesApi.Database.Models;
+using AirlinesApi.ViewModels;
+using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AirlinesApi.Controllers
 {
     [ApiController]
     [Route("/api/booking")]
+    [Authorize]
     public class BookingController:ControllerBase
     {
-        public BookingController()
+        private readonly AirlinesDbContext _airlinesDbContext;
+        private string _userId=>User.Identity.Name;
+        public BookingController(AirlinesDbContext airlinesDbContext)
         {
+            _airlinesDbContext = airlinesDbContext;
             
         }
         [HttpGet]
-        public ActionResult Index([FromQuery]LoginViewModel model)
+        public async Task<ActionResult> GetAllBookingsForAUser()
         {
-            return Ok(model);
+            var bookings =await _airlinesDbContext.Tickets.Include(b=>b.BookRefNavigation).Where(e => e.PassengerId == _userId).ToListAsync();
+            return Ok(bookings);
         }
+       
     }
 }

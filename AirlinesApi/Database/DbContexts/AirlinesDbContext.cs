@@ -1,10 +1,12 @@
 ﻿using AirlinesApi.Database.DbObjects;
 using AirlinesApi.Database.Models;
+using AirlinesApi.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Text.Json;
 
 
 namespace AirlinesApi.Database.DbContexts;
@@ -88,7 +90,11 @@ public partial class AirlinesDbContext : DbContext
             entity.Property(e => e.AirportName)
                 .HasComment("Airport name")
                 .HasColumnType("jsonb")
-                .HasColumnName("airport_name");
+                .HasColumnName("airport_name")
+                .HasConversion(
+                          v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                           v => JsonSerializer.Deserialize<ArrivalAirpotViewmodel>(v, (JsonSerializerOptions)null)); ;
+
             entity.Property(e => e.City)
                 .HasComment("City")
                 .HasColumnType("jsonb")
@@ -207,15 +213,15 @@ public partial class AirlinesDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("flights_aircraft_code_fkey");
 
-            //entity.HasOne(d => d.ArrivalAirportNavigation).WithMany(p => p.FlightArrivalAirportNavigations)
-            //    .HasForeignKey(d => d.ArrivalAirport)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("flights_arrival_airport_fkey");
+            entity.HasOne(d => d.ArrivalAirportNavigation).WithMany(p => p.FlightArrivalAirportNavigations)
+                .HasForeignKey(d => d.ArrivalAirport)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("flights_arrival_airport_fkey");
 
-            //entity.HasOne(d => d.DepartureAirportNavigation).WithMany(p => p.FlightDepartureAirportNavigations)
-            //    .HasForeignKey(d => d.DepartureAirport)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("flights_departure_airport_fkey");
+            entity.HasOne(d => d.DepartureAirportNavigation).WithMany(p => p.FlightDepartureAirportNavigations)
+                .HasForeignKey(d => d.DepartureAirport)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("flights_departure_airport_fkey");
         });
 
         modelBuilder.Entity<Seat>(entity =>
@@ -332,7 +338,7 @@ public partial class AirlinesDbContext : DbContext
 
             entity.HasIndex(e => e.NormalizedUserName, "idx_username").IsUnique();
 
-            entity.Property(e => e.Id)
+            entity.Property(e => e.Id).HasColumnName("traveller_id")
                 .HasMaxLength(25)
                 .IsFixedLength();
             entity.Property(e => e.Country).HasMaxLength(35);

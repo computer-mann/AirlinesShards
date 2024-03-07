@@ -5,7 +5,7 @@ namespace AirlinesApi.ViewModels
     public class LoginViewModel
     {
        // [EmailAddress]
-        public string Email { get; set; }
+        public string Username { get; set; }
        // [MinLength(6)]
         public string Password { get; set; }
     }

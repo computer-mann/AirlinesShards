@@ -8,37 +8,53 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OutputCaching;
 using AirlinesApi.Database.DbContexts;
 using AirlinesApi.Database.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AirlinesApi.Controllers
 {
     [Route("/api/flights")]
     [ApiController]
+    [Authorize]
     public class FlightsController : ControllerBase
     {
         private readonly AirlinesDbContext _context;
         private readonly ILogger<FlightsController> _logger;
+        private string _userId => User.Identity.Name;
         public FlightsController(AirlinesDbContext context,ILogger<FlightsController> logger)
         {
             _context = context;
             _logger = logger;
         }
 
+
         // GET: api/Flights
         [HttpGet]
-        [OutputCache(Duration =100)]
-        public async Task<ActionResult<IEnumerable<TicketFlight>>> GetTicketFlights()
+        [OutputCache(Duration =1000)]
+        public async Task<ActionResult<IEnumerable<TicketFlight>>> GetAllFlightsForAuser(CancellationToken token)
         {
-            
-            var counts = await _context.TicketFlights.CountAsync();
-            return new JsonResult(new {count= counts});
+           var flightsForUser = await _context.Tickets.Where(n => n.PassengerId == _userId)
+                                .OrderBy(e=>e.TicketNo)
+                                .Include(e => e.TicketFlights).ThenInclude(f => f.Flight)
+                                .Select(s => new
+                                {
+                                    passenger_names=s.Passenger.PassengerName,
+                                    flight_number=s.TicketFlights.AsEnumerable().Select(flight=>flight.Flight.FlightNo),
+                                    fare_condition=s.TicketFlights.AsEnumerable().Select(con=>con.FareCondition.FlightClass),
+                                    arrival_airpot= s.TicketFlights.AsEnumerable().Select(airpot=>airpot.Flight.ArrivalAirportNavigation.AirportName.AirportNameEnglish),
+                                    departure_airpot= s.TicketFlights.AsEnumerable().Select(airpot => airpot.Flight.DepartureAirportNavigation.AirportName.AirportNameEnglish),
+                                }).AsNoTracking()
+                                .ToListAsync(token);
+            _logger.LogInformation("flightsforuser count is {count}", flightsForUser.Count);
+            return Ok(flightsForUser);
         }
 
         [HttpGet("fare")]
-        [OutputCache(Duration =200)]
+        [OutputCache(Duration =2000)]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAvailableFareConditions()
         {
             string distinctSeatQuery = "select distinct fare_condition_id from ticket_flights limit 200";
-            var res =await _context.Database.SqlQueryRaw<int>(distinctSeatQuery).ToListAsync();  
+            var res =await _context.Database.SqlQueryRaw<int>("select 1").ToListAsync();  
             return new JsonResult(new {seats= res });
         }
 

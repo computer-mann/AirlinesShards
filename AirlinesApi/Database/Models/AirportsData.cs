@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AirlinesApi.ViewModels;
 using NpgsqlTypes;
 
 namespace AirlinesApi.Database.Models;
@@ -19,7 +20,7 @@ public partial class AirportsData
     /// <summary>
     /// Airport name
     /// </summary>
-    public string AirportName { get; set; } = null!;
+    public ArrivalAirpotViewmodel AirportName { get; set; } = null!;
 
     /// <summary>
     /// City
@@ -36,7 +37,7 @@ public partial class AirportsData
     /// </summary>
     public string Timezone { get; set; } = null!;
 
-    //public virtual ICollection<Flight> FlightArrivalAirportNavigations { get; set; } = new List<Flight>();
+    public virtual ICollection<Flight> FlightArrivalAirportNavigations { get; set; } = new List<Flight>();
 
-    //public virtual ICollection<Flight> FlightDepartureAirportNavigations { get; set; } = new List<Flight>();
+    public virtual ICollection<Flight> FlightDepartureAirportNavigations { get; set; } = new List<Flight>();
 }

@@ -16,6 +16,7 @@ public partial class Traveller : IdentityUser
     }
     [RedisIdField]
     [Indexed]
+    [Column("traveller_id")]
     public override string Id { get; set; } = null!;
     [Indexed]
     public string PassengerName { get; set; } = null!;
