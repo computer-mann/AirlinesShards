@@ -38,6 +38,7 @@ namespace AirlinesApi
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
                 .WriteTo.File("SerilogLogs/log.txt", rollingInterval: RollingInterval.Hour)
+                .WriteTo.Seq(builder.Configuration.GetConnectionString("Seq")!)
                 .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}")
                 .CreateBootstrapLogger();
             try
@@ -123,7 +124,6 @@ namespace AirlinesApi
         {
             // Configure the HTTP request pipeline.
             app.UseOutputCache();
-            app.MapPost("",);
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

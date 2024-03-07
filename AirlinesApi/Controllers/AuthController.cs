@@ -22,15 +22,15 @@ namespace AirlinesApi.Controllers
     {
         private readonly ILogger<AuthController> _logger;
         private readonly JwtOptions _jwtOptions;
-        private readonly UserManager<Traveller> _userManager;
+        private readonly SignInManager<Traveller> _signInManager;
         private readonly RedisConnectionProvider _redisProvider;
         private readonly RedisCollection<RedisTraveller> _people;
         public AuthController(ILogger<AuthController> logger, IOptions<JwtOptions> options,
-            UserManager<Traveller> userManager, RedisConnectionProvider redisProvider)
+            SignInManager<Traveller> signInmanager, RedisConnectionProvider redisProvider)
         {
             _logger = logger;
             _jwtOptions = options.Value;
-            _userManager = userManager;
+            _signInManager = signInmanager;
             _redisProvider = redisProvider;
             _people = (RedisCollection<RedisTraveller>)_redisProvider.RedisCollection<RedisTraveller>();
           //  _loginValidator = loginValidator;
@@ -39,30 +39,37 @@ namespace AirlinesApi.Controllers
         [HttpPost("/login")]
         public async Task<ActionResult> Login(LoginViewModel viewModel)
         {
-            var user =await _userManager.FindByNameAsync(viewModel.Username);
-            if(user == null)
+            var loginResult=await _signInManager.PasswordSignInAsync(viewModel.Username,viewModel.Password,false,false);
+            if (loginResult.Succeeded)
             {
-                return Unauthorized(new { Message = "Invalid Email or username" });
+                HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, "user.Id"));
+                return Ok(new { Message = "Login success" });
             }
-            else
-            {
-                var passwordResult=await _userManager.CheckPasswordAsync(user, viewModel.Password);
-                if(passwordResult == false)
-                {
-                    return Unauthorized(new { Message = "Incorrect password" });
-                }else 
-                {
-                    HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, user.Id));
-                    return Ok(new { Message = "Login success" });
-                }
-            }
-            
+            return Unauthorized(new { Message = "Invalid username or password." });
+            //var user =await _userManager.FindByNameAsync(viewModel.Username);
+            //if(user == null)
+            //{
+            //    return Unauthorized(new { Message = "Invalid Email or username" });
+            //}
+            //else
+            //{
+            //    var passwordResult=await _userManager.CheckPasswordAsync(user, viewModel.Password);
+            //    if(passwordResult == false)
+            //    {
+            //        return Unauthorized(new { Message = "Incorrect password" });
+            //    }else 
+            //    {
+            //        HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, user.Id));
+            //        return Ok(new { Message = "Login success" });
+            //    }
+            //}
+
         }
 
         [HttpGet("users")]
         public async Task<ActionResult<List<RedisTraveller>>> GetUsers([FromQuery]string? name, [FromQuery] int take=10) 
         {
-            SignInManager
+            
             if (take < 0)
             {
                 return NoContent();
