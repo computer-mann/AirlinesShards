@@ -62,7 +62,7 @@ namespace AirlinesApi.Controllers
         [HttpGet("users")]
         public async Task<ActionResult<List<RedisTraveller>>> GetUsers([FromQuery]string? name, [FromQuery] int take=10) 
         {
-            
+            SignInManager
             if (take < 0)
             {
                 return NoContent();

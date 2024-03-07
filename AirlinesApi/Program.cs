@@ -123,6 +123,7 @@ namespace AirlinesApi
         {
             // Configure the HTTP request pipeline.
             app.UseOutputCache();
+            app.MapPost("",);
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

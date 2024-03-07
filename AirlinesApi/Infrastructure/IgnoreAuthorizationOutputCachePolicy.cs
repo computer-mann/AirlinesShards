@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.OutputCaching;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Primitives;
 
 namespace AirlinesApi.Infrastructure
@@ -47,7 +48,7 @@ namespace AirlinesApi.Infrastructure
                 context.AllowCacheStorage = false;
                 return ValueTask.CompletedTask;
             }
-
+            SignInManager
             return ValueTask.CompletedTask;
         }
         private static bool AttemptOutputCaching(OutputCacheContext context)
