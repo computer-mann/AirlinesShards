@@ -2,3 +2,9 @@
 2. could be one way or two ways
 3. or multiple(more than 2 cities/countries) ways
 https://www.wikihow.life/Fly-Spirit-Airlines
+
+travel_class
+first class
+business
+premium economy
+economy

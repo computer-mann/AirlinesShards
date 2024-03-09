@@ -8,18 +8,21 @@ using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Identity;
 using AirlinesApi.Database.DbContexts;
 using AirlinesApi.Database.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AirlinesApi.Controllers
 {
     [Route("api/tickets")]
     [ApiController]
+    [Authorize]
     public class TicketsController : ControllerBase
     {
         private readonly AirlinesDbContext _context;
         private readonly UserManager<Traveller> userManager;
         private readonly ILogger<TicketsController> logger;
         private IDatabase _redisdatabase;
+        private string _userId => User.Identity.Name;
 
 
         public TicketsController(AirlinesDbContext context, ILogger<TicketsController> logger, IConnectionMultiplexer connectionMultiplexer, TravellerDbContext TravellerDbContext, UserManager<Traveller> userManager)
@@ -31,23 +34,24 @@ namespace AirlinesApi.Controllers
         }
 
         // GET: api/Tickets/count
-        [HttpGet]
-       // [OutputCache(Duration =100)]
-        [Route("count")]
+        [HttpGet("count")]
+        [OutputCache(PolicyName = "IgnoreAuthCache")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetTicketsCount()
         {
-            
-            
-            var counts = await _context.Tickets.AsNoTracking().Where(e=>e.PassengerId != null ).CountAsync();
+            var counts = await _context.Tickets.CountAsync();
             return new JsonResult(new {ticketCount=counts});
         }
-        // GET: api/Tickets/count
+        // GET: api/Tickets?bookingCode={}
         [HttpGet]
         [OutputCache(Duration = 100)]
-        public async Task<IActionResult> GetTickets()
+        public async Task<IActionResult> GetTicketsForUserBookings([FromQuery]string bookingCode)
         {
-
-            var tickets = await _context.Tickets.AsNoTracking().OrderBy(e=>e.PassengerId).Take(100).ToListAsync();
+            if (string.IsNullOrEmpty(bookingCode))
+            {
+                return BadRequest(new {Message="Provide booking number."});
+            }
+            var tickets = await _context.Tickets.AsNoTracking().Where(b=>b.BookRef == bookingCode).Take(100).ToListAsync();
             return Ok(tickets);
         }
 

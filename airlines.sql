@@ -34,6 +34,14 @@ ORDER BY t0.passenger_id, t0.ticket_no,  vtravellers.traveller_id,  vbookings.bo
 
 -- //find all the airpots anna_ti has ever been to
 
-select count(*) from ailines_bookings.bookings
 
-SELECT pg_size_pretty( pg_database_size('airlines') )
+
+SELECT pg_size_pretty( pg_database_size('airlines') ) as dbsize;
+
+alter table ailines_bookings.bookings
+    add constraint traveller_book_ref_fkey foreign key(passenger_id) references ailines_bookings.travellers(traveller_id);
+
+select count(*) from ailines_bookings.bookings;
+select count(*) from ailines_bookings.travellers;
+
+select * from ailines_bookings.bookings limit 10;

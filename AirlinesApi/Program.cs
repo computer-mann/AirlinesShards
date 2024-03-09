@@ -39,7 +39,7 @@ namespace AirlinesApi
                 .ReadFrom.Configuration(builder.Configuration)
                 .WriteTo.File("SerilogLogs/log.txt", rollingInterval: RollingInterval.Hour)
                 .WriteTo.Seq(builder.Configuration.GetConnectionString("Seq"))
-                .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}")
+                .WriteTo.Async(wt=>wt.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}"))
                 .CreateBootstrapLogger();
             try
             {

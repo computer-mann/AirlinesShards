@@ -7,6 +7,7 @@ using Redis.OM.Searching;
 using System;
 using AirlinesApi.Database.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 
 namespace AirlinesApi.WorkerServices
@@ -34,7 +35,8 @@ namespace AirlinesApi.WorkerServices
             //    await Task.Delay(6000);
             //}
             // await PopulateRedisWithUserTable();
-          //  await AddUserNametoUserstable();
+            //  await AddUserNametoUserstable();
+           await RandomizeTheBookingsWithPassengerDataTableIDeleted();
             logger.LogInformation("service ending.");
         }
         private async Task PopulateRedisWithUserTable()
@@ -137,6 +139,31 @@ namespace AirlinesApi.WorkerServices
                await airlinesDb.SaveChangesAsync();
             }
              await Task.CompletedTask;
+        }
+
+        private async Task RandomizeTheBookingsWithPassengerDataTableIDeleted()
+        {
+            using (var service = provider.CreateAsyncScope())
+            {
+                
+                var airlinesDb = service.ServiceProvider.GetRequiredService<AirlinesDbContext>();
+                var users = airlinesDb.Travellers.Select(s=>s.Id).ToList();
+                var bookings=airlinesDb.Bookings.ToList();
+                var newUsers = new List<Traveller>();
+                var random=new Random();
+                int bookingCount=bookings.Count;
+                while(bookingCount > 0)
+                {
+                    int books=random.Next(10);
+
+
+                }
+                
+                airlinesDb.Bookings.e
+                airlinesDb.Travellers.UpdateRange(newUsers);
+                airlinesDb.SaveChanges();
+            }
+            await Task.CompletedTask;
         }
     }
 }

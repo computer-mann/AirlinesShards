@@ -32,17 +32,10 @@ namespace AirlinesApi.Controllers
         [OutputCache(Duration =1251000)]
         public async Task<ActionResult<IEnumerable<TicketFlight>>> GetAllFlightsForAuser(CancellationToken token)
         {
-           var flightsForUser = await _context.Tickets.Where(n => n.PassengerId == _userId)
-                                .OrderBy(e=>e.TicketNo)
-                                .Include(e => e.TicketFlights).ThenInclude(f => f.Flight)
-                                .Select(s => new
-                                {
-                                    passenger_names=s.Passenger.PassengerName,
-                                    flight_number=s.TicketFlights.AsEnumerable().Select(flight=>flight.Flight.FlightNo),
-                                    fare_condition=s.TicketFlights.AsEnumerable().Select(con=>con.FareCondition.FlightClass),
-                                    arrival_airpot= s.TicketFlights.AsEnumerable().Select(airpot=>airpot.Flight.ArrivalAirportNavigation.AirportName.AirportNameEnglish),
-                                    departure_airpot= s.TicketFlights.AsEnumerable().Select(airpot => airpot.Flight.DepartureAirportNavigation.AirportName.AirportNameEnglish),
-                                }).AsNoTracking()
+           var flightsForUser = await _context.Bookings.Where(n => n.PassengerId == _userId)
+                                .OrderBy(e=>e.BookDate)
+                                .Include(e => e.Tickets)
+                                .AsNoTracking()
                                 .ToListAsync(token);
             _logger.LogInformation("flightsforuser count is {count}", flightsForUser.Count);
             return Ok(flightsForUser);

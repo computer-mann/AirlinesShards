@@ -25,6 +25,7 @@ namespace AirlinesApi.Controllers
         private readonly UserManager<Traveller> _userManager;
         private readonly RedisConnectionProvider _redisProvider;
         private readonly RedisCollection<RedisTraveller> _people;
+        
         public AuthController(ILogger<AuthController> logger, IOptions<JwtOptions> options,
             UserManager<Traveller> userManager, RedisConnectionProvider redisProvider)
         {
@@ -43,6 +44,7 @@ namespace AirlinesApi.Controllers
             var user = await _userManager.FindByNameAsync(viewModel.Username);
             if (user == null)
             {
+                _logger.LogInformation("Request has an inexistent username: {@username}", viewModel);
                 return Unauthorized(new { Message = "Invalid Email or username" });
             }
             else
@@ -105,5 +107,9 @@ namespace AirlinesApi.Controllers
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
         }
+    }
+    enum UserEnum
+    {
+        None,Gunna,lilWayne
     }
 }

@@ -24,23 +24,26 @@ namespace AirlinesApi.Controllers
         }
         [HttpGet]
        // [OutputCache(PolicyName = "IgnoreAuthCache")]
-        
         public async Task<ActionResult> GetAllBookingsForAUser([FromQuery]KeyPaging keyPaging)
         {
             
-            var bookingsQuery = _airlinesDbContext.Tickets.OrderBy(e => e.TicketNo).Include(b => b.BookRefNavigation)
+            var bookingsQuery = _airlinesDbContext.Bookings.OrderBy(e => e.BookDate).Include(b => b.Tickets)
                 .Where(e => e.PassengerId == _userId);
             if (!string.IsNullOrEmpty(keyPaging.Offset))
             {
                 bookingsQuery=bookingsQuery.Where(e=>e.BookRef.CompareTo(keyPaging.Offset)>0);
             }
             var bookingsForUser=await bookingsQuery.Take(keyPaging.Limit).ToListAsync();
+            if(!bookingsForUser.Any())
+            {
+                return NotFound();
+            }
             GetBookingsViewModel viewModel = new GetBookingsViewModel()
             {
-                Previous = bookingsForUser.FirstOrDefault().BookRefNavigation.BookRef,
-                Next = bookingsForUser.LastOrDefault().BookRefNavigation.BookRef,
+                Previous = bookingsForUser.FirstOrDefault().BookRef,
+                Next = bookingsForUser.LastOrDefault().BookRef,
                 Bookings = bookingsForUser.AsEnumerable()
-                .Select(best => new BookingsDto(best.BookRef, best.BookRefNavigation.BookDate, best.BookRefNavigation.TotalAmount))
+                .Select(best => new BookingsDto(best.BookRef, best.BookDate, best.TotalAmount))
             };
 
             return Ok(viewModel);

@@ -22,11 +22,13 @@ public partial class Booking
     /// Booking date
     /// </summary>
     public DateTime BookDate { get; set; }
+    public string? PassengerId { get; set; }
 
     /// <summary>
     /// Total booking cost
     /// </summary>
     public decimal TotalAmount { get; set; }
+    public Traveller Passenger { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }
