@@ -29,7 +29,7 @@ namespace AirlinesApi.Controllers
 
         // GET: api/Flights
         [HttpGet]
-        [OutputCache(Duration =1000)]
+        [OutputCache(Duration =1251000)]
         public async Task<ActionResult<IEnumerable<TicketFlight>>> GetAllFlightsForAuser(CancellationToken token)
         {
            var flightsForUser = await _context.Tickets.Where(n => n.PassengerId == _userId)
@@ -49,7 +49,7 @@ namespace AirlinesApi.Controllers
         }
 
         [HttpGet("fare")]
-        [OutputCache(Duration =2000)]
+        [OutputCache(PolicyName = "IgnoreAuthCache", Duration =112000)]
         [AllowAnonymous]
         public async Task<ActionResult> GetAvailableFareConditions()
         {

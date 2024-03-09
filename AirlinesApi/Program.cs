@@ -38,7 +38,7 @@ namespace AirlinesApi
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
                 .WriteTo.File("SerilogLogs/log.txt", rollingInterval: RollingInterval.Hour)
-                .WriteTo.Seq(builder.Configuration.GetConnectionString("Seq")!)
+                .WriteTo.Seq(builder.Configuration.GetConnectionString("Seq"))
                 .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}")
                 .CreateBootstrapLogger();
             try
@@ -109,7 +109,14 @@ namespace AirlinesApi
             });
             services.AddOutputCache(options =>
             {
-                options.AddBasePolicy(options => options.AddPolicy<IgnoreAuthorizationOutputCachePolicy>(), true);
+                options.DefaultExpirationTimeSpan = TimeSpan.FromMinutes(10);
+                
+                options.AddPolicy("IgnoreAuthCache",policy =>
+                {
+                    policy.Tag("IgnoreAuthCache");
+                    policy.AddPolicy<IgnoreAuthorizationOutputCachePolicy>();
+                    policy.Expire(TimeSpan.FromMinutes(20));
+                },true);
             });
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

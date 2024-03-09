@@ -34,6 +34,7 @@ namespace AirlinesApi.Extensions
             
             services.AddIdentityCore<Traveller>()
                 .AddEntityFrameworkStores<TravellerDbContext>()
+                .AddDefaultTokenProviders()
                 .AddUserValidator<CustomTravellerValidator>();
 
             services.AddDbContext<CompanyDbContext>(optionsAction);

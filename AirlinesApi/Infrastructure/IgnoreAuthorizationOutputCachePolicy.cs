@@ -13,12 +13,12 @@ namespace AirlinesApi.Infrastructure
             context.AllowCacheLookup = attemptOutputCaching;
             context.AllowCacheStorage = attemptOutputCaching;
             context.AllowLocking = true;
-
+            
             // Vary by any query by default
             //i need the key of the cache to be like the url and the authentication header value
             context.CacheVaryByRules.QueryKeys = "*";
             context.CacheVaryByRules.RouteValueNames= "*";
-            context.CacheVaryByRules.HeaderNames= "*";
+            context.CacheVaryByRules.HeaderNames= context.HttpContext.User.Identity!.Name;
             
 
             return ValueTask.CompletedTask;
@@ -26,7 +26,19 @@ namespace AirlinesApi.Infrastructure
 
         public ValueTask ServeFromCacheAsync(OutputCacheContext context, CancellationToken cancellation)
         {
-            
+            var attemptOutputCaching = AttemptOutputCaching(context);
+            context.EnableOutputCaching = true;
+            context.AllowCacheLookup = attemptOutputCaching;
+            context.AllowCacheStorage = attemptOutputCaching;
+            context.AllowLocking = true;
+
+            // Vary by any query by default
+            //i need the key of the cache to be like the url and the authentication header value
+            context.CacheVaryByRules.QueryKeys = "*";
+            context.CacheVaryByRules.RouteValueNames = "*";
+            context.CacheVaryByRules.HeaderNames = "*";
+
+
             return ValueTask.CompletedTask;
         }
 
@@ -48,7 +60,7 @@ namespace AirlinesApi.Infrastructure
                 context.AllowCacheStorage = false;
                 return ValueTask.CompletedTask;
             }
-            SignInManager
+            
             return ValueTask.CompletedTask;
         }
         private static bool AttemptOutputCaching(OutputCacheContext context)

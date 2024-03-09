@@ -13,7 +13,7 @@ namespace AirlinesApi.Database.DbContexts;
 
 public partial class AirlinesDbContext : DbContext
 {
-    public const string DEFAULT_SCHEMA = "bookings";
+    public const string DEFAULT_SCHEMA = "ailines_bookings";
     public AirlinesDbContext()
     {
     }
@@ -60,7 +60,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => e.AircraftCode).HasName("aircrafts_pkey");
 
-            entity.ToTable("aircrafts_data", "bookings", tb => tb.HasComment("Aircrafts (internal data)"));
+            entity.ToTable("aircrafts_data", DEFAULT_SCHEMA, tb => tb.HasComment("Aircrafts (internal data)"));
 
             entity.Property(e => e.AircraftCode)
                 .HasMaxLength(3)
@@ -80,7 +80,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => e.AirportCode).HasName("airports_data_pkey");
 
-            entity.ToTable("airports_data", "bookings", tb => tb.HasComment("Airports (internal data)"));
+            entity.ToTable("airports_data", DEFAULT_SCHEMA, tb => tb.HasComment("Airports (internal data)"));
 
             entity.Property(e => e.AirportCode)
                 .HasMaxLength(3)
@@ -111,7 +111,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => new { e.TicketNo, e.FlightId }).HasName("boarding_passes_pkey");
 
-            entity.ToTable("boarding_passes", "bookings", tb => tb.HasComment("Boarding passes"));
+            entity.ToTable("boarding_passes", DEFAULT_SCHEMA, tb => tb.HasComment("Boarding passes"));
 
             entity.HasIndex(e => new { e.FlightId, e.BoardingNo }, "boarding_passes_flight_id_boarding_no_key").IsUnique();
 
@@ -143,7 +143,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => e.BookRef).HasName("bookings_pkey");
 
-            entity.ToTable("bookings", "bookings", tb => tb.HasComment("Bookings"));
+            entity.ToTable("bookings", DEFAULT_SCHEMA, tb => tb.HasComment("Bookings"));
 
             entity.Property(e => e.BookRef)
                 .HasMaxLength(6)
@@ -163,7 +163,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => e.FlightId).HasName("flights_pkey");
 
-            entity.ToTable("flights", "bookings", tb => tb.HasComment("Flights"));
+            entity.ToTable("flights", DEFAULT_SCHEMA, tb => tb.HasComment("Flights"));
 
             entity.HasIndex(e => new { e.FlightNo, e.ScheduledDeparture }, "flights_flight_no_scheduled_departure_key").IsUnique();
 
@@ -228,7 +228,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => new { e.AircraftCode, e.SeatNo }).HasName("seats_pkey");
 
-            entity.ToTable("seats", "bookings", tb => tb.HasComment("Seats"));
+            entity.ToTable("seats", DEFAULT_SCHEMA, tb => tb.HasComment("Seats"));
 
             entity.Property(e => e.AircraftCode)
                 .HasMaxLength(3)
@@ -267,7 +267,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => e.TicketNo).HasName("tickets_pkey");
 
-            entity.ToTable("tickets", "bookings", tb => tb.HasComment("Tickets"));
+            entity.ToTable("tickets", DEFAULT_SCHEMA, tb => tb.HasComment("Tickets"));
 
             entity.Property(e => e.TicketNo)
                 .HasMaxLength(13)
@@ -297,7 +297,7 @@ public partial class AirlinesDbContext : DbContext
         {
             entity.HasKey(e => new { e.TicketNo, e.FlightId }).HasName("ticket_flights_pkey");
 
-            entity.ToTable("ticket_flights", "bookings", tb => tb.HasComment("Flight segment"));
+            entity.ToTable("ticket_flights", DEFAULT_SCHEMA, tb => tb.HasComment("Flight segment"));
 
             entity.Property(e => e.TicketNo)
                 .HasMaxLength(13)

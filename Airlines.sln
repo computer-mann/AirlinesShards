@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		notes.txt = notes.txt
 		README.md = README.md
 		UnindexedDb.MD = UnindexedDb.MD
+		user_story.txt = user_story.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirlinesApi", "AirlinesApi\AirlinesApi.csproj", "{B696BC6F-91CB-407D-A720-26197A96FBB9}"

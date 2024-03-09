@@ -4,6 +4,7 @@ using AirlinesApi.ViewModels;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -22,10 +23,27 @@ namespace AirlinesApi.Controllers
             
         }
         [HttpGet]
-        public async Task<ActionResult> GetAllBookingsForAUser()
+       // [OutputCache(PolicyName = "IgnoreAuthCache")]
+        
+        public async Task<ActionResult> GetAllBookingsForAUser([FromQuery]KeyPaging keyPaging)
         {
-            var bookings =await _airlinesDbContext.Tickets.Include(b=>b.BookRefNavigation).Where(e => e.PassengerId == _userId).ToListAsync();
-            return Ok(bookings);
+            
+            var bookingsQuery = _airlinesDbContext.Tickets.OrderBy(e => e.TicketNo).Include(b => b.BookRefNavigation)
+                .Where(e => e.PassengerId == _userId);
+            if (!string.IsNullOrEmpty(keyPaging.Offset))
+            {
+                bookingsQuery=bookingsQuery.Where(e=>e.BookRef.CompareTo(keyPaging.Offset)>0);
+            }
+            var bookingsForUser=await bookingsQuery.Take(keyPaging.Limit).ToListAsync();
+            GetBookingsViewModel viewModel = new GetBookingsViewModel()
+            {
+                Previous = bookingsForUser.FirstOrDefault().BookRefNavigation.BookRef,
+                Next = bookingsForUser.LastOrDefault().BookRefNavigation.BookRef,
+                Bookings = bookingsForUser.AsEnumerable()
+                .Select(best => new BookingsDto(best.BookRef, best.BookRefNavigation.BookDate, best.BookRefNavigation.TotalAmount))
+            };
+
+            return Ok(viewModel);
         }
        
     }

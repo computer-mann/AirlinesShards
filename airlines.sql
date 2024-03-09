@@ -33,3 +33,7 @@ INNER JOIN bookings.flights AS f ON t3.flight_id = f.flight_id  ) AS t2 ON t0.ti
 ORDER BY t0.passenger_id, t0.ticket_no,  vtravellers.traveller_id,  vbookings.book_ref, t2.ticket_no, t2.flight_id, t2.class_id
 
 -- //find all the airpots anna_ti has ever been to
+
+select count(*) from ailines_bookings.bookings
+
+SELECT pg_size_pretty( pg_database_size('airlines') )
