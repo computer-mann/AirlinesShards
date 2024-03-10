@@ -26,24 +26,40 @@ namespace AirlinesApi.Controllers
        // [OutputCache(PolicyName = "IgnoreAuthCache")]
         public async Task<ActionResult> GetAllBookingsForAUser([FromQuery]KeyPaging keyPaging)
         {
-            
-            var bookingsQuery = _airlinesDbContext.Bookings.OrderBy(e => e.BookDate).Include(b => b.Tickets)
-                .Where(e => e.PassengerId == _userId);
-            if (!string.IsNullOrEmpty(keyPaging.Offset))
+            if(!string.IsNullOrEmpty(keyPaging.Next) && !string.IsNullOrEmpty(keyPaging.Previous))
             {
-                bookingsQuery=bookingsQuery.Where(e=>e.BookRef.CompareTo(keyPaging.Offset)>0);
+                return BadRequest(new ProblemDetails()
+                {
+                    Title="Bad Request",
+                    Detail="Please provide only one navigation query parameter"
+                });
+            }
+            
+            var bookingsQuery = _airlinesDbContext.Tickets.Include(b => b.BookRefNavigation).OrderBy(e => e.BookRefNavigation.BookRef)
+                .Where(e => e.PassengerId == _userId);
+            if (!string.IsNullOrEmpty(keyPaging.Next))
+            {
+                bookingsQuery=bookingsQuery.Where(e=>e.BookRef.CompareTo(keyPaging.Next)>0);
+            }
+            if (!string.IsNullOrEmpty(keyPaging.Previous))
+            {
+                bookingsQuery = bookingsQuery.Where(e => e.BookRef.CompareTo(keyPaging.Previous) < 0);
             }
             var bookingsForUser=await bookingsQuery.Take(keyPaging.Limit).ToListAsync();
             if(!bookingsForUser.Any())
             {
-                return NotFound();
+                return NotFound(new ProblemDetails()
+                {
+                    Detail="No item found with the given query params"
+                });
             }
             GetBookingsViewModel viewModel = new GetBookingsViewModel()
             {
                 Previous = bookingsForUser.FirstOrDefault().BookRef,
                 Next = bookingsForUser.LastOrDefault().BookRef,
                 Bookings = bookingsForUser.AsEnumerable()
-                .Select(best => new BookingsDto(best.BookRef, best.BookDate, best.TotalAmount))
+                .Select(best => new BookingsDto(best.BookRef, best.BookRefNavigation.BookDate, best.BookRefNavigation.TotalAmount))
+                .OrderByDescending(d=>d.BookDate)
             };
 
             return Ok(viewModel);

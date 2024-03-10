@@ -157,9 +157,7 @@ public partial class AirlinesDbContext : DbContext
                 .HasPrecision(10, 2)
                 .HasComment("Total booking cost")
                 .HasColumnName("total_amount");
-            entity.Property(e => e.PassengerId)
-               .HasMaxLength(25)
-               .HasColumnName("passenger_id");
+            
         });
 
         modelBuilder.Entity<Flight>(entity =>
@@ -288,6 +286,10 @@ public partial class AirlinesDbContext : DbContext
                 .HasForeignKey(d => d.BookRef)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("tickets_book_ref_fkey");
+
+            entity.Property(e => e.PassengerId)
+               .HasMaxLength(25)
+               .HasColumnName("passenger_id");
         });
 
         modelBuilder.Entity<TicketFlight>(entity =>

@@ -8,6 +8,11 @@ using System;
 using AirlinesApi.Database.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
+using CsvHelper;
+using Google.Protobuf.Compiler;
+using System.Globalization;
+using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
 
 
 namespace AirlinesApi.WorkerServices
@@ -36,7 +41,7 @@ namespace AirlinesApi.WorkerServices
             //}
             // await PopulateRedisWithUserTable();
             //  await AddUserNametoUserstable();
-           await RandomizeTheBookingsWithPassengerDataTableIDeleted();
+            
             logger.LogInformation("service ending.");
         }
         private async Task PopulateRedisWithUserTable()
@@ -46,17 +51,17 @@ namespace AirlinesApi.WorkerServices
             {
                 var userManager = service.ServiceProvider.GetRequiredService<UserManager<Traveller>>();
                 var users = userManager.Users.ToList();
-                
+
                 RedisCollection<RedisTraveller> _people = (RedisCollection<RedisTraveller>)_redisProvider.RedisCollection<RedisTraveller>();
-                 await _redisProvider.Connection.CreateIndexAsync(typeof(RedisTraveller));
-                
+                await _redisProvider.Connection.CreateIndexAsync(typeof(RedisTraveller));
+
                 int numInCache = 0;
-                while(numInCache < users.Count)
+                while (numInCache < users.Count)
                 {
                     List<RedisTraveller> redisTravellers = new();
-                    foreach (var user in users.Skip(numInCache).Take(100)) 
+                    foreach (var user in users.Skip(numInCache).Take(100))
                     {
-                         redisTravellers.Add(RedisTraveller.ToRedisTraveller(user));
+                        redisTravellers.Add(RedisTraveller.ToRedisTraveller(user));
                     }
                     await _people.InsertAsync(redisTravellers);
                     numInCache += 100;
@@ -75,38 +80,38 @@ namespace AirlinesApi.WorkerServices
                 var newUsers = new List<Traveller>();
                 SortedSet<string> usernameSet = new(); //username -> userid
                 string newUsername = "";
-                foreach(var user in users)
+                foreach (var user in users)
                 {
                     var firstname = user.PassengerName.Split(' ')[0];
-                    var lastname=user.PassengerName.Split(' ')[1];
-                    newUsername= firstname+"_"+lastname.Substring(0,2);
-                    
+                    var lastname = user.PassengerName.Split(' ')[1];
+                    newUsername = firstname + "_" + lastname.Substring(0, 2);
+
                     if (!usernameSet.Add(newUsername))
                     {
-                        newUsername=lastname+"."+firstname.Substring(0,2);
+                        newUsername = lastname + "." + firstname.Substring(0, 2);
                         usernameSet.Add(newUsername);
-                        user.UserName=newUsername;
+                        user.UserName = newUsername;
                         user.SecurityStamp = "a";
-                        user.NormalizedUserName= newUsername.ToUpper();
+                        user.NormalizedUserName = newUsername.ToUpper();
                         newUsers.Add(new Traveller()
                         {
-                            Id= user.Id,
-                            NormalizedUserName= newUsername.ToUpper(),
-                            AccessFailedCount=user.AccessFailedCount,
-                            ConcurrencyStamp=user.ConcurrencyStamp,
-                            Country=user.Country,
-                            Email=user.Email,
-                            EmailConfirmed=user.EmailConfirmed,
-                            LockoutEnabled=user.LockoutEnabled,
-                            LockoutEnd=user.LockoutEnd,
-                            NormalizedEmail=user.NormalizedEmail,
-                            PassengerName=user.PassengerName,
-                            PasswordHash=user.PasswordHash,
-                            PhoneNumber=user.PhoneNumber,
-                            PhoneNumberConfirmed=user.PhoneNumberConfirmed,
-                            SecurityStamp=user.SecurityStamp,
-                            TwoFactorEnabled=user.TwoFactorEnabled,
-                            UserName= newUsername
+                            Id = user.Id,
+                            NormalizedUserName = newUsername.ToUpper(),
+                            AccessFailedCount = user.AccessFailedCount,
+                            ConcurrencyStamp = user.ConcurrencyStamp,
+                            Country = user.Country,
+                            Email = user.Email,
+                            EmailConfirmed = user.EmailConfirmed,
+                            LockoutEnabled = user.LockoutEnabled,
+                            LockoutEnd = user.LockoutEnd,
+                            NormalizedEmail = user.NormalizedEmail,
+                            PassengerName = user.PassengerName,
+                            PasswordHash = user.PasswordHash,
+                            PhoneNumber = user.PhoneNumber,
+                            PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                            SecurityStamp = user.SecurityStamp,
+                            TwoFactorEnabled = user.TwoFactorEnabled,
+                            UserName = newUsername
                         });
                         // airlinesDb.Travellers.ExecuteUpdate(t=>t.SetProperty(v=>v.UserName, newUsername));
                     }
@@ -133,37 +138,45 @@ namespace AirlinesApi.WorkerServices
                             UserName = newUsername
                         });
                     }
-                    
+
                 }
                 airlinesDb.Travellers.UpdateRange(newUsers);
-               await airlinesDb.SaveChangesAsync();
+                await airlinesDb.SaveChangesAsync();
             }
-             await Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         private async Task RandomizeTheBookingsWithPassengerDataTableIDeleted()
         {
             using (var service = provider.CreateAsyncScope())
             {
-                
                 var airlinesDb = service.ServiceProvider.GetRequiredService<AirlinesDbContext>();
-                var users = airlinesDb.Travellers.Select(s=>s.Id).ToList();
-                var bookings=airlinesDb.Bookings.ToList();
-                var newUsers = new List<Traveller>();
-                var random=new Random();
-                int bookingCount=bookings.Count;
-                while(bookingCount > 0)
+                var tickets = airlinesDb.Tickets.ToList();
+                var users = airlinesDb.Travellers.Select(s => new { s.PassengerName, s.Id }).ToDictionary(key => key.PassengerName, ele => ele.Id);
+                var csv = File.ReadLines("passenger_output.csv").ToArray();
+                var fileDict= new Dictionary<string, string>();
+                for (int i = 2; i < csv.Length; i++)
                 {
-                    int books=random.Next(10);
-
-
+                    var line= csv[i].Split("|");
+                    var ticket_no = line[2].Trim();
+                    var passenger_name= line[0].Trim();
+                    fileDict[ticket_no] = passenger_name;
+                }
+                foreach (var ticket in tickets)
+                {
+                    var id =users[fileDict[ticket.TicketNo]];
+                    ticket.PassengerId = id;
                 }
                 
-                airlinesDb.Bookings.e
-                airlinesDb.Travellers.UpdateRange(newUsers);
+                
+                airlinesDb.Tickets.UpdateRange(tickets);
                 airlinesDb.SaveChanges();
             }
+
             await Task.CompletedTask;
         }
     }
+
+    
+
 }

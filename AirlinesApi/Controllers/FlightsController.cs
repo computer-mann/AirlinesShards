@@ -32,7 +32,7 @@ namespace AirlinesApi.Controllers
         [OutputCache(Duration =1251000)]
         public async Task<ActionResult<IEnumerable<TicketFlight>>> GetAllFlightsForAuser(CancellationToken token)
         {
-           var flightsForUser = await _context.Bookings.Where(n => n.PassengerId == _userId)
+           var flightsForUser = await _context.Bookings.Where(n => n.BookRef == _userId)
                                 .OrderBy(e=>e.BookDate)
                                 .Include(e => e.Tickets)
                                 .AsNoTracking()

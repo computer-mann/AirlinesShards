@@ -19,6 +19,8 @@ public partial class Ticket
     public string BookRef { get; set; } = null!;
 
     public virtual Booking BookRefNavigation { get; set; } = null!;
+    public string? PassengerId { get; set; }
+    public Traveller Passenger { get; set; }
 
     public virtual ICollection<TicketFlight> TicketFlights { get; set; } = new List<TicketFlight>();
 }
