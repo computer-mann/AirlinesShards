@@ -1,4 +1,5 @@
 ﻿using AirlinesApi.Database.Models;
+using AirlinesApi.Extensions;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Options;
 using AirlinesApi.ViewModels;
@@ -38,13 +39,13 @@ namespace AirlinesApi.Controllers
         }
 
         [HttpPost("/login")]
-        public async Task<ActionResult> Login(LoginViewModel viewModel)
+        public async Task<ActionResult> Login(LoginViewModel viewModel,CancellationToken cts)
         {
-            
-            var user = await _userManager.FindByNameAsync(viewModel.Username);
+
+            var user =await _userManager.CheckIfUserExistsInEitherStoreAsync(_people, viewModel.Username.ToUpper(), cts);
             if (user == null)
             {
-                _logger.LogInformation("Request has an inexistent username: {@username}", viewModel);
+                _logger.LogInformation("Request has an non-existent username: {username}", viewModel.Username);
                 return Unauthorized(new { Message = "Invalid Email or username" });
             }
             else
@@ -108,8 +109,5 @@ namespace AirlinesApi.Controllers
             return jwt;
         }
     }
-    enum UserEnum
-    {
-        None,Gunna,lilWayne
-    }
+   
 }

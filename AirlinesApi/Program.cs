@@ -100,6 +100,7 @@ namespace AirlinesApi
                 options.DisableDataAnnotationsValidation = true;
             });
             services.AddHostedService<PopulateTravellerTableBackgroundService>();
+            services.AddHostedService<WarmDatabaseHostedService>();
 
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
             services.AddStackExchangeRedisOutputCache(options =>

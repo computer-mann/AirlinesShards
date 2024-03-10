@@ -40,6 +40,17 @@ namespace AirlinesApi.Infrastructure
             PassengerName = traveller.PassengerName
         };
 
+        public Traveller ToTravellerFromRedis() => new Traveller()
+        {
+            Id = this.Id,
+            Country = this.Country,
+            NormalizedUserName = this.NormalizedUserName,
+            PhoneNumber= this.PhoneNumber,
+            NormalizedEmail= NormalizedEmail,
+            EmailConfirmed= this.EmailConfirmed,
+            PasswordHash= this.PasswordHash,
+            PassengerName= this.PassengerName
+        };
         //public static implicit operator RedisTraveller(Traveller traveller)
         //{
             //i'll need a constructor in the class
