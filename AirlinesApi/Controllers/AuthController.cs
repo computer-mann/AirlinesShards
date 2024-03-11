@@ -2,6 +2,7 @@
 using AirlinesApi.Extensions;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Options;
+using AirlinesApi.Services;
 using AirlinesApi.ViewModels;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
@@ -26,42 +27,34 @@ namespace AirlinesApi.Controllers
         private readonly UserManager<Traveller> _userManager;
         private readonly RedisConnectionProvider _redisProvider;
         private readonly RedisCollection<RedisTraveller> _people;
-        
+        private readonly ICustomCacheService customeCacheService;
+
         public AuthController(ILogger<AuthController> logger, IOptions<JwtOptions> options,
-            UserManager<Traveller> userManager, RedisConnectionProvider redisProvider)
+            UserManager<Traveller> userManager, RedisConnectionProvider redisProvider,
+            ICustomCacheService customeCacheService)
         {
             _logger = logger;
             _jwtOptions = options.Value;
             _userManager = userManager;
             _redisProvider = redisProvider;
             _people = (RedisCollection<RedisTraveller>)_redisProvider.RedisCollection<RedisTraveller>();
-          //  _loginValidator = loginValidator;
+            this.customeCacheService = customeCacheService;
+            //  _loginValidator = loginValidator;
         }
 
         [HttpPost("/login")]
         public async Task<ActionResult> Login(LoginViewModel viewModel,CancellationToken cts)
         {
-
-            var user =await _userManager.CheckIfUserExistsInEitherStoreAsync(_people, viewModel.Username.ToUpper(), cts);
-            if (user == null)
-            {
-                _logger.LogInformation("Request has an non-existent username: {username}", viewModel.Username);
-                return Unauthorized(new { Message = "Invalid Email or username" });
-            }
-            else
-            {
-                var passwordResult = await _userManager.CheckPasswordAsync(user, viewModel.Password);
-                if (passwordResult == false)
-                {
-                    return Unauthorized(new { Message = "Incorrect password" });
-                }
-                else
-                {
-                    HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, user.Id));
-                    return Ok(new { Message = "Login success" });
-                }
-            }
-
+            var authResult =await customeCacheService.CheckIfUserExistsInEitherStoreAsync(_userManager, _people, viewModel, cts, _logger);
+            return authResult.Match<ActionResult>(
+                 traveller =>
+                 {
+                     HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, traveller.Id));
+                     return Ok(new { Message = "Login success" });
+                 },
+                wrongPassword => Unauthorized(new { Message = "Incorrect password" }),
+                _ => Unauthorized(new { Message = "Invalid Email or username" })
+                );
         }
 
         [HttpGet("users")]

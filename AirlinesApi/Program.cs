@@ -24,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using AirlinesApi.Infrastructure;
+using AirlinesApi.Services;
 
 
 
@@ -95,6 +96,7 @@ namespace AirlinesApi
             //    options.SuppressModelStateInvalidFilter = true;
             //});
             services.AddScoped<IValidator<LoginViewModel>, LoginValidator>();
+            services.AddTransient<ICustomCacheService,CustomCacheService>();
             services.AddFluentValidationAutoValidation(options =>
             {
                 options.DisableDataAnnotationsValidation = true;
