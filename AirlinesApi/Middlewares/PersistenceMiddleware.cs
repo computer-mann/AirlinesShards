@@ -9,7 +9,7 @@ using StackExchange.Redis;
 using AirlinesApi.Database.DbContexts;
 using AirlinesApi.Database.Models;
 
-namespace AirlinesApi.Extensions
+namespace AirlinesApi.Middlewares
 {
     public static class PersistenceMiddleware
     {
@@ -24,14 +24,15 @@ namespace AirlinesApi.Extensions
         }
         public static void AddAppDbContexts(this IServiceCollection services, IConfiguration configuration)
         {
-            Action<DbContextOptionsBuilder>? optionsAction = (options) => {
+            Action<DbContextOptionsBuilder>? optionsAction = (options) =>
+            {
                 options.UseNpgsql(configuration.GetConnectionString("Database"));
                 options.EnableSensitiveDataLogging();
                 options.EnableDetailedErrors();
-                };
+            };
             services.AddDbContext<AirlinesDbContext>(optionsAction);
             services.Replace(ServiceDescriptor.Scoped<IUserValidator<Traveller>, CustomTravellerValidator>());
-            
+
             services.AddIdentityCore<Traveller>()
                 .AddEntityFrameworkStores<TravellerDbContext>()
                 .AddDefaultTokenProviders()
@@ -45,9 +46,9 @@ namespace AirlinesApi.Extensions
             {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                
+
             });
-            
+
         }
     }
 }

@@ -1,4 +1,3 @@
-using AirlinesApi.Extensions;
 using Serilog;
 using AirlinesApi.Filters;
 using AirlinesApi.WorkerServices;

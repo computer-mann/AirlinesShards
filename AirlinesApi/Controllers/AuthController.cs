@@ -45,7 +45,7 @@ namespace AirlinesApi.Controllers
         [HttpPost("/login")]
         public async Task<ActionResult> Login(LoginViewModel viewModel,CancellationToken cts)
         {
-            var authResult =await customeCacheService.CheckIfUserExistsInEitherStoreAsync(_userManager, _people, viewModel, cts, _logger);
+            var authResult =await customeCacheService.CheckIfUserExistsInEitherStoreAsync(viewModel, cts);
             return authResult.Match<ActionResult>(
                  traveller =>
                  {

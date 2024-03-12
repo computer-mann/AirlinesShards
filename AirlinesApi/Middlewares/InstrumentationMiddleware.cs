@@ -3,7 +3,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace AirlinesApi.Extensions
+namespace AirlinesApi.Middlewares
 {
     public static class InstrumentationMiddleware
     {
