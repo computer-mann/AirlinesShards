@@ -6,8 +6,8 @@ namespace AirlinesApi.ModelValidators
     public class KeyPagingValidator:AbstractValidator<PaginationVm>
     {
         public KeyPagingValidator()
-        { 
-            //RuleFor(e=>e.Limit).
+        {
+          
         }
     }
 }

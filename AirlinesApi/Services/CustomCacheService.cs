@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using OneOf.Types;
+using Redis.OM;
 using Redis.OM.Searching;
 
 namespace AirlinesApi.Services
@@ -16,10 +17,10 @@ namespace AirlinesApi.Services
         private readonly ILogger<CustomCacheService> _logger;
         private readonly RedisCollection<RedisTraveller> _people;
         public CustomCacheService(UserManager<Traveller> userManager,
-            RedisCollection<RedisTraveller> people, ILogger<CustomCacheService> logger)
+           RedisConnectionProvider connectionProvider, ILogger<CustomCacheService> logger)
         {
             _userManager = userManager;
-            _people = people;
+            _people =(RedisCollection<RedisTraveller>)connectionProvider.RedisCollection<RedisTraveller>();
             _logger = logger;
         }
         public async Task<OneOf<Traveller,Boolean, None>> CheckIfUserExistsInEitherStoreAsync(LoginViewModel viewModel, CancellationToken cts)
