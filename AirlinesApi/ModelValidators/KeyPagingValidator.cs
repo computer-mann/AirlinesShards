@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace AirlinesApi.ModelValidators
 {
-    public class KeyPagingValidator:AbstractValidator<KeyPaging>
+    public class KeyPagingValidator:AbstractValidator<PaginationVm>
     {
         public KeyPagingValidator()
         { 

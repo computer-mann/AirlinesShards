@@ -24,7 +24,7 @@ namespace AirlinesApi.Controllers
         }
         [HttpGet]
        // [OutputCache(PolicyName = "IgnoreAuthCache")]
-        public async Task<ActionResult> GetAllBookingsForAUser([FromQuery]KeyPaging keyPaging)
+        public async Task<ActionResult> GetAllBookingsForAUser([FromQuery]PaginationVm keyPaging)
         {
             if(!string.IsNullOrEmpty(keyPaging.Next) && !string.IsNullOrEmpty(keyPaging.Previous))
             {
