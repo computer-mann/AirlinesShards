@@ -23,7 +23,8 @@ namespace AirlinesApi.Controllers
             
         }
         [HttpGet]
-       // [OutputCache(PolicyName = "IgnoreAuthCache")]
+        // [OutputCache(PolicyName = "IgnoreAuthCache")]
+        [Produces<GetBookingsViewModel>]
         public async Task<ActionResult> GetAllBookingsForAUser([FromQuery]PaginationVm keyPaging)
         {
             if(!string.IsNullOrEmpty(keyPaging.Next) && !string.IsNullOrEmpty(keyPaging.Previous))
@@ -55,8 +56,8 @@ namespace AirlinesApi.Controllers
             }
             GetBookingsViewModel viewModel = new GetBookingsViewModel()
             {
-                Previous = bookingsForUser.FirstOrDefault().BookRef,
-                Next = bookingsForUser.LastOrDefault().BookRef,
+                Previous = bookingsForUser.FirstOrDefault()!.BookRef,
+                Next = bookingsForUser.LastOrDefault()!.BookRef,
                 Bookings = bookingsForUser.AsEnumerable()
                 .Select(best => new BookingsDto(best.BookRef, best.BookRefNavigation.BookDate, best.BookRefNavigation.TotalAmount))
                 .OrderByDescending(d=>d.BookDate)

@@ -28,7 +28,10 @@ namespace AirlinesApi.Services
             Traveller? traveller = null;
             //should be able to return boolean,Traveller?, if traveller is null,then password is not correct
             var username=viewModel.Username;
-            traveller = (await _people.Where(u => u.NormalizedUserName == username).ToListAsync(cts)).SingleOrDefault()?.ToTravellerFromRedis();
+            traveller = (await _people.Where(u => u.NormalizedUserName == username)
+                .ToListAsync(cts))
+                .SingleOrDefault()?
+                .ToTravellerFromRedis();
             if (traveller == null)
             {
                 _logger.LogInformation("Cache miss for username= {username}", username);
