@@ -16,7 +16,7 @@ namespace AirlinesApi.Controllers
     public class BookingController:ControllerBase
     {
         private readonly AirlinesDbContext _airlinesDbContext;
-        private string _userId=>User.Identity.Name;
+        private string _userId=>User?.Identity?.Name!;
         public BookingController(AirlinesDbContext airlinesDbContext)
         {
             _airlinesDbContext = airlinesDbContext;
