@@ -53,6 +53,7 @@ nunit-*.xml
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
+SerilogLogs/
 dlldata.c
 
 # Benchmark Results
@@ -364,3 +365,4 @@ FodyWeavers.xsd
 
 copy-pages/
 /AirlinesApi/SerilogLogs
+/Airlines.Presentation/AirlinesApi/SerilogLogs/log2024030609.txt
