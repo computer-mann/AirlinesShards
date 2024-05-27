@@ -24,6 +24,7 @@ namespace AirlinesApi.Middlewares
                 Status=(int)HttpStatusCode.InternalServerError,
                 Title="Internal Server Error",
                 Detail="Something happened on our end. Try again",
+                Type="https://tools.ietf.org/html/rfc7231#section-6.6.1"
             });
             return true;
         }

@@ -8,6 +8,7 @@ using Redis.OM;
 using StackExchange.Redis;
 using AirlinesApi.Database.DbContexts;
 using AirlinesApi.Database.Models;
+using MassTransit;
 
 namespace AirlinesApi.Middlewares
 {
@@ -50,5 +51,20 @@ namespace AirlinesApi.Middlewares
             });
 
         }
+        public static void AddMassTransitServices(this IServiceCollection services)
+        {
+            services.AddMassTransit(x =>
+            {
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("cacctuccjacc");
+                        h.Password("Klop9090");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+            }
     }
 }
