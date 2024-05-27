@@ -17,8 +17,8 @@ namespace EmailSenderWorkerService.Services
         }
         public async Task<bool> Send(string subject, string body, string recipientEmail,string customerName)
         {
-            try
-            {
+            //try
+            //{
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress(_mailSettings.SenderEmail, _mailSettings.SenderName);
@@ -35,13 +35,13 @@ namespace EmailSenderWorkerService.Services
                 await smtp.SendMailAsync(message);
 
                 return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Email Sending Failed");
-                // Exception Details
-                return false;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex, "Email Sending to Papercut Failed");
+            //    // Exception Details
+            //    return false;
+            //}
         }
     }
 }

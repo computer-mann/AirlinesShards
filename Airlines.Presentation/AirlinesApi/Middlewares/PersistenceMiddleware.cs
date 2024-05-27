@@ -65,6 +65,7 @@ namespace AirlinesApi.Middlewares
                     });
                     cfg.ConfigureEndpoints(context);
                 });
-            }
-    }
+            });
+        }
+    } 
 }
