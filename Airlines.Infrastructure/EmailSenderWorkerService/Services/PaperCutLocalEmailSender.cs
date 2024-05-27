@@ -5,12 +5,12 @@ using System.Net;
 
 namespace EmailSenderWorkerService.Services
 {
-    public class EmailSender : IEmailSender
+    public class PaperCutLocalEmailSender : IEmailSender
     {
         private readonly MailSettings _mailSettings;
-        private readonly ILogger<EmailSender> _logger;
+        private readonly ILogger<PaperCutLocalEmailSender> _logger;
 
-        public EmailSender(IOptions<MailSettings> mailSettings, ILogger<EmailSender> logger)
+        public PaperCutLocalEmailSender(IOptions<MailSettings> mailSettings, ILogger<PaperCutLocalEmailSender> logger)
         {
             _mailSettings = mailSettings.Value;
             _logger = logger;
