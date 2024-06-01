@@ -334,7 +334,7 @@ public partial class DemoAirlinesContext : DbContext
                 .HasColumnName("status");
         });
 
-        modelBuilder.Entity<Route>(entity =>
+        modelBuilder.Entity<Base_Models.Route>(entity =>
         {
             entity
                 .HasNoKey()
