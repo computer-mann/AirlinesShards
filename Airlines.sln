@@ -21,9 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SerilogLogs", "SerilogLogs"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirlinesApi", "Airlines.Presentation\AirlinesApi\AirlinesApi.csproj", "{BA4D9A28-E6C6-463C-A66A-170E746DC0ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderWorkerService", "Airlines.Infrastructure\EmailSenderWorkerService\EmailSenderWorkerService.csproj", "{6A155322-89E2-466B-A56C-BAC26F3C3861}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSenderWorkerService", "Airlines.Infrastructure\EmailSenderWorkerService\EmailSenderWorkerService.csproj", "{6A155322-89E2-466B-A56C-BAC26F3C3861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airlines.Domain", "Airlines.Domain\Airlines.Domain\Airlines.Domain.csproj", "{AA60B823-747D-4E5C-B154-945819ECF0C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airlines.Domain", "Airlines.Domain\Airlines.Domain\Airlines.Domain.csproj", "{AA60B823-747D-4E5C-B154-945819ECF0C0}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AirlinesWeb", "Airlines.Presentation\AirlinesWeb\AirlinesWeb.esproj", "{C02E4EE1-BEF3-439F-A325-15E59E118235}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,12 @@ Global
 		{AA60B823-747D-4E5C-B154-945819ECF0C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA60B823-747D-4E5C-B154-945819ECF0C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA60B823-747D-4E5C-B154-945819ECF0C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C02E4EE1-BEF3-439F-A325-15E59E118235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C02E4EE1-BEF3-439F-A325-15E59E118235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C02E4EE1-BEF3-439F-A325-15E59E118235}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C02E4EE1-BEF3-439F-A325-15E59E118235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C02E4EE1-BEF3-439F-A325-15E59E118235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C02E4EE1-BEF3-439F-A325-15E59E118235}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
