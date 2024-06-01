@@ -1,6 +1,6 @@
  dotnet ef dbcontext scaffold "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL --context-dir Database/DbContexts --output-dir Database/Models
  
- Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Database/Models -ContextDir Database/DbContexts
+ Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Database/Base_Models -ContextDir Database/DbContexts
  https://postgrespro.com/docs/postgrespro/10/apjs04.html
  https://postgrespro.com/docs/postgrespro/10/apjs02  diagram
 

@@ -1,0 +1,2 @@
+customer will be related to tickets
+customer should have a name, email, and phone number,last date of ticket purchase, and a list of tickets purchased

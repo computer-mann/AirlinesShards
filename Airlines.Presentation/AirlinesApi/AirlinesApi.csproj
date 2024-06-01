@@ -57,6 +57,7 @@
 
   <ItemGroup>
     <Folder Include="Database\Migrations\" />
+    <Folder Include="Database\Base_Models\" />
     <Folder Include="SerilogLogs\" />
   </ItemGroup>
 
