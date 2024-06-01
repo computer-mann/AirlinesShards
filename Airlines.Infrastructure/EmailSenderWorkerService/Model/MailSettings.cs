@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -9,22 +10,17 @@ namespace EmailSenderWorkerService.Model
 {
     public class MailSettings
     {
-        [JsonPropertyName("Server")]
+        [Required(AllowEmptyStrings = false)]
         public string Server { get; set; }
-
-        [JsonPropertyName("Port")]
+        [Required(AllowEmptyStrings =false)]
         public int Port { get; set; }
-
-        [JsonPropertyName("SenderName")]
+        [Required(AllowEmptyStrings = false)]
         public string SenderName { get; set; }
-
-        [JsonPropertyName("SenderEmail")]
+        [Required(AllowEmptyStrings = false)]
         public string SenderEmail { get; set; }
-
-        [JsonPropertyName("UserName")]
+        [Required(AllowEmptyStrings = false)]
         public string UserName { get; set; }
-
-        [JsonPropertyName("Password")]
+        [Required(AllowEmptyStrings = false)]
         public string Password { get; set; }
     }
 }

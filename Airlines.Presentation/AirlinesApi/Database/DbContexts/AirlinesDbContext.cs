@@ -56,25 +56,7 @@ public partial class AirlinesDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AircraftsData>(entity =>
-        {
-            entity.HasKey(e => e.AircraftCode).HasName("aircrafts_pkey");
-
-            entity.ToTable("aircrafts_data", DEFAULT_SCHEMA, tb => tb.HasComment("Aircrafts (internal data)"));
-
-            entity.Property(e => e.AircraftCode)
-                .HasMaxLength(3)
-                .IsFixedLength()
-                .HasComment("Aircraft code, IATA")
-                .HasColumnName("aircraft_code");
-            entity.Property(e => e.Model)
-                .HasComment("Aircraft model")
-                .HasColumnType("jsonb")
-                .HasColumnName("model");
-            entity.Property(e => e.Range)
-                .HasComment("Maximal flying distance, km")
-                .HasColumnName("range");
-        });
+       
 
         modelBuilder.Entity<AirportsData>(entity =>
         {

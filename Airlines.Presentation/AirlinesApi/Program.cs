@@ -81,7 +81,7 @@ namespace AirlinesApi
                       ValidIssuer = jwt.Audience,
                       ValidateIssuer=true,
                       ValidateAudience=true,
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key!))
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key))
                   };
                 
             });
@@ -96,11 +96,11 @@ namespace AirlinesApi
             //    options.SuppressModelStateInvalidFilter = true;
             //});
             services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-            services.AddScoped<ICustomCacheService,CustomCacheService>();
             services.AddFluentValidationAutoValidation(options =>
             {
                 options.DisableDataAnnotationsValidation = true;
             });
+            services.AddScoped<ICustomCacheService, CustomCacheService>();
             //services.AddHostedService<PopulateTravellerTableBackgroundService>();
             //services.AddHostedService<WarmDatabaseHostedService>();
 

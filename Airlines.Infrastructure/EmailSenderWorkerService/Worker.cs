@@ -39,7 +39,7 @@ namespace EmailSenderWorkerService
                         }
                     }).AddTimeout(TimeSpan.FromSeconds(10))
                       .Build();
-                    var emailSentResult = await pipeline.ExecuteAsync(async result =>  await _emailSender.Send("Test Email", "This is a test email", "hpsn16@gmail.com", "Test User"));
+                    var emailSentResult = await pipeline.ExecuteAsync(async result => await _emailSender.Send("Test Email", "This is a test email", "hpsn16@gmail.com", "Test User"),stoppingToken);
                    if (emailSentResult)
                    {
                        _logger.LogInformation("Email sent successfully");

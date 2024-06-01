@@ -30,7 +30,7 @@ namespace EmailSenderWorkerService.Services
                 smtp.Host = _mailSettings.Server;
                 smtp.EnableSsl = false;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential(_mailSettings.SenderName, "_mailSettings.Password");
+                smtp.Credentials = new NetworkCredential(_mailSettings.SenderName, _mailSettings.Password);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 await smtp.SendMailAsync(message);
 

@@ -8,8 +8,8 @@ namespace EmailSenderWorkerService
         public static void Main(string[] args)
         {
             var builder = Host.CreateApplicationBuilder(args);
-            builder.Services.AddHostedService<Worker>();
-            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+             builder.Services.AddHostedService<Worker>();
+            builder.Services.AddOptions<MailSettings>().BindConfiguration("MailSettings").ValidateDataAnnotations().ValidateOnStart();
             builder.Services.AddTransient<IEmailSender, PaperCutLocalEmailSender>();
             var host = builder.Build();
             host.Run();
