@@ -28,9 +28,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airlines.Domain", "Airlines
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AirlinesWeb", "Airlines.Presentation\AirlinesWeb\AirlinesWeb.esproj", "{C02E4EE1-BEF3-439F-A325-15E59E118235}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Unit.Airlines", "Tests.Airlines\Tests.Unit.Airlines.csproj", "{E99E1F7E-BB3E-43C7-8276-1FDC63D92153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Unit.Airlines", "Tests.Airlines\Tests.Unit.Airlines.csproj", "{E99E1F7E-BB3E-43C7-8276-1FDC63D92153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration.Airlines", "Tests.Integration.Airlines\Tests.Integration.Airlines.csproj", "{634956BB-5381-48CF-89F2-FC58B0BD4508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Integration.Airlines", "Tests.Integration.Airlines\Tests.Integration.Airlines.csproj", "{634956BB-5381-48CF-89F2-FC58B0BD4508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airlines.Infrastructure", "Airlines.Infrastructure\Airlines.Infrastructure\Airlines.Infrastructure.csproj", "{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{634956BB-5381-48CF-89F2-FC58B0BD4508}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{634956BB-5381-48CF-89F2-FC58B0BD4508}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{634956BB-5381-48CF-89F2-FC58B0BD4508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
