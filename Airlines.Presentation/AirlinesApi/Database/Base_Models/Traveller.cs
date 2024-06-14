@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using UuidExtensions;
 
 namespace AirlinesApi.Database.Base_Models;
 
 public partial class Traveller
 {
-    public string Id { get; set; } = null!;
+    public string Id { get; set; } = Uuid7.Id25();
 
     public string PassengerName { get; set; } = null!;
 
