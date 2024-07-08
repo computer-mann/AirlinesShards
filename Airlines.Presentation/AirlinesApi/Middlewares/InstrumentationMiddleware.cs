@@ -11,18 +11,18 @@ namespace AirlinesApi.Middlewares
         public static void AddOpenTelemetryServices(this IServiceCollection services)
         {
             const string serviceName = "nunoo-airlines-api";
-            services.AddLogging(l =>
+            services.AddLogging(logging =>
             {
-                l.AddOpenTelemetry(o =>
+                logging.AddOpenTelemetry(o =>
                 {
                     o.AddOtlpExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
                 });
             });
             services.AddOpenTelemetry()
-                .ConfigureResource(r =>
+                .ConfigureResource(resource =>
                 {
 
-                    r.AddService(serviceName);
+                    resource.AddService(serviceName);
                 })
                 .WithTracing(tracing =>
                 {

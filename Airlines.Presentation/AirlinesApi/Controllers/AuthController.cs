@@ -81,6 +81,24 @@ namespace AirlinesApi.Controllers
             
             return Ok(await _userManager.Users.Where(x => x.PassengerName.Contains(name.ToUpper())).Take(take).ToListAsync());
         }
+        [HttpGet("mstoken")]
+        //[Host()]
+        public async Task<IActionResult> RedirectLoginUriFromMicrosoft(string state,string client_info,string code)
+        {
+           
+            _logger.LogInformation("Request body from microsoft -> state={state} @ client_info={client_info} @ code={code}",
+                state,client_info,code );
+            return Ok();
+        }
+        [HttpGet("googletoken")]
+        //[Host()]
+        public async Task<IActionResult> RedirectLoginUriFromGoogle(string state, string client_info, string code)
+        {
+
+            _logger.LogInformation("Request body from microsoft -> state={state} @ client_info={client_info} @ code={code}",
+                state, client_info, code);
+            return Ok();
+        }
         private string GenerateJwt(string username, string userId)
         {
             var claims = new List<Claim>
@@ -102,5 +120,6 @@ namespace AirlinesApi.Controllers
             return jwt;
         }
     }
+
    
 }

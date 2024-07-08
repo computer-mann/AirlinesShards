@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		schema_re_design.txt = schema_re_design.txt
 		UnindexedDb.MD = UnindexedDb.MD
+		ToDoLater.txt = ToDoLater.txt
 		user_story.txt = user_story.txt
 	EndProjectSection
 EndProject
@@ -32,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Unit.Airlines", "Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Integration.Airlines", "Tests.Integration.Airlines\Tests.Integration.Airlines.csproj", "{634956BB-5381-48CF-89F2-FC58B0BD4508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airlines.Infrastructure", "Airlines.Infrastructure\Airlines.Infrastructure\Airlines.Infrastructure.csproj", "{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airlines.Infrastructure", "Airlines.Infrastructure\Airlines.Infrastructure\Airlines.Infrastructure.csproj", "{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
