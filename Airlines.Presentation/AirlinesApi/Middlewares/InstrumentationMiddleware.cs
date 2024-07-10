@@ -32,6 +32,7 @@ namespace AirlinesApi.Middlewares
                     tracing.AddEntityFrameworkCoreInstrumentation();
                     tracing.AddRedisInstrumentation();
                     tracing.AddOtlpExporter();
+                    
                 });
             //.WithMetrics(metrics =>
             // {

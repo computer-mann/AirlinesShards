@@ -54,6 +54,7 @@ namespace AirlinesApi.Controllers
                     Detail="No item found with the given query params"
                 });
             }
+           
             GetBookingsViewModel viewModel = new GetBookingsViewModel()
             {
                 Previous = bookingsForUser.FirstOrDefault()!.BookRef,
