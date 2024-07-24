@@ -1,4 +1,7 @@
 ﻿using Npgsql;
+using OpenTelemetry;
+using OpenTelemetry.Context.Propagation;
+using OpenTelemetry.Extensions.Propagators;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -11,13 +14,13 @@ namespace AirlinesApi.Middlewares
         public static void AddOpenTelemetryServices(this IServiceCollection services)
         {
             const string serviceName = "nunoo-airlines-api";
-            services.AddLogging(logging =>
-            {
-                logging.AddOpenTelemetry(o =>
-                {
-                    o.AddOtlpExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
-                });
-            });
+            //services.AddLogging(logging =>
+            //{
+            //    logging.AddOpenTelemetry(o =>
+            //    {
+            //        o.AddOtlpExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
+            //    });
+            //});
             services.AddOpenTelemetry()
                 .ConfigureResource(resource =>
                 {
@@ -26,9 +29,15 @@ namespace AirlinesApi.Middlewares
                 })
                 .WithTracing(tracing =>
                 {
+                    Sdk.SetDefaultTextMapPropagator(new CompositeTextMapPropagator(new TextMapPropagator[]
+                    {
+                        new TraceContextPropagator(),
+                        new BaggagePropagator(),
+                        new OpenTelemetry.Extensions.Propagators.B3Propagator()
+                    }));
                     tracing.AddNpgsql();
                     tracing.AddAspNetCoreInstrumentation();
-                    //tracing.AddHttpClientInstrumentation();
+                    tracing.AddHttpClientInstrumentation();
                     tracing.AddEntityFrameworkCoreInstrumentation();
                     tracing.AddRedisInstrumentation();
                     tracing.AddOtlpExporter();

@@ -1,0 +1,30 @@
+{
+  "ver": "2.0",
+  "iss": "https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0",
+  "sub": "AAAAAAAAAAAAAAAAAAAAANQg46xOP9k2VGbIYxDDibk",
+  "aud": "bd9923bf-db91-416c-aa17-b9b1b4a4bee3",
+  "exp": 1720885321,
+  "iat": 1720798621,
+  "nbf": 1720798621,
+  "name": "Prince Harry Nunoo",
+  "preferred_username": "hpsn16@gmail.com",
+  "oid": "00000000-0000-0000-f1e4-ff42f525c68f",
+  "tid": "9188040d-6c67-4c5b-b112-36a304b66dad",
+  "nonce": "3c31059e-e137-4700-9010-9b12974432f3",
+  "aio": "Dm!dc23EpGgRqn0wxepF70IqjQC!HubGhiqoPIyHA5RVWJHG8H7Zp3Tb0JxKgJDRtG!VcGbNr!OHFpt1ZDyPXBWMMDtGG4xOhIrXYLWR7CKIiVa*L7cX7RN4e3JgGnEzBeD8JAWQVSuoY!EUDCCZuu4zetX8P58DM6duPQQ5Rdsc"
+}
+
+
+initial code,client_info and state returned from microsoft
+https://lh99cbj4-5001.uks1.devtunnels.ms/login/ms#code=M.C549_BAY.2.U.72991efc-b0ab-b1c8-8512-1f17c6b012a5&client_info=eyJ2ZXIiOiIxLjAiLCJzdWIiOiJBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWmhSSlF5ckxoSDgyRmZJeUxuRDUwIiwibmFtZSI6IlByaW5jZSBIYXJyeSBOdW5vbyIsInByZWZlcnJlZF91c2VybmFtZSI6Imhwc24xNkBnbWFpbC5jb20iLCJvaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtZjFlNC1mZjQyZjUyNWM2OGYiLCJ0aWQiOiI5MTg4MDQwZC02YzY3LTRjNWItYjExMi0zNmEzMDRiNjZkYWQiLCJob21lX29pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC1mMWU0LWZmNDJmNTI1YzY4ZiIsInVpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC1mMWU0LWZmNDJmNTI1YzY4ZiIsInV0aWQiOiI5MTg4MDQwZC02YzY3LTRjNWItYjExMi0zNmEzMDRiNjZkYWQifQ&state=eyJpZCI6IjAxOTBhNjkwLWRlYzctNzBiMi1iZmJiLTlmZDRmM2VkMWIwYyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicG9wdXAifX0%3d
+{
+  "ver": "1.0",
+  "sub": "AAAAAAAAAAAAAAAAAAAAAAZhRJQyrLhH82FfIyLnD50",
+  "name": "Prince Harry Nunoo",
+  "preferred_username": "hpsn16@gmail.com",
+  "oid": "00000000-0000-0000-f1e4-ff42f525c68f",
+  "tid": "9188040d-6c67-4c5b-b112-36a304b66dad",
+  "home_oid": "00000000-0000-0000-f1e4-ff42f525c68f",
+  "uid": "00000000-0000-0000-f1e4-ff42f525c68f",
+  "utid": "9188040d-6c67-4c5b-b112-36a304b66dad"
+}
