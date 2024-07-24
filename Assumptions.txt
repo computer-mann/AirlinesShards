@@ -1,0 +1,43 @@
+I am assuming that travellers dont choose their own seats
+A seat will be assigned to a traveller by the system
+A traveller can be assigned a seat only if the seat is available
+A traveller can be assigned a seat only if the traveller has paid for the ticket
+A traveller can only choose the date they want to travel
+From booking a ticket to completing travel, an airline typically has several states or statuses that a user can experience. These states can vary slightly between different airlines, but generally include the following:
+
+1. **Booking**:
+   - **Search**: The user is searching for flights.
+   - **Selection**: The user selects a flight.
+   - **User Cancellation**: The user can cancel the booking within a certain time frame.
+   - **System Cancellation**: The booking is automatically canceled if payment is not completed within a certain time frame.
+   - **Payment**: The user enters payment information.
+   - **Confirmation**: The booking is confirmed, and the user receives a booking confirmation.
+   - **Seat Assigned**: A seat is assigned to the user (if applicable).
+
+2. **Pre-Travel**:
+   - **Ticket Issued**: The user receives an electronic ticket (e-ticket).
+   - **Check-in Open**: Online check-in opens (usually 24-48 hours before departure).
+   - **Checked In**: The user checks in online or at the airport.
+   - **Boarding Pass Issued**: The user receives a boarding pass.
+
+3. **Travel Day**:
+   - **At the Airport**: The user arrives at the airport.
+   - **Baggage Drop**: The user drops off checked luggage.
+   - **Security Check**: The user goes through security screening.
+   - **At the Gate**: The user arrives at the departure gate.
+   - **Boarding**: Boarding begins, and the user boards the aircraft.
+   - **In Flight**: The user is on board and the flight is in progress.
+
+4. **Post-Travel**:
+   - **Arrival**: The user arrives at the destination.
+   - **Baggage Claim**: The user collects checked baggage.
+   - **Exit Airport**: The user exits the airport.
+   - **Completed**: The travel is complete.
+
+Throughout these stages, there may also be additional statuses related to changes or disruptions, such as:
+   - **Flight Delayed**: The flight departure is delayed.
+   - **Flight Canceled**: The flight is canceled.
+   - **Rescheduled**: The flight is rescheduled.
+   - **Refund Processed**: A refund is processed if applicable.
+
+These statuses help both the airline and the passenger stay informed about the progress of the journey from booking to the end of travel.
