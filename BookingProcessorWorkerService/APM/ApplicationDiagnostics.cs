@@ -17,6 +17,9 @@ namespace BookingProcessorWorkerService.APM
     }
     internal class TagNames
     {
-
+        //use prefix for tags
     }
+    //record exceptions
+    //set activity status
+    //use extention methods
 }

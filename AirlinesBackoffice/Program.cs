@@ -1,3 +1,5 @@
+using Coravel.Pro;
+
 namespace AirlinesBackoffice
 {
     public class Program
@@ -5,10 +7,11 @@ namespace AirlinesBackoffice
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var services = builder.Services;
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            services.AddRazorPages().AddNewtonsoftJson();
+           // services.AddCoravelPro(typeof(ApplicationDbContext));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
