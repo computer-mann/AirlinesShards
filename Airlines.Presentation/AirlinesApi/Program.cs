@@ -25,6 +25,7 @@ using System.Text.Json;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 
 
@@ -36,6 +37,14 @@ namespace AirlinesApi
         {
             
             var builder = WebApplication.CreateBuilder(args);
+            builder.WebHost.ConfigureKestrel((context, options) =>
+            {
+                options.ListenAnyIP(5001, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+                    listenOptions.UseHttps();
+                });
+            });
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
                 .WriteTo.File("SerilogLogs/log.txt", rollingInterval: RollingInterval.Hour)
