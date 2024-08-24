@@ -1,10 +1,12 @@
-﻿using System.Diagnostics.Metrics;
+﻿using System.Diagnostics;
+using System.Diagnostics.Metrics;
 
 namespace AirlinesApi.Telemetry
 {
     public class TelemetryConstants
     {
         public const string ServiceName = "AirlinesApi";
+        public static readonly ActivitySource MainAppActivitySource = new ActivitySource(ServiceName);
         public static readonly Meter MainAppMeter = new Meter(ServiceName);
         public static readonly Counter<long> ConsumerLag = MainAppMeter.CreateCounter<long>("consumer_lag");
         public static readonly Counter<long> ConsumerError = MainAppMeter.CreateCounter<long>("consumer_error");
