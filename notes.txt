@@ -3,7 +3,7 @@
  Scaffold-DbContext "Name=ConnectionStrings:Database" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Database/Base_Models -ContextDir Database/DbContexts
  https://postgrespro.com/docs/postgrespro/10/apjs04.html
  https://postgrespro.com/docs/postgrespro/10/apjs02  diagram
-
+ docker run --rm -it -p 18888:18888 -p 4317:18889 -d --name aspire-dashboard mcr.microsoft.com/dotnet/aspire-dashboard:8.1.0
 
 find the number of times each user has flown with us since the company's inception
 
