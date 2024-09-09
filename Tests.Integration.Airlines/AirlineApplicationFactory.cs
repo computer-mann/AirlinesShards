@@ -29,6 +29,7 @@ namespace Tests.Integration.Airlines
                     new KeyValuePair<string, string?>("ConnectionStrings:Jaeger", "localhost:6831"),
                     new KeyValuePair<string, string?>("ConnectionStrings:Zipkin", "http://localhost:9411/api/v2/spans"),
                     ]);
+                config.AddJsonFile("integration.json");
             });
         }
     }
