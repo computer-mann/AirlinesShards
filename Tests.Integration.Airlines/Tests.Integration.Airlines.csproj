@@ -39,4 +39,10 @@
     <ProjectReference Include="..\Airlines.Presentation\AirlinesApi\AirlinesApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="integration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=.;Database=IdentityServer4.Quickstart.EntityFramework;Trusted_Connection=True;MultipleActiveResultSets=true"
-  },"
+  }
 }
