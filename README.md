@@ -14,3 +14,5 @@
 3. Refactored the project structure to use Clean Architecture.
 
 4. Use the HTTP method attributes **ONLY** on my actions when building API's
+
+# Spotify updates the stream count every few seconds for the first seven days. After the first seven days, the stream count updates once daily, typically around 3 PM EST (8 PM UTC)

@@ -4,6 +4,7 @@ using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
 using OpenTelemetry.Extensions.Propagators;
 using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -14,17 +15,9 @@ namespace AirlinesApi.Middlewares
         //https://www.youtube.com/watch?v=CdcApjTBLEM
         public static void AddOpenTelemetryServices(this IServiceCollection services)
         {
-            //services.AddLogging(logging =>
-            //{
-            //    logging.AddOpenTelemetry(o =>
-            //    {
-            //        o.AddOtlpExporter().SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
-            //    });
-            //});
             services.AddOpenTelemetry()
                 .ConfigureResource(resource =>
                 {
-
                     resource.AddService(TelemetryConstants.ServiceName);
                 })
                 .WithTracing(tracing =>
@@ -42,14 +35,17 @@ namespace AirlinesApi.Middlewares
                     tracing.AddRedisInstrumentation();
                     tracing.AddOtlpExporter();
                     
-                });
-            //.WithMetrics(metrics =>
-            // {
-            //     metrics.AddAspNetCoreInstrumentation()
-            //     .AddMeter("Microsoft.AspNetCore.Hosting")
-            //     .AddMeter("Microsoft.AspNetCore.Server.Kestrel");
-            //     metrics.AddConsoleExporter();
-            // })
+                })
+            .WithMetrics(metrics =>
+             {
+                 metrics.AddAspNetCoreInstrumentation()
+                 .AddMeter("Microsoft.AspNetCore.Hosting")
+                 .AddMeter("Microsoft.AspNetCore.Server.Kestrel")
+                 .AddConsoleExporter();
+             }).WithLogging(logging =>
+             {
+                 
+             });
         }
     }
 }
