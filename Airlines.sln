@@ -7,10 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		airlines_queries.pssql = airlines_queries.pssql
+		Assumptions.txt = Assumptions.txt
 		deleted_code.txt = deleted_code.txt
+		global.json = global.json
 		notes.txt = notes.txt
 		README.md = README.md
 		schema_re_design.txt = schema_re_design.txt
+		SystemDesign.txt = SystemDesign.txt
 		ToDoLater.txt = ToDoLater.txt
 		UnindexedDb.MD = UnindexedDb.MD
 		user_story.txt = user_story.txt
@@ -35,7 +38,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Integration.Airlines"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airlines.Infrastructure", "Airlines.Infrastructure\Airlines.Infrastructure\Airlines.Infrastructure.csproj", "{F86E7F2F-CDFB-4682-BD8B-5B6407BCEE0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airlines.Common", "Airlines.Common\Airlines.Common.csproj", "{5A4EE61B-E203-413A-9FF3-6C504DAD1120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airlines.Common", "Airlines.Common\Airlines.Common.csproj", "{5A4EE61B-E203-413A-9FF3-6C504DAD1120}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingProcessorWorkerService", "BookingProcessorWorkerService\BookingProcessorWorkerService.csproj", "{B0DBE713-3A33-4C9E-A6CE-9BD57C4D4A27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlinesBackoffice", "AirlinesBackoffice\AirlinesBackoffice.csproj", "{E49420A5-33C2-4A63-B119-3466FA53F7F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +84,14 @@ Global
 		{5A4EE61B-E203-413A-9FF3-6C504DAD1120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A4EE61B-E203-413A-9FF3-6C504DAD1120}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A4EE61B-E203-413A-9FF3-6C504DAD1120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0DBE713-3A33-4C9E-A6CE-9BD57C4D4A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0DBE713-3A33-4C9E-A6CE-9BD57C4D4A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0DBE713-3A33-4C9E-A6CE-9BD57C4D4A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0DBE713-3A33-4C9E-A6CE-9BD57C4D4A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E49420A5-33C2-4A63-B119-3466FA53F7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E49420A5-33C2-4A63-B119-3466FA53F7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E49420A5-33C2-4A63-B119-3466FA53F7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E49420A5-33C2-4A63-B119-3466FA53F7F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
