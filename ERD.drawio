@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net">
+  <diagram name="ERD">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="3f404d53-ad7c-4754-b258-afdc60e401ce" value="&lt;b&gt;Bookings&lt;/b&gt;&lt;br/&gt;# book_ref&lt;br/&gt;* book_date&lt;br/&gt;* total_amount" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="38def7fb-75d1-40b7-b6e0-2a5d73657e1d" value="&lt;b&gt;Tickets&lt;/b&gt;&lt;br/&gt;# ticket_no&lt;br/&gt;* book_ref&lt;br/&gt;* passenger_id&lt;br/&gt;* passenger_name&lt;br/&gt;° contact_data" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="40" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5641459-4f48-42ee-9442-32a37f24c121" value="&lt;b&gt;Ticket_flights&lt;/b&gt;&lt;br/&gt;# ticket_no&lt;br/&gt;# flight_id&lt;br/&gt;* fare_conditions&lt;br/&gt;* amount" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="d83ab141-f6f2-4db6-b9a2-b32c335870da" value="&lt;b&gt;Boarding_passes&lt;/b&gt;&lt;br/&gt;# ticket_no&lt;br/&gt;# flight_id&lt;br/&gt;* boarding_no&lt;br/&gt;* seat_no" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="40" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="90cf8139-38a5-4943-931e-7242c8b969f2" value="&lt;b&gt;Flights&lt;/b&gt;&lt;br/&gt;# flight_id&lt;br/&gt;* flight_no&lt;br/&gt;* scheduled_departure&lt;br/&gt;* scheduled_arrival&lt;br/&gt;* departure_airport&lt;br/&gt;* arrival_airport&lt;br/&gt;* status&lt;br/&gt;* aircraft_code&lt;br/&gt;° actual_departure&lt;br/&gt;° actual_arrival" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="d45d02e1-aa83-4993-b1df-590cf2512d08" value="&lt;b&gt;Airports&lt;/b&gt;&lt;br/&gt;# airport_code&lt;br/&gt;* airport_name&lt;br/&gt;* city&lt;br/&gt;* coordinates&lt;br/&gt;* timezone" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="280" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="7fed089a-ba88-40c8-8240-732434e37d97" value="&lt;b&gt;Aircrafts&lt;/b&gt;&lt;br/&gt;# aircraft_code&lt;br/&gt;* model&lt;br/&gt;* range" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="280" width="200" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="b37bee3e-9880-45f7-9a09-e7549c0f01c6" value="&lt;b&gt;Seats&lt;/b&gt;&lt;br/&gt;# aircraft_code&lt;br/&gt;# seat_no&lt;br/&gt;* fare_conditions" style="shape=swimlane;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="280" width="200" height="220" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
