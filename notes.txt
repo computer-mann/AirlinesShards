@@ -21,6 +21,8 @@ change all the foreign key references to the table column depending on the forme
 drop the passenger id and name column
 
 
+
+
 .\devtunnel.exe host -p 7293 --protocol https --allow-anonymous
 Add-Migration -OutputDir Database/Migrations/Traveller -Context TravellerDbContext -Name AddUsernameIndex
 Add-Migration -OutputDir Database/Migrations/Airlines -Context AirlinesDbContext -Name AddUsernameIndex

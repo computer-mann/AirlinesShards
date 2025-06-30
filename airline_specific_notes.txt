@@ -1,0 +1,12 @@
+You first book a flight (or multiple flights) by reserving seats. This creates a PNR(Passenger Name Record).
+
+Then, you pay for that booking, which results in the issuance of a ticket. The ticket confirms your right to travel
+on the reserved flight(s).
+
+The flight is the actual journey you take.
+
+Booking is like reserving a table at a restaurant.
+
+Ticket is like paying for your meal at that reserved table.
+
+Flight is the actual dining experience itself.
