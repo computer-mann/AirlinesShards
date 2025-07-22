@@ -1,6 +1,6 @@
 -- select count(*) from bookings
 use test
-.\psql.exe -f 'D:\IDM\Compressed\demo-big-en\demo-big-en-20170815.sql' --username=cacctuccjacc --dbname=demo_airlines
+.\psql.exe -f 'D:\IDM\Compressed\demo-big-en\demo-big-en-20170815.sql' --username=cacctuccjacc --dbname=airlines
 docker run  --name seq-logger -d -e ACCEPT_EULA=Y -v D:\ProgramFiles\Docker\:/data  -p 1780:80  -p 5341:5341  datalust/seq:2024.1
 docker run  -p 18888:18888 -p 4317:18889 -d --name aspire-dashboard mcr.microsoft.com/dotnet/nightly/aspire-dashboard:8.0.0-preview.4
 

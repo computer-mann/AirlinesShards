@@ -10,3 +10,93 @@ Booking is like reserving a table at a restaurant.
 Ticket is like paying for your meal at that reserved table.
 
 Flight is the actual dining experience itself.
+
+
+The itinerary information will be primarily on the **ticket**, but it's also intrinsically linked to the **booking** (PNR). Here's how they relate:
+
+* **Booking (PNR):** This is the underlying record in the airline's system that holds all the details of your trip, including the specific flights (flight numbers, dates, times, departure/arrival airports), passenger names, contact information, and fare details. When you access your "booking" online using your PNR, you see your full itinerary.
+
+* **Ticket:** The ticket is the financial and contractual proof of your booking. It contains the essential itinerary details (flights, dates, times, airports) that you've paid for, along with the ticket number, fare conditions, and other relevant information. Your e-ticket receipt, which you receive after payment, is a direct representation of the itinerary you've purchased.
+
+So, while the **booking** is the comprehensive record of your travel plan in the airline's system, the **ticket** is the document that confirms your entitlement to that specific itinerary after payment. You can't have a ticket without a booking, and a paid booking results in a ticket.
+
+
+Yes, generally, **you only get a valid airline ticket after payment has been successfully processed.**
+
+Here's the typical sequence of events:
+
+1.  **Booking/Reservation:** You select your flights and provide your details. At this stage, a Passenger Name Record (PNR) or booking reference is created, and seats are held for you. However, this is just a reservation, not a confirmed purchase.
+2.  **Payment:** You provide your credit card details, use airline miles, or other forms of payment.
+3.  **Ticketing:** Once the payment is verified and successful, the airline's system "tickets" the booking. This generates a unique **ticket number** (for each passenger if multiple are on the booking) and formally converts your reservation into a confirmed, paid-for entitlement to travel. At this point, you typically receive an "e-ticket itinerary receipt" via email.
+
+**Why is this distinction important?**
+
+* **Fare Rules:** Until the ticket is issued, the fare you saw might not be guaranteed. Prices can fluctuate.
+* **Time Limits:** Many bookings have a "ticketing time limit." If payment isn't received and the booking isn't ticketed by this deadline, the reservation will automatically be canceled.
+* **Validity:** Without a ticket number, you cannot check in for your flight, get a boarding pass, or travel. The booking reference alone isn't enough to board the plane.
+
+So, while you might have a "booking confirmation" email that shows your PNR, it's the **e-ticket** (with its unique ticket number) that truly signifies your paid and confirmed travel.
+
+
+Major airlines offer a variety of fare conditions, often structured into different "fare families" or "fare classes" (also known as "fare buckets") to cater to different traveler needs and price points. The general principle is: **the cheaper the fare, the more restrictions it will have.**
+
+Here's a breakdown of the usual fare conditions you'll encounter, moving from most restrictive to most flexible:
+
+**I. Basic Economy / Hand Baggage Only / Light Fares (Most Restrictive)**
+
+* **Baggage:** Usually **no free checked baggage** (only a small personal item or carry-on, sometimes not even a standard carry-on). Checked bags must be purchased separately.
+* **Changes/Cancellations:**
+    * **Non-changeable:** You cannot change your flight date, time, or route.
+    * **Non-refundable:** No refund is given if you cancel, though sometimes unused airport taxes might be refundable.
+* **Seat Selection:** Often **no free advance seat selection**. Seats are assigned at check-in, sometimes randomly. If you want to select a seat, you pay a fee.
+* **Boarding:** Usually **last to board**.
+* **Mileage Earning:** Often **very limited or no frequent flyer mileage earning**.
+* **Upgrades:** Generally **not eligible for upgrades** (paid or complimentary).
+* **Other Perks:** Few to no additional perks like priority boarding, rebooking flexibility during irregular operations (e.g., delays/cancellations), etc.
+
+**II. Economy / Standard / Main Cabin Fares (Mid-Range)**
+
+* **Baggage:** Usually **includes one free checked bag** (especially for international flights, may vary for domestic).
+* **Changes/Cancellations:**
+    * **Changeable for a fee:** You can usually change your flight date/time/route, but a change fee applies, plus any difference in fare if the new flight is more expensive.
+    * **Refundable with a cancellation fee:** Some standard economy fares might be partially refundable, often with a significant cancellation fee. Others are non-refundable.
+* **Seat Selection:** May include **free standard seat selection** at booking or within a certain window before the flight. Preferred seats (e.g., exit rows, front of the cabin) may still incur a fee.
+* **Boarding:** Standard boarding group.
+* **Mileage Earning:** Earns **some frequent flyer miles**, usually a percentage of the distance flown.
+* **Upgrades:** May be **eligible for upgrades** (sometimes for a fee, or complimentary for elite status members, though lower priority than more expensive fares).
+* **Other Perks:** May offer slightly better rebooking options during disruptions than basic economy.
+
+**III. Flexible / Full Economy / Flex Fares (More Flexible)**
+
+* **Baggage:** Includes **at least one or more free checked bags**.
+* **Changes/Cancellations:**
+    * **Changeable for free:** You can often change your flight date, time, or route without a change fee (though you'd still pay any fare difference if the new flight is more expensive).
+    * **Refundable:** Often **fully or largely refundable** (sometimes with a small administrative fee, but much less than cancellation fees on lower fares).
+* **Seat Selection:** Includes **free advance seat selection**, often including preferred seats.
+* **Boarding:** Often **priority boarding**.
+* **Mileage Earning:** Earns a **higher percentage of frequent flyer miles**.
+* **Upgrades:** Higher priority for complimentary upgrades, or more options for paid upgrades.
+* **Other Perks:** Better rebooking options during irregular operations, sometimes lounge access for long layovers.
+
+**IV. Premium Economy, Business Class, First Class (Highest Flexibility & Perks)**
+
+These premium cabins come with significantly higher prices but offer the most flexibility and amenities:
+
+* **Baggage:** Generous free checked baggage allowance (multiple bags, higher weight limits).
+* **Changes/Cancellations:** Often **highly flexible, with free changes and full refunds**.
+* **Seat Selection:** Full choice of seats, often spacious and comfortable (e.g., more legroom, wider seats, lie-flat beds in Business/First).
+* **Boarding:** Priority boarding (often first to board).
+* **Mileage Earning:** Significantly higher mileage earning rates.
+* **Upgrades:** Often includes upgrade possibilities to higher cabins (e.g., Business to First).
+* **Other Perks:** Lounge access, priority check-in and security, enhanced in-flight service (gourmet meals, complimentary drinks, entertainment), amenity kits, chauffeur services (for First Class on some airlines).
+
+**Key Factors Influencing Fare Conditions:**
+
+* **Advance Purchase:** Cheaper fares often require booking many days or weeks in advance.
+* **Minimum/Maximum Stay:** Discounted round-trip fares often require a minimum stay (e.g., a Saturday night) and/or a maximum stay.
+* **Seasonality/Demand:** Fares change based on peak travel seasons, holidays, and overall demand for a specific route.
+* **Route:** Domestic vs. International, and specific routes, can have different fare conditions.
+* **Airline:** Each airline has its own specific fare "families" and rules, though they generally follow the categories above.
+* **Booking Channel:** Sometimes booking directly with the airline or through certain travel agencies can unlock specific fare types or conditions.
+
+When booking a flight, it's always crucial to **carefully review the fare rules** before finalizing your purchase, especially regarding baggage, changes, and refunds, to ensure they align with your travel needs.
