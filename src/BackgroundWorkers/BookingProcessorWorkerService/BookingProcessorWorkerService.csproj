@@ -16,4 +16,8 @@
     <Folder Include="Metrics\" />
     <Folder Include="Services\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Airlines.Common\Airlines.Common.csproj" />
+  </ItemGroup>
 </Project>
