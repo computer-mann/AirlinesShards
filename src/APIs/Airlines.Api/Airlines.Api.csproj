@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>ee847957-3ede-476c-b9e9-6f024b77a394</UserSecretsId>
@@ -48,13 +48,10 @@
 
   <ItemGroup>
     <Folder Include="Database\Migrations\" />
-    <Folder Include="Database\Base_Models\" />
-    <Folder Include="SerilogLogs\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Airlines.Common\Airlines.Common.csproj" />
-    <ProjectReference Include="..\..\Airlines.Domain\Airlines.Domain\Airlines.Domain.csproj" />
+  
   </ItemGroup>
 
 </Project>
