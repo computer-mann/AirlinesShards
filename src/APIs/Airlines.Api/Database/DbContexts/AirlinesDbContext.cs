@@ -2,10 +2,6 @@
 using AirlinesApi.Database.Models;
 using AirlinesApi.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
 using System.Text.Json;
 
 

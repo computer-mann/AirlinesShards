@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AirlinesApi.Database.Base_Models;
+﻿namespace AirlinesApi.Database.Base_Models;
 
 /// <summary>
 /// Boarding passes

@@ -9,7 +9,7 @@
         "DOTNET_gcServer": "0"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5286"
+      "applicationUrl": "http://localhost:5222"
     },
     "https": {
       "commandName": "Project",

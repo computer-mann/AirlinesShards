@@ -1,5 +1,4 @@
 ﻿using AirlinesApi.Database.Models;
-using AirlinesApi.Extensions;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Options;
 using AirlinesApi.Services;
@@ -8,7 +7,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Redis.OM;

@@ -4,15 +4,7 @@ using AirlinesApi.Database.Models;
 using Redis.OM;
 using AirlinesApi.Infrastructure;
 using Redis.OM.Searching;
-using System;
 using AirlinesApi.Database.DbContexts;
-using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
-using CsvHelper;
-using Google.Protobuf.Compiler;
-using System.Globalization;
-using CsvHelper.Configuration;
-using CsvHelper.Configuration.Attributes;
 
 
 namespace AirlinesApi.WorkerServices

@@ -1,12 +1,6 @@
 ﻿using AirlinesApi.Telemetry;
 using Npgsql;
-using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
-using OpenTelemetry.Extensions.Propagators;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 
 namespace AirlinesApi.Middlewares
 {

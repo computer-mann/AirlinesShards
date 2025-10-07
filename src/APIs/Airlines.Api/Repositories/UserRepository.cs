@@ -1,11 +1,4 @@
-﻿using AirlinesApi.Telemetry;
-using AirlinesApi.Telemetry.ManualTraces;
-using AirlinesApi.ViewModels;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.ObjectModel;
-
-namespace AirlinesApi.Repositories
+﻿namespace AirlinesApi.Repositories
 {
     public class UserRepository:IUserRepository
     {

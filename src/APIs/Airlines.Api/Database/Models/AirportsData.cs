@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using AirlinesApi.ViewModels;
+﻿using AirlinesApi.ViewModels;
 using NpgsqlTypes;
 
 namespace AirlinesApi.Database.Models;

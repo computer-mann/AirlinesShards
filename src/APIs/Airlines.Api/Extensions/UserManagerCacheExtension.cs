@@ -1,10 +1,4 @@
-﻿using AirlinesApi.Database.Models;
-using AirlinesApi.Infrastructure;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Redis.OM.Searching;
-
-namespace AirlinesApi.Extensions
+﻿namespace AirlinesApi.Extensions
 {
     public static class UserManagerCacheExtension
     {

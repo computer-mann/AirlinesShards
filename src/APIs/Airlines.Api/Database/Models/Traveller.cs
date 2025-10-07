@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Redis.OM.Modeling;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AirlinesApi.Database.Models;

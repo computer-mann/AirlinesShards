@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UuidExtensions;
+﻿using UuidExtensions;
 
 namespace AirlinesApi.Database.Base_Models;
 

@@ -1,31 +1,14 @@
 using Serilog;
-using AirlinesApi.Filters;
-using AirlinesApi.WorkerServices;
-using Serilog.Events;
 using AirlinesApi.Options;
 using AirlinesApi.Middlewares;
-using Microsoft.AspNetCore.Mvc;
 using FluentValidation;
-using AirlinesApi.ViewModels;
-using AirlinesApi.ModelValidators;
-using FluentValidation.AspNetCore;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Trace;
-using Npgsql;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
-using System.Text.Json;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Services;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AirlinesApi.Database.DbObjects;
+﻿namespace AirlinesApi.Database.DbObjects;
 
 public partial class VwRoute
 {

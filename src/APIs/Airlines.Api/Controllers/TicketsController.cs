@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using StackExchange.Redis;
 using Redis.OM;
 using NRedisStack.RedisStackCommands;

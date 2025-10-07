@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AirlinesApi.ViewModels
+﻿namespace AirlinesApi.ViewModels
 {
     public class LoginViewModel
     {

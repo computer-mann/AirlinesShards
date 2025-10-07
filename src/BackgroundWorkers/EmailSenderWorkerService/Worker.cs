@@ -1,5 +1,4 @@
 using EmailSenderWorkerService.Services;
-using MassTransit;
 using Polly;
 using Polly.Retry;
 using System.Net.Mail;

@@ -1,12 +1,8 @@
 ﻿using AirlinesApi.Database.DbContexts;
-using AirlinesApi.Database.Models;
 using AirlinesApi.ViewModels;
-using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace AirlinesApi.Controllers
 {

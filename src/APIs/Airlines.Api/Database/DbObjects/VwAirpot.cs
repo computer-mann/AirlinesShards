@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NpgsqlTypes;
+﻿using NpgsqlTypes;
 
 namespace AirlinesApi.Database.DbObjects;
 

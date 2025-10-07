@@ -1,11 +1,9 @@
-﻿using AirlinesApi.Controllers;
-using AirlinesApi.Database.Models;
+﻿using AirlinesApi.Database.Models;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.ViewModels;
+using ErrorOr;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using OneOf;
-using OneOf.Types;
 using Redis.OM;
 using Redis.OM.Searching;
 
@@ -23,15 +21,16 @@ namespace AirlinesApi.Services
             _people =(RedisCollection<RedisTraveller>)connectionProvider.RedisCollection<RedisTraveller>();
             _logger = logger;
         }
-        public async Task<OneOf<Traveller,Boolean, None>> CheckIfUserExistsInEitherStoreAsync(LoginViewModel viewModel, CancellationToken cts)
+        public async Task<ErrorOr<Traveller>> CheckIfUserExistsInEitherStoreAsync(LoginViewModel viewModel, CancellationToken cts)
         {
             Traveller? traveller = null;
-            //should be able to return boolean,Traveller?, if traveller is null,then password is not correct
+            
             var username=viewModel.Username;
             traveller = (await _people.Where(u => u.NormalizedUserName == username)
                 .ToListAsync(cts))
                 .SingleOrDefault()?
                 .ToTravellerFromRedis();
+
             if (traveller == null)
             {
                 _logger.LogInformation("Cache miss for username= {username}", username);
@@ -39,18 +38,19 @@ namespace AirlinesApi.Services
                 if (traveller == null)
                 {
                     _logger.LogInformation("Request has an non-existent username: {username}", username);
-                    return new None();
+                    return Error.NotFound(description: "Request has an non-existent username");
                 }
             }
             var passwordResult = await _userManager.CheckPasswordAsync(traveller, viewModel.Password);
-            if (passwordResult == false) return false;
+            if (passwordResult == false) return Error.Unauthorized();
+
             return traveller!;
 
         }
     }
     public interface ICustomCacheService
     {
-        public Task<OneOf<Traveller, Boolean, None>> CheckIfUserExistsInEitherStoreAsync(
+        public Task<ErrorOr<Traveller>> CheckIfUserExistsInEitherStoreAsync(
              LoginViewModel viewModel,
             CancellationToken cts);
     }

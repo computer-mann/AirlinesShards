@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using AirlinesApi.Database.Base_Models;
+﻿using AirlinesApi.Database.Base_Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirlinesApi.Database.DbContexts;
