@@ -80,10 +80,7 @@ namespace AirlinesApi
             //});
             services.AddValidatorsFromAssembly(typeof(Program).Assembly);
             services.AddScoped<ICustomCacheService,CustomCacheService>();
-            services.AddFluentValidationAutoValidation(options =>
-            {
-                options.DisableDataAnnotationsValidation = true;
-            });
+           
             //services.AddHostedService<PopulateTravellerTableBackgroundService>();
             //services.AddHostedService<WarmDatabaseHostedService>();
 

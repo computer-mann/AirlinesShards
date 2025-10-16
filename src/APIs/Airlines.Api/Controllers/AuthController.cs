@@ -1,4 +1,5 @@
-﻿using AirlinesApi.Database.Models;
+﻿using AirlinesApi.Database.Base_Models;
+using AirlinesApi.Database.Models;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Options;
 using AirlinesApi.Services;
@@ -44,15 +45,15 @@ namespace AirlinesApi.Controllers
         public async Task<ActionResult> Login(LoginViewModel viewModel,CancellationToken cts)
         {
             var authResult =await customeCacheService.CheckIfUserExistsInEitherStoreAsync(viewModel, cts);
-            return authResult.Match<ActionResult>(
-                 traveller =>
-                 {
-                     HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, traveller.Id));
-                     return Ok(new { Message = "Login success" });
-                 },
-                wrongPassword => Unauthorized(new { Message = "Incorrect password" }),
-                _ => Unauthorized(new { Message = "Invalid Email or username" })
-                );
+            if (authResult.IsError)
+            {
+                return Unauthorized(new { error = authResult.GetError().Description });
+            }
+            var user = authResult.Value;
+            var jwt = GenerateJwt(user.UserName, user.Id);
+            HttpContext.Response.Headers.Append("auth_token", GenerateJwt(viewModel.Username, user.Id));
+            return Ok(new { token = jwt });
+            
         }
 
         [HttpGet("users")]

@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderWorkerService", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airlines.Common", "src\Common\Airlines.Common\Airlines.Common.csproj", "{76F876C0-97B8-4870-B80C-3490BB8E5F20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketingService", "MarketingService\MarketingService.csproj", "{C1852363-FCCC-4597-A7D1-9F09EDCC8CE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{76F876C0-97B8-4870-B80C-3490BB8E5F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F876C0-97B8-4870-B80C-3490BB8E5F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F876C0-97B8-4870-B80C-3490BB8E5F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1852363-FCCC-4597-A7D1-9F09EDCC8CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1852363-FCCC-4597-A7D1-9F09EDCC8CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1852363-FCCC-4597-A7D1-9F09EDCC8CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1852363-FCCC-4597-A7D1-9F09EDCC8CE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{DB5F4973-AAC1-0288-38AE-6E89CFDE754E} = {EA559FA6-67FA-4061-A705-100F746F72D6}
 		{BCAEB2C5-F8CE-23B8-61F1-599710609CAA} = {EA559FA6-67FA-4061-A705-100F746F72D6}
 		{76F876C0-97B8-4870-B80C-3490BB8E5F20} = {E17BD474-FA06-4482-A8FE-F8B7FC8E1F06}
+		{C1852363-FCCC-4597-A7D1-9F09EDCC8CE0} = {06335DE8-22F5-4938-BF01-C76A21A46A34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {65AF98C2-E278-447E-BE02-F6FE7F102300}
