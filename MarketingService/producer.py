@@ -6,18 +6,12 @@ import ssl
 
 # RabbitMQ connection parameters
 rabbitmq_host = 'localhost'  # Replace with RabbitMQ server's IP or hostname if not local
-queue_name = 'GettingStarted'    # The name of the queue to send messages to
+queue_name = 'marketing'    # The name of the queue to send messages to
 #credentials=pika.PlainCredentials('hubtelamq_user','hubtelamq_user122')
 #ssl_context=ssl.SSLContext(ssl.PROTOCOL_TLS)
 #ssl_options=pika.SSLOptions(ssl_context,'b-baa208ea-689b-4185-b9f8-de81c2ba0942.mq.eu-west-1.amazonaws.com')
-envelope = {
-    "messageId": "str(uuid.uuid4())",
-    "conversationId": "str(uuid.uuid4())",
-    "destinationAddress": "rabbitmq://localhost/GettingStarted",
-    "messageType": ["urn:message:YourNamespace:YourMessageClass"],
-    "message": {
+message= {
         "name": "John Doe1"
-    }
 }
 
 def send_message():
@@ -33,13 +27,12 @@ def send_message():
     channel.basic_publish(
         exchange='',
         routing_key=queue_name,
-        body=json.dumps(envelope).encode(),
+        body=json.dumps(message).encode(),
         properties=pika.BasicProperties(
-            content_type='application/vnd.masstransit+json',
             delivery_mode=2  # Make message persistent
         )
     )
-    print(f" [x] Sent: {envelope}")
+    print(f" [x] Sent: {message}")
     
     # Close the connection
     connection.close()
