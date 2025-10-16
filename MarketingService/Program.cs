@@ -1,6 +1,5 @@
 using MarketingService;
 using MarketingService.Consumers;
-using MassTransit;
 
 var builder = Host.CreateApplicationBuilder(args);
 //builder.Services.AddHostedService<Worker>();
