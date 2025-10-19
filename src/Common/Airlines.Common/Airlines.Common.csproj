@@ -9,20 +9,20 @@
 		<PackageReference Include="Confluent.Kafka.Extensions.OpenTelemetry" Version="0.4.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Npgsql.OpenTelemetry" Version="10.0.0-rc.1" />
-		<PackageReference Include="OpenTelemetry" Version="1.13.0" />
-		<PackageReference Include="OpenTelemetry.Api" Version="1.13.0" />
-		<PackageReference Include="OpenTelemetry.Extensions.Propagators" Version="1.13.0" />
-		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.13.0" />
-		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.0" />
-		<PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.13.0-beta.1" />
-		<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.13.0" />
+		<PackageReference Include="OpenTelemetry" Version="1.13.1" />
+		<PackageReference Include="OpenTelemetry.Api" Version="1.13.1" />
+		<PackageReference Include="OpenTelemetry.Extensions.Propagators" Version="1.13.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.13.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.13.1-beta.1" />
+		<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.13.1" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.ElasticsearchClient" Version="1.12.0-beta.1" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.12.0-beta.2" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.12.0-beta.2" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
-		<PackageReference Include="System.Drawing.Common" Version="10.0.0-rc.1.25451.107" />
+		<PackageReference Include="System.Drawing.Common" Version="10.0.0-rc.2.25451.107" />
 		<PackageReference Include="ErrorOr" Version="2.0.1" />
 	</ItemGroup>
 </Project>

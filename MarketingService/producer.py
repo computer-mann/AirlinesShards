@@ -3,6 +3,7 @@ import sys
 import time
 import json
 import ssl
+import uuid
 
 # RabbitMQ connection parameters
 rabbitmq_host = 'localhost'  # Replace with RabbitMQ server's IP or hostname if not local
@@ -10,8 +11,25 @@ queue_name = 'marketing'    # The name of the queue to send messages to
 #credentials=pika.PlainCredentials('hubtelamq_user','hubtelamq_user122')
 #ssl_context=ssl.SSLContext(ssl.PROTOCOL_TLS)
 #ssl_options=pika.SSLOptions(ssl_context,'b-baa208ea-689b-4185-b9f8-de81c2ba0942.mq.eu-west-1.amazonaws.com')
-message= {
+envelope = {
+    "messageId": str(uuid.uuid4()),
+    "conversationId": str(uuid.uuid4()),
+    "destinationAddress": f"rabbitmq://localhost/{queue_name}",
+    "messageType": ["urn:message:MyNamespace:HelloMessage"],
+    "message": {
         "name": "John Doe1"
+    },
+    "headers": {},
+    "host": {
+        "machineName": "python-producer",
+        "processName": "pika",
+        "processId": 1,
+        "assembly": "python",
+        "assemblyVersion": "1.0.0",
+        "frameworkVersion": "Python 3.10",
+        "massTransitVersion": "8.1.0",
+        "operatingSystemVersion": "Linux"
+    }
 }
 
 def send_message():
@@ -27,12 +45,12 @@ def send_message():
     channel.basic_publish(
         exchange='',
         routing_key=queue_name,
-        body=json.dumps(message).encode(),
+        body=json.dumps(envelope).encode(),
         properties=pika.BasicProperties(
             delivery_mode=2  # Make message persistent
         )
     )
-    print(f" [x] Sent: {message}")
+    print(f" [x] Sent: {envelope}")
     
     # Close the connection
     connection.close()
