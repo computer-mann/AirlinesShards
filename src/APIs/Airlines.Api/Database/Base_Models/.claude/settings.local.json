@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/Projects/dotnet/Airlines/**)",
+      "Bash(npx create-react-router@latest airlines-web --typescript --install)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm run build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

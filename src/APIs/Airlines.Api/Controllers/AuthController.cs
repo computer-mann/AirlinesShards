@@ -1,4 +1,5 @@
-﻿using AirlinesApi.Database.Base_Models;
+﻿using Airlines.Common.Extensions;
+using AirlinesApi.Database.Base_Models;
 using AirlinesApi.Database.Models;
 using AirlinesApi.Infrastructure;
 using AirlinesApi.Options;
@@ -14,6 +15,7 @@ using Redis.OM;
 using Redis.OM.Searching;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Traveller = AirlinesApi.Database.Models.Traveller;
 
 namespace AirlinesApi.Controllers
 {

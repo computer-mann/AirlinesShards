@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
-namespace AirlinesApi.Telemetry
+namespace Airlines.Common.Telemetry
 {
     public class TelemetryConstants
     {

@@ -1,8 +1,13 @@
-﻿using AirlinesApi.Telemetry;
+﻿using Airlines.Common.Telemetry;
+using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
-namespace AirlinesApi.Middlewares
+namespace Airlines.Common.Middlewares
 {
     public static class InstrumentationMiddleware
     {

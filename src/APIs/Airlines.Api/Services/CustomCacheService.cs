@@ -3,7 +3,6 @@ using AirlinesApi.Infrastructure;
 using AirlinesApi.ViewModels;
 using ErrorOr;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Redis.OM;
 using Redis.OM.Searching;
 

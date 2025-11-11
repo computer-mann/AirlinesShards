@@ -24,5 +24,11 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
 		<PackageReference Include="System.Drawing.Common" Version="10.0.0-rc.2.25502.107" />
 		<PackageReference Include="ErrorOr" Version="2.0.1" />
+		<PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.6-develop.1979" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Database\" />
 	</ItemGroup>
 </Project>
